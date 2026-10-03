@@ -1,0 +1,9 @@
+Metric,Value
+Total Predictions,51767.0
+Average Predicted Price,20379180.01508751
+Average Actual Price,20298373.60839917
+Average Absolute Error,1817314.4358717545
+Average Error Percentage,9.387648439363543
+Median Predicted Price,12247988.279999996
+Highest Predicted Price,1825560728.4066668
+Lowest Predicted Price,835977.32

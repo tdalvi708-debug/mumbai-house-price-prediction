@@ -1,0 +1,2105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_d957255cb2e856596dda6796c43286e1 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_d957255cb2e856596dda6796c43286e1" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_d957255cb2e856596dda6796c43286e1 = L.map(
+                "map_d957255cb2e856596dda6796c43286e1",
+                {
+                    center: [19.172944319821305, 72.96669689324692],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 11,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_b4c86cf4e7a48adbfb6d249c191d9824 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_b4c86cf4e7a48adbfb6d249c191d9824.addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+            var circle_marker_7492fd7cc5010c9a2d803afb51783d9a = L.circleMarker(
+                [19.02641387, 72.84073104950001],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_c27d91ce5c07bf617a386ef5f5a8e56a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b9593e88c231215402614316fb44f4d4 = $(`<div id="html_b9593e88c231215402614316fb44f4d4" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Agripada<br>     <b>Listings:</b> 40<br>     <b>Average Price:</b> ₹38,546,322<br>     <b>Median Price:</b> ₹28,000,000<br>     <b>Average Price/Sqft:</b> ₹28,421     </div>`)[0];
+                popup_c27d91ce5c07bf617a386ef5f5a8e56a.setContent(html_b9593e88c231215402614316fb44f4d4);
+            
+        
+
+        circle_marker_7492fd7cc5010c9a2d803afb51783d9a.bindPopup(popup_c27d91ce5c07bf617a386ef5f5a8e56a)
+        ;
+
+        
+    
+    
+            var circle_marker_7eeacc7ce4e8620d2593643e0322612e = L.circleMarker(
+                [19.15494375295833, 72.99497420070834],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_5386a0cf7c7504d9af89c2870f44e48a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_21ec91c917feb4c43f92fa3337b5b25f = $(`<div id="html_21ec91c917feb4c43f92fa3337b5b25f" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Airoli<br>     <b>Listings:</b> 240<br>     <b>Average Price:</b> ₹13,415,897<br>     <b>Median Price:</b> ₹13,000,000<br>     <b>Average Price/Sqft:</b> ₹13,772     </div>`)[0];
+                popup_5386a0cf7c7504d9af89c2870f44e48a.setContent(html_21ec91c917feb4c43f92fa3337b5b25f);
+            
+        
+
+        circle_marker_7eeacc7ce4e8620d2593643e0322612e.bindPopup(popup_5386a0cf7c7504d9af89c2870f44e48a)
+        ;
+
+        
+    
+    
+            var circle_marker_cb404248929c56fa6afdc68901222e5b = L.circleMarker(
+                [19.221857771029562, 73.21638621784913],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_ff5fbd9fb009352b77cbf445d5a709ca = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4ae174e0a05b2ed22134b38445c05bd1 = $(`<div id="html_4ae174e0a05b2ed22134b38445c05bd1" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Ambernath<br>     <b>Listings:</b> 981<br>     <b>Average Price:</b> ₹3,376,406<br>     <b>Median Price:</b> ₹3,100,000<br>     <b>Average Price/Sqft:</b> ₹4,668     </div>`)[0];
+                popup_ff5fbd9fb009352b77cbf445d5a709ca.setContent(html_4ae174e0a05b2ed22134b38445c05bd1);
+            
+        
+
+        circle_marker_cb404248929c56fa6afdc68901222e5b.bindPopup(popup_ff5fbd9fb009352b77cbf445d5a709ca)
+        ;
+
+        
+    
+    
+            var circle_marker_3addd49c9fc3c6cc2a4decd71350681f = L.circleMarker(
+                [19.16867663181626, 72.90810199405131],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_05f034587f78b0c47c35956adbc2158c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_42d207c1693c578a2cc088ed90cfe6cf = $(`<div id="html_42d207c1693c578a2cc088ed90cfe6cf" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Andheri<br>     <b>Listings:</b> 2039<br>     <b>Average Price:</b> ₹32,177,027<br>     <b>Median Price:</b> ₹22,863,570<br>     <b>Average Price/Sqft:</b> ₹27,221     </div>`)[0];
+                popup_05f034587f78b0c47c35956adbc2158c.setContent(html_42d207c1693c578a2cc088ed90cfe6cf);
+            
+        
+
+        circle_marker_3addd49c9fc3c6cc2a4decd71350681f.bindPopup(popup_05f034587f78b0c47c35956adbc2158c)
+        ;
+
+        
+    
+    
+            var circle_marker_2bf9edb509a2fdbb216dfb70d58a1add = L.circleMarker(
+                [19.231419823246753, 73.03958427428572],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.7, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_b86f51c9f6df8029ce2f3a2e87f2f70f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3f21ddd778bf7d30424a09e47a319abb = $(`<div id="html_3f21ddd778bf7d30424a09e47a319abb" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Anjurdive<br>     <b>Listings:</b> 77<br>     <b>Average Price:</b> ₹7,521,017<br>     <b>Median Price:</b> ₹7,500,000<br>     <b>Average Price/Sqft:</b> ₹10,068     </div>`)[0];
+                popup_b86f51c9f6df8029ce2f3a2e87f2f70f.setContent(html_3f21ddd778bf7d30424a09e47a319abb);
+            
+        
+
+        circle_marker_2bf9edb509a2fdbb216dfb70d58a1add.bindPopup(popup_b86f51c9f6df8029ce2f3a2e87f2f70f)
+        ;
+
+        
+    
+    
+            var circle_marker_c09a8f7013a7096c203dbe6cab3721af = L.circleMarker(
+                [19.192935113121017, 73.28983868912951],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_773213c0ce60a9c839d54e246b959be2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5d3020700dc2ce48803ff1394c76b73a = $(`<div id="html_5d3020700dc2ce48803ff1394c76b73a" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Badlapur<br>     <b>Listings:</b> 471<br>     <b>Average Price:</b> ₹2,978,721<br>     <b>Median Price:</b> ₹2,600,000<br>     <b>Average Price/Sqft:</b> ₹4,186     </div>`)[0];
+                popup_773213c0ce60a9c839d54e246b959be2.setContent(html_5d3020700dc2ce48803ff1394c76b73a);
+            
+        
+
+        circle_marker_c09a8f7013a7096c203dbe6cab3721af.bindPopup(popup_773213c0ce60a9c839d54e246b959be2)
+        ;
+
+        
+    
+    
+            var circle_marker_2dc18e44bdf0c099e6ead9133a3bd3fa = L.circleMarker(
+                [19.060123838466193, 72.84334732096096],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_ac09262c9f13fda43e1d6dae8f0ea4fa = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_087e00c9b883faa0127db132fa26adf5 = $(`<div id="html_087e00c9b883faa0127db132fa26adf5" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Bandra<br>     <b>Listings:</b> 708<br>     <b>Average Price:</b> ₹65,745,893<br>     <b>Median Price:</b> ₹54,694,960<br>     <b>Average Price/Sqft:</b> ₹43,222     </div>`)[0];
+                popup_ac09262c9f13fda43e1d6dae8f0ea4fa.setContent(html_087e00c9b883faa0127db132fa26adf5);
+            
+        
+
+        circle_marker_2dc18e44bdf0c099e6ead9133a3bd3fa.bindPopup(popup_ac09262c9f13fda43e1d6dae8f0ea4fa)
+        ;
+
+        
+    
+    
+            var circle_marker_c6a131cd72535bca158e722d42c4f2f7 = L.circleMarker(
+                [19.016558419130433, 73.03565050304348],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.2, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_99137f4294f8461f13afb87c5d4a6bd1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_28b24f188ec3abc638f852d35e883905 = $(`<div id="html_28b24f188ec3abc638f852d35e883905" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Belapur<br>     <b>Listings:</b> 92<br>     <b>Average Price:</b> ₹21,172,899<br>     <b>Median Price:</b> ₹19,750,000<br>     <b>Average Price/Sqft:</b> ₹15,537     </div>`)[0];
+                popup_99137f4294f8461f13afb87c5d4a6bd1.setContent(html_28b24f188ec3abc638f852d35e883905);
+            
+        
+
+        circle_marker_c6a131cd72535bca158e722d42c4f2f7.bindPopup(popup_99137f4294f8461f13afb87c5d4a6bd1)
+        ;
+
+        
+    
+    
+            var circle_marker_c1544740b919ee3cd2547d9fd4bd59c3 = L.circleMarker(
+                [19.15715770838764, 72.9583855560151],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_15a0308d0c8a6f3581483b45bdb248ba = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7344420f5d29baa33659e7c432ff9067 = $(`<div id="html_7344420f5d29baa33659e7c432ff9067" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Bhandup<br>     <b>Listings:</b> 673<br>     <b>Average Price:</b> ₹12,984,858<br>     <b>Median Price:</b> ₹11,000,000<br>     <b>Average Price/Sqft:</b> ₹17,367     </div>`)[0];
+                popup_15a0308d0c8a6f3581483b45bdb248ba.setContent(html_7344420f5d29baa33659e7c432ff9067);
+            
+        
+
+        circle_marker_c1544740b919ee3cd2547d9fd4bd59c3.bindPopup(popup_15a0308d0c8a6f3581483b45bdb248ba)
+        ;
+
+        
+    
+    
+            var circle_marker_10e1de152db53bdb658e25bb3c8efd58 = L.circleMarker(
+                [19.293216198540147, 72.86562065257907],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_91a46df5faf784da3018abcd8a29287e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8395f4dd3b58313aa30c2508da70d5e7 = $(`<div id="html_8395f4dd3b58313aa30c2508da70d5e7" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Bhayandar<br>     <b>Listings:</b> 411<br>     <b>Average Price:</b> ₹8,421,125<br>     <b>Median Price:</b> ₹7,565,000<br>     <b>Average Price/Sqft:</b> ₹10,632     </div>`)[0];
+                popup_91a46df5faf784da3018abcd8a29287e.setContent(html_8395f4dd3b58313aa30c2508da70d5e7);
+            
+        
+
+        circle_marker_10e1de152db53bdb658e25bb3c8efd58.bindPopup(popup_91a46df5faf784da3018abcd8a29287e)
+        ;
+
+        
+    
+    
+            var circle_marker_24a6913b3d2b88fb5a1f1274b93bac3f = L.circleMarker(
+                [19.306221279671234, 73.10576696416437],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_6530099ff01779d05771eebe04777719 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7c5e9d3ed1b0ff187210c5ec6e28b643 = $(`<div id="html_7c5e9d3ed1b0ff187210c5ec6e28b643" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Bhiwandi<br>     <b>Listings:</b> 365<br>     <b>Average Price:</b> ₹5,423,413<br>     <b>Median Price:</b> ₹4,700,000<br>     <b>Average Price/Sqft:</b> ₹7,252     </div>`)[0];
+                popup_6530099ff01779d05771eebe04777719.setContent(html_7c5e9d3ed1b0ff187210c5ec6e28b643);
+            
+        
+
+        circle_marker_24a6913b3d2b88fb5a1f1274b93bac3f.bindPopup(popup_6530099ff01779d05771eebe04777719)
+        ;
+
+        
+    
+    
+            var circle_marker_eccc8ed67b00e81a8e6e272a80f4e3cd = L.circleMarker(
+                [19.84291055280374, 73.05450040084112],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.7, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_e9c628878a87453624857e92e9cac2f4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ee0a756b8870e008fd8449bdcde8b84c = $(`<div id="html_ee0a756b8870e008fd8449bdcde8b84c" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Boisar<br>     <b>Listings:</b> 107<br>     <b>Average Price:</b> ₹3,106,174<br>     <b>Median Price:</b> ₹2,400,000<br>     <b>Average Price/Sqft:</b> ₹4,012     </div>`)[0];
+                popup_e9c628878a87453624857e92e9cac2f4.setContent(html_ee0a756b8870e008fd8449bdcde8b84c);
+            
+        
+
+        circle_marker_eccc8ed67b00e81a8e6e272a80f4e3cd.bindPopup(popup_e9c628878a87453624857e92e9cac2f4)
+        ;
+
+        
+    
+    
+            var circle_marker_4899a2f8d8f99db4355b69994ed212f3 = L.circleMarker(
+                [19.22727684715488, 72.85663530287769],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_818e53d8744325e01b2047ca485f8b2e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9ce298c8723f08c27caa8b2ada4cb9c2 = $(`<div id="html_9ce298c8723f08c27caa8b2ada4cb9c2" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Borivali<br>     <b>Listings:</b> 1678<br>     <b>Average Price:</b> ₹21,028,985<br>     <b>Median Price:</b> ₹17,481,845<br>     <b>Average Price/Sqft:</b> ₹23,527     </div>`)[0];
+                popup_818e53d8744325e01b2047ca485f8b2e.setContent(html_9ce298c8723f08c27caa8b2ada4cb9c2);
+            
+        
+
+        circle_marker_4899a2f8d8f99db4355b69994ed212f3.bindPopup(popup_818e53d8744325e01b2047ca485f8b2e)
+        ;
+
+        
+    
+    
+            var circle_marker_70d5aaa9ed5b8781edcd67b44ad48396 = L.circleMarker(
+                [18.978367928917816, 72.83638453726648],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_349d9f78b555a352e25ec8c24b4e84ea = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bd3d5f8abcaa41348e03da7777e9ea03 = $(`<div id="html_bd3d5f8abcaa41348e03da7777e9ea03" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Byculla<br>     <b>Listings:</b> 471<br>     <b>Average Price:</b> ₹54,547,665<br>     <b>Median Price:</b> ₹48,000,000<br>     <b>Average Price/Sqft:</b> ₹39,999     </div>`)[0];
+                popup_349d9f78b555a352e25ec8c24b4e84ea.setContent(html_bd3d5f8abcaa41348e03da7777e9ea03);
+            
+        
+
+        circle_marker_70d5aaa9ed5b8781edcd67b44ad48396.bindPopup(popup_349d9f78b555a352e25ec8c24b4e84ea)
+        ;
+
+        
+    
+    
+            var circle_marker_10d9c051c4c3d915244dbcf9fedc5608 = L.circleMarker(
+                [19.07305155269035, 72.91667985892165],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_c0cc938269e553c9c27e30775bd2c146 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ccee2cd2205115e009c3fcb069d24862 = $(`<div id="html_ccee2cd2205115e009c3fcb069d24862" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Chembur<br>     <b>Listings:</b> 1591<br>     <b>Average Price:</b> ₹23,728,073<br>     <b>Median Price:</b> ₹18,803,016<br>     <b>Average Price/Sqft:</b> ₹23,907     </div>`)[0];
+                popup_c0cc938269e553c9c27e30775bd2c146.setContent(html_ccee2cd2205115e009c3fcb069d24862);
+            
+        
+
+        circle_marker_10d9c051c4c3d915244dbcf9fedc5608.bindPopup(popup_c0cc938269e553c9c27e30775bd2c146)
+        ;
+
+        
+    
+    
+            var circle_marker_3913a3a80cfac0e856763482ecbe80a9 = L.circleMarker(
+                [18.91921122347826, 72.82679101695652],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_0bb087b8444436955cf1819f4e981857 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_332cec09c5101de6488df3adfee5b5c6 = $(`<div id="html_332cec09c5101de6488df3adfee5b5c6" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Colaba<br>     <b>Listings:</b> 46<br>     <b>Average Price:</b> ₹127,557,025<br>     <b>Median Price:</b> ₹46,000,000<br>     <b>Average Price/Sqft:</b> ₹52,237     </div>`)[0];
+                popup_0bb087b8444436955cf1819f4e981857.setContent(html_332cec09c5101de6488df3adfee5b5c6);
+            
+        
+
+        circle_marker_3913a3a80cfac0e856763482ecbe80a9.bindPopup(popup_0bb087b8444436955cf1819f4e981857)
+        ;
+
+        
+    
+    
+            var circle_marker_ddc7d02ca5ea0fc172786e69edb15b38 = L.circleMarker(
+                [19.01977945444058, 72.84442625653632],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_95c06a3c3b27fe3a0d1698079bb322ed = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_731fd8353a0f94a91baaf571c8cd4aad = $(`<div id="html_731fd8353a0f94a91baaf571c8cd4aad" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Dadar<br>     <b>Listings:</b> 336<br>     <b>Average Price:</b> ₹43,904,604<br>     <b>Median Price:</b> ₹35,000,000<br>     <b>Average Price/Sqft:</b> ₹40,464     </div>`)[0];
+                popup_95c06a3c3b27fe3a0d1698079bb322ed.setContent(html_731fd8353a0f94a91baaf571c8cd4aad);
+            
+        
+
+        circle_marker_ddc7d02ca5ea0fc172786e69edb15b38.bindPopup(popup_95c06a3c3b27fe3a0d1698079bb322ed)
+        ;
+
+        
+    
+    
+            var circle_marker_b0f8e94894a64330330836abdc5d5b48 = L.circleMarker(
+                [19.259513169288574, 72.8627995816254],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_1f6c89a1ed90dd648d303a5af96c5e1e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b5c99c1b4b2bb12781ef18f414d5f15c = $(`<div id="html_b5c99c1b4b2bb12781ef18f414d5f15c" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Dahisar<br>     <b>Listings:</b> 453<br>     <b>Average Price:</b> ₹13,417,642<br>     <b>Median Price:</b> ₹11,000,000<br>     <b>Average Price/Sqft:</b> ₹18,513     </div>`)[0];
+                popup_1f6c89a1ed90dd648d303a5af96c5e1e.setContent(html_b5c99c1b4b2bb12781ef18f414d5f15c);
+            
+        
+
+        circle_marker_b0f8e94894a64330330836abdc5d5b48.bindPopup(popup_1f6c89a1ed90dd648d303a5af96c5e1e)
+        ;
+
+        
+    
+    
+            var circle_marker_e37cd085f34389d5151245fff2760f4a = L.circleMarker(
+                [19.050977254486014, 72.9157354750053],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.6, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_2dd0a9ea11135bce316f5f41e9fb388a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4f9783f274ad6f1235c9d5a607409d07 = $(`<div id="html_4f9783f274ad6f1235c9d5a607409d07" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Deonar<br>     <b>Listings:</b> 116<br>     <b>Average Price:</b> ₹38,142,949<br>     <b>Median Price:</b> ₹29,000,000<br>     <b>Average Price/Sqft:</b> ₹28,333     </div>`)[0];
+                popup_2dd0a9ea11135bce316f5f41e9fb388a.setContent(html_4f9783f274ad6f1235c9d5a607409d07);
+            
+        
+
+        circle_marker_e37cd085f34389d5151245fff2760f4a.bindPopup(popup_2dd0a9ea11135bce316f5f41e9fb388a)
+        ;
+
+        
+    
+    
+            var circle_marker_840a010082a9aaf767446f5ad58e0fed = L.circleMarker(
+                [19.209208956949787, 73.10487369415598],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_4873cb0b4c7f4f893785915f89c55f7d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_545f0cd03c9b832a2352dcf722f6217c = $(`<div id="html_545f0cd03c9b832a2352dcf722f6217c" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Dombivali<br>     <b>Listings:</b> 1872<br>     <b>Average Price:</b> ₹6,019,099<br>     <b>Median Price:</b> ₹5,370,000<br>     <b>Average Price/Sqft:</b> ₹8,231     </div>`)[0];
+                popup_4873cb0b4c7f4f893785915f89c55f7d.setContent(html_545f0cd03c9b832a2352dcf722f6217c);
+            
+        
+
+        circle_marker_840a010082a9aaf767446f5ad58e0fed.bindPopup(popup_4873cb0b4c7f4f893785915f89c55f7d)
+        ;
+
+        
+    
+    
+            var circle_marker_63db9080ba8ac24fb616ba1482316da9 = L.circleMarker(
+                [19.223676679404253, 73.08136259225532],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_acb6a69c2f07a72babb5f04f4a6cb18d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_84eebf41865de0743ed5e61b542f7ce9 = $(`<div id="html_84eebf41865de0743ed5e61b542f7ce9" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Dombivli<br>     <b>Listings:</b> 235<br>     <b>Average Price:</b> ₹5,211,227<br>     <b>Median Price:</b> ₹4,700,000<br>     <b>Average Price/Sqft:</b> ₹7,249     </div>`)[0];
+                popup_acb6a69c2f07a72babb5f04f4a6cb18d.setContent(html_84eebf41865de0743ed5e61b542f7ce9);
+            
+        
+
+        circle_marker_63db9080ba8ac24fb616ba1482316da9.bindPopup(popup_acb6a69c2f07a72babb5f04f4a6cb18d)
+        ;
+
+        
+    
+    
+            var circle_marker_7ccd7e17414feb193cf8becde2c3b4cd = L.circleMarker(
+                [18.901455851617648, 73.1570135],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.8, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_b415f48e81e64b271d2decc023bdb2b4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_394de13b111a4343a3fe835129fe462d = $(`<div id="html_394de13b111a4343a3fe835129fe462d" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Dronagiri<br>     <b>Listings:</b> 68<br>     <b>Average Price:</b> ₹6,091,056<br>     <b>Median Price:</b> ₹6,000,000<br>     <b>Average Price/Sqft:</b> ₹8,453     </div>`)[0];
+                popup_b415f48e81e64b271d2decc023bdb2b4.setContent(html_394de13b111a4343a3fe835129fe462d);
+            
+        
+
+        circle_marker_7ccd7e17414feb193cf8becde2c3b4cd.bindPopup(popup_b415f48e81e64b271d2decc023bdb2b4)
+        ;
+
+        
+    
+    
+            var circle_marker_c612356c29f1311ff1dc96e7e74381ed = L.circleMarker(
+                [19.14291113134066, 73.00842384087913],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_965a9edd9c26c492861e59207f483253 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ef39622d343295a90625ee28aadcdb31 = $(`<div id="html_ef39622d343295a90625ee28aadcdb31" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Ghansoli<br>     <b>Listings:</b> 455<br>     <b>Average Price:</b> ₹16,503,468<br>     <b>Median Price:</b> ₹16,000,000<br>     <b>Average Price/Sqft:</b> ₹14,750     </div>`)[0];
+                popup_965a9edd9c26c492861e59207f483253.setContent(html_ef39622d343295a90625ee28aadcdb31);
+            
+        
+
+        circle_marker_c612356c29f1311ff1dc96e7e74381ed.bindPopup(popup_965a9edd9c26c492861e59207f483253)
+        ;
+
+        
+    
+    
+            var circle_marker_2c2234a1f7cb8ae89f8c8af1480418ce = L.circleMarker(
+                [19.08744652562018, 72.91338720045371],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_8d9378aa45a02ca87deec99f789e5d01 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1c6bca8cf0d6a71ce3b4dedac00ee7a5 = $(`<div id="html_1c6bca8cf0d6a71ce3b4dedac00ee7a5" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Ghatkopar<br>     <b>Listings:</b> 906<br>     <b>Average Price:</b> ₹19,610,575<br>     <b>Median Price:</b> ₹16,037,361<br>     <b>Average Price/Sqft:</b> ₹23,575     </div>`)[0];
+                popup_8d9378aa45a02ca87deec99f789e5d01.setContent(html_1c6bca8cf0d6a71ce3b4dedac00ee7a5);
+            
+        
+
+        circle_marker_2c2234a1f7cb8ae89f8c8af1480418ce.bindPopup(popup_8d9378aa45a02ca87deec99f789e5d01)
+        ;
+
+        
+    
+    
+            var circle_marker_0ae7312adb7735591599bba38372d870 = L.circleMarker(
+                [18.95580183095238, 72.82424832369048],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.4, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_28c0a62d8830ac346d3fbc086cffdc17 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_eaed53d5bcc8256cae7e3bbf22d1a455 = $(`<div id="html_eaed53d5bcc8256cae7e3bbf22d1a455" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Girgaon<br>     <b>Listings:</b> 84<br>     <b>Average Price:</b> ₹35,631,051<br>     <b>Median Price:</b> ₹24,533,460<br>     <b>Average Price/Sqft:</b> ₹36,030     </div>`)[0];
+                popup_28c0a62d8830ac346d3fbc086cffdc17.setContent(html_eaed53d5bcc8256cae7e3bbf22d1a455);
+            
+        
+
+        circle_marker_0ae7312adb7735591599bba38372d870.bindPopup(popup_28c0a62d8830ac346d3fbc086cffdc17)
+        ;
+
+        
+    
+    
+            var circle_marker_85ef801a30e45568a10b1a346d4a6d19 = L.circleMarker(
+                [19.163561735643725, 72.85755294346588],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_1f2351bb8dae798a4755f751e43dbb24 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7c890f17c1b51018dcbb935d691870eb = $(`<div id="html_7c890f17c1b51018dcbb935d691870eb" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Goregaon<br>     <b>Listings:</b> 1287<br>     <b>Average Price:</b> ₹22,048,793<br>     <b>Median Price:</b> ₹18,000,000<br>     <b>Average Price/Sqft:</b> ₹21,590     </div>`)[0];
+                popup_1f2351bb8dae798a4755f751e43dbb24.setContent(html_7c890f17c1b51018dcbb935d691870eb);
+            
+        
+
+        circle_marker_85ef801a30e45568a10b1a346d4a6d19.bindPopup(popup_1f2351bb8dae798a4755f751e43dbb24)
+        ;
+
+        
+    
+    
+            var circle_marker_672fbdc9483e19d6a19abfb19affc055 = L.circleMarker(
+                [19.255629432962966, 72.97863967574074],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.4, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_23b04d491a0109bd3f3166672e4c74a7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_07408dab98f0dd76f45ee54b30b4cb76 = $(`<div id="html_07408dab98f0dd76f45ee54b30b4cb76" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Hiranandani Estates<br>     <b>Listings:</b> 54<br>     <b>Average Price:</b> ₹20,328,550<br>     <b>Median Price:</b> ₹14,000,000<br>     <b>Average Price/Sqft:</b> ₹17,333     </div>`)[0];
+                popup_23b04d491a0109bd3f3166672e4c74a7.setContent(html_07408dab98f0dd76f45ee54b30b4cb76);
+            
+        
+
+        circle_marker_672fbdc9483e19d6a19abfb19affc055.bindPopup(popup_23b04d491a0109bd3f3166672e4c74a7)
+        ;
+
+        
+    
+    
+            var circle_marker_cdf1d4ba00a2ee6f58b55e52fb516e70 = L.circleMarker(
+                [19.161339568317317, 72.855855084001],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_6f018bcc008c29b7f5433dfd6f4e605a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_78d10e36784c2301bf561c196e0e5a60 = $(`<div id="html_78d10e36784c2301bf561c196e0e5a60" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Jogeshwari<br>     <b>Listings:</b> 534<br>     <b>Average Price:</b> ₹16,639,819<br>     <b>Median Price:</b> ₹14,552,313<br>     <b>Average Price/Sqft:</b> ₹22,275     </div>`)[0];
+                popup_6f018bcc008c29b7f5433dfd6f4e605a.setContent(html_78d10e36784c2301bf561c196e0e5a60);
+            
+        
+
+        circle_marker_cdf1d4ba00a2ee6f58b55e52fb516e70.bindPopup(popup_6f018bcc008c29b7f5433dfd6f4e605a)
+        ;
+
+        
+    
+    
+            var circle_marker_b157f566ad737b4a15e23483889c1478 = L.circleMarker(
+                [19.107591114258973, 72.8311607578813],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.9, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_6ba2fe0f45068453c2942d0f6484e6c8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d88bdc7122621030e2c481ddefce8946 = $(`<div id="html_d88bdc7122621030e2c481ddefce8946" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Juhu<br>     <b>Listings:</b> 179<br>     <b>Average Price:</b> ₹128,343,346<br>     <b>Median Price:</b> ₹100,000,000<br>     <b>Average Price/Sqft:</b> ₹51,350     </div>`)[0];
+                popup_6ba2fe0f45068453c2942d0f6484e6c8.setContent(html_d88bdc7122621030e2c481ddefce8946);
+            
+        
+
+        circle_marker_b157f566ad737b4a15e23483889c1478.bindPopup(popup_6ba2fe0f45068453c2942d0f6484e6c8)
+        ;
+
+        
+    
+    
+            var circle_marker_997220e42d3d66ff1d84e2177a4f969a = L.circleMarker(
+                [19.001711730903615, 73.13798035734939],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.6, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_d6c1d53b2757d859b6bd7b5f40eb8e2b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_befbe312b5c748ea5ddf28a2cee90b45 = $(`<div id="html_befbe312b5c748ea5ddf28a2cee90b45" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Kalamboli<br>     <b>Listings:</b> 166<br>     <b>Average Price:</b> ₹8,002,449<br>     <b>Median Price:</b> ₹7,850,000<br>     <b>Average Price/Sqft:</b> ₹8,336     </div>`)[0];
+                popup_d6c1d53b2757d859b6bd7b5f40eb8e2b.setContent(html_befbe312b5c748ea5ddf28a2cee90b45);
+            
+        
+
+        circle_marker_997220e42d3d66ff1d84e2177a4f969a.bindPopup(popup_d6c1d53b2757d859b6bd7b5f40eb8e2b)
+        ;
+
+        
+    
+    
+            var circle_marker_2b20f9af032c7587bb4bb9e33264b5a6 = L.circleMarker(
+                [19.20464421664634, 73.00508517670731],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.4, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_6581e654498183fb5162e5615255913f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_35edb71195ea2dc6d529975c049e3ff1 = $(`<div id="html_35edb71195ea2dc6d529975c049e3ff1" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Kalwa<br>     <b>Listings:</b> 164<br>     <b>Average Price:</b> ₹8,859,017<br>     <b>Median Price:</b> ₹8,280,500<br>     <b>Average Price/Sqft:</b> ₹11,109     </div>`)[0];
+                popup_6581e654498183fb5162e5615255913f.setContent(html_35edb71195ea2dc6d529975c049e3ff1);
+            
+        
+
+        circle_marker_2b20f9af032c7587bb4bb9e33264b5a6.bindPopup(popup_6581e654498183fb5162e5615255913f)
+        ;
+
+        
+    
+    
+            var circle_marker_a59a12b401a82ee24e5a669db7cdcc5e = L.circleMarker(
+                [19.248939356323362, 73.1488007962946],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_2b0722d17086ff19b59ee03b37e70748 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c7a77e231f17e179a854bd0a7d3d6ff7 = $(`<div id="html_c7a77e231f17e179a854bd0a7d3d6ff7" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Kalyan<br>     <b>Listings:</b> 1738<br>     <b>Average Price:</b> ₹6,488,894<br>     <b>Median Price:</b> ₹5,250,000<br>     <b>Average Price/Sqft:</b> ₹7,660     </div>`)[0];
+                popup_2b0722d17086ff19b59ee03b37e70748.setContent(html_c7a77e231f17e179a854bd0a7d3d6ff7);
+            
+        
+
+        circle_marker_a59a12b401a82ee24e5a669db7cdcc5e.bindPopup(popup_2b0722d17086ff19b59ee03b37e70748)
+        ;
+
+        
+    
+    
+            var circle_marker_f78e97fd9907dc3e4db7e8ee4bd0f2c3 = L.circleMarker(
+                [19.01270290770701, 73.10764968745222],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_9df9c70f45e7592241aa8439b506e73f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5b322ada44dccc32438ce21277b12187 = $(`<div id="html_5b322ada44dccc32438ce21277b12187" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Kamothe<br>     <b>Listings:</b> 471<br>     <b>Average Price:</b> ₹8,298,809<br>     <b>Median Price:</b> ₹8,200,000<br>     <b>Average Price/Sqft:</b> ₹8,956     </div>`)[0];
+                popup_9df9c70f45e7592241aa8439b506e73f.setContent(html_5b322ada44dccc32438ce21277b12187);
+            
+        
+
+        circle_marker_f78e97fd9907dc3e4db7e8ee4bd0f2c3.bindPopup(popup_9df9c70f45e7592241aa8439b506e73f)
+        ;
+
+        
+    
+    
+            var circle_marker_648c108c70b22a4c621dacae1da0e34c = L.circleMarker(
+                [19.231630699226567, 72.88501433612629],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_7e45ff0ee78122e8f15f4cc5afb14b06 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_503c5078e0145f94ec286fe6ee2074e7 = $(`<div id="html_503c5078e0145f94ec286fe6ee2074e7" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Kandivali<br>     <b>Listings:</b> 2039<br>     <b>Average Price:</b> ₹18,968,270<br>     <b>Median Price:</b> ₹16,000,000<br>     <b>Average Price/Sqft:</b> ₹21,087     </div>`)[0];
+                popup_7e45ff0ee78122e8f15f4cc5afb14b06.setContent(html_503c5078e0145f94ec286fe6ee2074e7);
+            
+        
+
+        circle_marker_648c108c70b22a4c621dacae1da0e34c.bindPopup(popup_7e45ff0ee78122e8f15f4cc5afb14b06)
+        ;
+
+        
+    
+    
+            var circle_marker_81544a2e7e77b6ada44bf8a79c454173 = L.circleMarker(
+                [19.13268496515797, 72.93284753371103],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_8db6d13a3db708fa8a37cbb41954e359 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d985e34fa347c5d56e949de37e1e9716 = $(`<div id="html_d985e34fa347c5d56e949de37e1e9716" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Kanjurmarg<br>     <b>Listings:</b> 731<br>     <b>Average Price:</b> ₹19,156,875<br>     <b>Median Price:</b> ₹17,139,162<br>     <b>Average Price/Sqft:</b> ₹23,316     </div>`)[0];
+                popup_8db6d13a3db708fa8a37cbb41954e359.setContent(html_d985e34fa347c5d56e949de37e1e9716);
+            
+        
+
+        circle_marker_81544a2e7e77b6ada44bf8a79c454173.bindPopup(popup_8db6d13a3db708fa8a37cbb41954e359)
+        ;
+
+        
+    
+    
+            var circle_marker_eac277f6748f4956dc27e64089bf2c69 = L.circleMarker(
+                [18.98069186308943, 73.10329387577235],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.3, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_09db2444726096bb859d81d6579ce7e8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3a1f3e746ac461e9a496d944a6389ae8 = $(`<div id="html_3a1f3e746ac461e9a496d944a6389ae8" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Karanjade<br>     <b>Listings:</b> 123<br>     <b>Average Price:</b> ₹5,056,664<br>     <b>Median Price:</b> ₹4,400,000<br>     <b>Average Price/Sqft:</b> ₹8,516     </div>`)[0];
+                popup_09db2444726096bb859d81d6579ce7e8.setContent(html_3a1f3e746ac461e9a496d944a6389ae8);
+            
+        
+
+        circle_marker_eac277f6748f4956dc27e64089bf2c69.bindPopup(popup_09db2444726096bb859d81d6579ce7e8)
+        ;
+
+        
+    
+    
+            var circle_marker_3e95d49fdc67fa3d04f4fc97d32ce285 = L.circleMarker(
+                [18.911994294328355, 73.33674538876866],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_9c83969be74cad5b3228abae586b8ac1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f41d83e796eb4e1f9ba42f454bd2356c = $(`<div id="html_f41d83e796eb4e1f9ba42f454bd2356c" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Karjat<br>     <b>Listings:</b> 268<br>     <b>Average Price:</b> ₹8,992,895<br>     <b>Median Price:</b> ₹6,500,056<br>     <b>Average Price/Sqft:</b> ₹4,689     </div>`)[0];
+                popup_9c83969be74cad5b3228abae586b8ac1.setContent(html_f41d83e796eb4e1f9ba42f454bd2356c);
+            
+        
+
+        circle_marker_3e95d49fdc67fa3d04f4fc97d32ce285.bindPopup(popup_9c83969be74cad5b3228abae586b8ac1)
+        ;
+
+        
+    
+    
+            var circle_marker_bdcc7f000f5a43b137128c2791771343 = L.circleMarker(
+                [19.26853191117647, 72.96916907929412],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.5, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_4ca4e5c08a2465250d52545ce2b1fe94 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_53cf13a285d3478c562da461c2b76580 = $(`<div id="html_53cf13a285d3478c562da461c2b76580" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Kasaradavali Thane<br>     <b>Listings:</b> 85<br>     <b>Average Price:</b> ₹6,862,294<br>     <b>Median Price:</b> ₹6,190,000<br>     <b>Average Price/Sqft:</b> ₹9,269     </div>`)[0];
+                popup_4ca4e5c08a2465250d52545ce2b1fe94.setContent(html_53cf13a285d3478c562da461c2b76580);
+            
+        
+
+        circle_marker_bdcc7f000f5a43b137128c2791771343.bindPopup(popup_4ca4e5c08a2465250d52545ce2b1fe94)
+        ;
+
+        
+    
+    
+            var circle_marker_9e78fe0d8f3ffdb18485990b906615d4 = L.circleMarker(
+                [19.07105833352941, 72.83847903595587],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.6, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_f4f4455bd4bebf43681598ceb507ace5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d5d713e3378439d51741651f28fe65c6 = $(`<div id="html_d5d713e3378439d51741651f28fe65c6" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Khar<br>     <b>Listings:</b> 136<br>     <b>Average Price:</b> ₹82,287,743<br>     <b>Median Price:</b> ₹60,732,650<br>     <b>Average Price/Sqft:</b> ₹46,716     </div>`)[0];
+                popup_f4f4455bd4bebf43681598ceb507ace5.setContent(html_d5d713e3378439d51741651f28fe65c6);
+            
+        
+
+        circle_marker_9e78fe0d8f3ffdb18485990b906615d4.bindPopup(popup_f4f4455bd4bebf43681598ceb507ace5)
+        ;
+
+        
+    
+    
+            var circle_marker_41c2fc3f7db6373536257f7de3e04363 = L.circleMarker(
+                [19.078846968482143, 73.09218684765757],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_4674e4dfa99be3fba5197e29b066d8b2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1f66f890118dc6dd1760e05b058c7148 = $(`<div id="html_1f66f890118dc6dd1760e05b058c7148" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Kharghar<br>     <b>Listings:</b> 1904<br>     <b>Average Price:</b> ₹13,944,159<br>     <b>Median Price:</b> ₹12,131,200<br>     <b>Average Price/Sqft:</b> ₹11,417     </div>`)[0];
+                popup_4674e4dfa99be3fba5197e29b066d8b2.setContent(html_1f66f890118dc6dd1760e05b058c7148);
+            
+        
+
+        circle_marker_41c2fc3f7db6373536257f7de3e04363.bindPopup(popup_4674e4dfa99be3fba5197e29b066d8b2)
+        ;
+
+        
+    
+    
+            var circle_marker_57c3ecef0b8cc51056d0596886205115 = L.circleMarker(
+                [18.796886442727274, 73.30184953818183],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_dcd3ea107a702749b1bfeb09d19f3934 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_46ee6bf10823e3d098aff91f5bb8067f = $(`<div id="html_46ee6bf10823e3d098aff91f5bb8067f" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Khopoli<br>     <b>Listings:</b> 44<br>     <b>Average Price:</b> ₹6,035,955<br>     <b>Median Price:</b> ₹3,900,000<br>     <b>Average Price/Sqft:</b> ₹5,777     </div>`)[0];
+                popup_dcd3ea107a702749b1bfeb09d19f3934.setContent(html_46ee6bf10823e3d098aff91f5bb8067f);
+            
+        
+
+        circle_marker_57c3ecef0b8cc51056d0596886205115.bindPopup(popup_dcd3ea107a702749b1bfeb09d19f3934)
+        ;
+
+        
+    
+    
+            var circle_marker_4a4004b30200c6458634c0dfe63333af = L.circleMarker(
+                [19.094329776268655, 73.05224884139925],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_518ad5d57da4d53b36d51ce78995b244 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ef4a556d94797b12eb75de723d7f8b00 = $(`<div id="html_ef4a556d94797b12eb75de723d7f8b00" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Koper Khairane<br>     <b>Listings:</b> 536<br>     <b>Average Price:</b> ₹14,245,792<br>     <b>Median Price:</b> ₹13,500,000<br>     <b>Average Price/Sqft:</b> ₹13,636     </div>`)[0];
+                popup_518ad5d57da4d53b36d51ce78995b244.setContent(html_ef4a556d94797b12eb75de723d7f8b00);
+            
+        
+
+        circle_marker_4a4004b30200c6458634c0dfe63333af.bindPopup(popup_518ad5d57da4d53b36d51ce78995b244)
+        ;
+
+        
+    
+    
+            var circle_marker_2907591c7bb1f5f5c900674cbd2c82fe = L.circleMarker(
+                [19.06898471192435, 72.88797247316852],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_c0545498670be94ee569cd4c79531725 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_20940b1877bb638e9464bcdb54c2105e = $(`<div id="html_20940b1877bb638e9464bcdb54c2105e" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Kurla<br>     <b>Listings:</b> 531<br>     <b>Average Price:</b> ₹14,121,872<br>     <b>Median Price:</b> ₹11,700,000<br>     <b>Average Price/Sqft:</b> ₹20,217     </div>`)[0];
+                popup_c0545498670be94ee569cd4c79531725.setContent(html_20940b1877bb638e9464bcdb54c2105e);
+            
+        
+
+        circle_marker_2907591c7bb1f5f5c900674cbd2c82fe.bindPopup(popup_c0545498670be94ee569cd4c79531725)
+        ;
+
+        
+    
+    
+            var circle_marker_9660237054e5f5e46bec48bf566677ae = L.circleMarker(
+                [19.012743853173067, 72.82693241608023],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_2b7ac843f8d8a968ae3b37d4143ccdc4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7deb9468ac562f1ccfa7ae2920c48f98 = $(`<div id="html_7deb9468ac562f1ccfa7ae2920c48f98" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Lower Parel<br>     <b>Listings:</b> 349<br>     <b>Average Price:</b> ₹80,910,117<br>     <b>Median Price:</b> ₹67,064,600<br>     <b>Average Price/Sqft:</b> ₹47,437     </div>`)[0];
+                popup_2b7ac843f8d8a968ae3b37d4143ccdc4.setContent(html_7deb9468ac562f1ccfa7ae2920c48f98);
+            
+        
+
+        circle_marker_9660237054e5f5e46bec48bf566677ae.bindPopup(popup_2b7ac843f8d8a968ae3b37d4143ccdc4)
+        ;
+
+        
+    
+    
+            var circle_marker_c4dc19504f564ba2b3f194bb104e3656 = L.circleMarker(
+                [18.983916076222165, 72.82399951739036],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.5, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_060e7a3b2fb195b47e35662ef97427ec = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cadc87ed109fcb58108d3d42f4fe069f = $(`<div id="html_cadc87ed109fcb58108d3d42f4fe069f" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Mahalaxmi<br>     <b>Listings:</b> 165<br>     <b>Average Price:</b> ₹87,165,368<br>     <b>Median Price:</b> ₹75,000,000<br>     <b>Average Price/Sqft:</b> ₹49,787     </div>`)[0];
+                popup_060e7a3b2fb195b47e35662ef97427ec.setContent(html_cadc87ed109fcb58108d3d42f4fe069f);
+            
+        
+
+        circle_marker_c4dc19504f564ba2b3f194bb104e3656.bindPopup(popup_060e7a3b2fb195b47e35662ef97427ec)
+        ;
+
+        
+    
+    
+            var circle_marker_977555d7c89effeccea0227f5179f3c2 = L.circleMarker(
+                [19.052072776733674, 72.84084621414324],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.0, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_f5bbd7cdfcabfb262a43b97a05f2749a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ab327dda391a6c965f60daaae4b9cebb = $(`<div id="html_ab327dda391a6c965f60daaae4b9cebb" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Mahim<br>     <b>Listings:</b> 170<br>     <b>Average Price:</b> ₹37,343,105<br>     <b>Median Price:</b> ₹33,750,000<br>     <b>Average Price/Sqft:</b> ₹40,871     </div>`)[0];
+                popup_f5bbd7cdfcabfb262a43b97a05f2749a.setContent(html_ab327dda391a6c965f60daaae4b9cebb);
+            
+        
+
+        circle_marker_977555d7c89effeccea0227f5179f3c2.bindPopup(popup_f5bbd7cdfcabfb262a43b97a05f2749a)
+        ;
+
+        
+    
+    
+            var circle_marker_70e92b8fab7a271c7d6d423b7721d6dc = L.circleMarker(
+                [18.954403739722224, 72.80103996151165],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_3f949557d806a7f65d08f4e208490596 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a2f289a6f3358a4f13a3d1b522fdc4cd = $(`<div id="html_a2f289a6f3358a4f13a3d1b522fdc4cd" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Malabar Hill<br>     <b>Listings:</b> 36<br>     <b>Average Price:</b> ₹281,158,008<br>     <b>Median Price:</b> ₹122,500,000<br>     <b>Average Price/Sqft:</b> ₹76,152     </div>`)[0];
+                popup_3f949557d806a7f65d08f4e208490596.setContent(html_a2f289a6f3358a4f13a3d1b522fdc4cd);
+            
+        
+
+        circle_marker_70e92b8fab7a271c7d6d423b7721d6dc.bindPopup(popup_3f949557d806a7f65d08f4e208490596)
+        ;
+
+        
+    
+    
+            var circle_marker_3e7c91b3975793d0800d95a4ecc0cdc5 = L.circleMarker(
+                [19.1968458151079, 72.87753531854415],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_2ae21c69efbb27aafc021375b28f3137 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9bbfb765346990cfe270fc635e03bafa = $(`<div id="html_9bbfb765346990cfe270fc635e03bafa" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Malad<br>     <b>Listings:</b> 1522<br>     <b>Average Price:</b> ₹19,380,560<br>     <b>Median Price:</b> ₹16,899,778<br>     <b>Average Price/Sqft:</b> ₹20,924     </div>`)[0];
+                popup_2ae21c69efbb27aafc021375b28f3137.setContent(html_9bbfb765346990cfe270fc635e03bafa);
+            
+        
+
+        circle_marker_3e7c91b3975793d0800d95a4ecc0cdc5.bindPopup(popup_2ae21c69efbb27aafc021375b28f3137)
+        ;
+
+        
+    
+    
+            var circle_marker_b9b6ab17d78880fc303cd849df4de976 = L.circleMarker(
+                [18.94520505363636, 72.82625383757576],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_1443eafa649bbb4ccd2ff52b4fe9ffaf = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_40af250927165f5cf743269bcdaf57b1 = $(`<div id="html_40af250927165f5cf743269bcdaf57b1" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Marine Lines<br>     <b>Listings:</b> 33<br>     <b>Average Price:</b> ₹143,704,004<br>     <b>Median Price:</b> ₹75,000,000<br>     <b>Average Price/Sqft:</b> ₹47,882     </div>`)[0];
+                popup_1443eafa649bbb4ccd2ff52b4fe9ffaf.setContent(html_40af250927165f5cf743269bcdaf57b1);
+            
+        
+
+        circle_marker_b9b6ab17d78880fc303cd849df4de976.bindPopup(popup_1443eafa649bbb4ccd2ff52b4fe9ffaf)
+        ;
+
+        
+    
+    
+            var circle_marker_7648eb59a523e67562a7cf3fafdcbe49 = L.circleMarker(
+                [19.02834159877965, 72.85656974412127],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_78b3e2dba7ece8d21f13a3e842ce9414 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bd9f1cd4cbae377c4199f5bb53db087d = $(`<div id="html_bd9f1cd4cbae377c4199f5bb53db087d" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Matunga<br>     <b>Listings:</b> 260<br>     <b>Average Price:</b> ₹50,402,287<br>     <b>Median Price:</b> ₹41,100,000<br>     <b>Average Price/Sqft:</b> ₹42,538     </div>`)[0];
+                popup_78b3e2dba7ece8d21f13a3e842ce9414.setContent(html_bd9f1cd4cbae377c4199f5bb53db087d);
+            
+        
+
+        circle_marker_7648eb59a523e67562a7cf3fafdcbe49.bindPopup(popup_78b3e2dba7ece8d21f13a3e842ce9414)
+        ;
+
+        
+    
+    
+            var circle_marker_fd8d6c53c55aa52e0199abb7015ba997 = L.circleMarker(
+                [18.9683606609375, 72.8387250890625],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_e8471a3ce053c193230290a149ac20ef = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f343e96e488e959533815f02385eb004 = $(`<div id="html_f343e96e488e959533815f02385eb004" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Mazagaon<br>     <b>Listings:</b> 32<br>     <b>Average Price:</b> ₹26,936,172<br>     <b>Median Price:</b> ₹22,750,000<br>     <b>Average Price/Sqft:</b> ₹26,701     </div>`)[0];
+                popup_e8471a3ce053c193230290a149ac20ef.setContent(html_f343e96e488e959533815f02385eb004);
+            
+        
+
+        circle_marker_fd8d6c53c55aa52e0199abb7015ba997.bindPopup(popup_e8471a3ce053c193230290a149ac20ef)
+        ;
+
+        
+    
+    
+            var circle_marker_ee20f46c399fda83db5c2fde8e77b7a8 = L.circleMarker(
+                [19.29001103525933, 72.88335717229918],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_296ae75a12468d9afe6593292dc84db3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bd9c41bd85a3e85cf859eb166851852c = $(`<div id="html_bd9c41bd85a3e85cf859eb166851852c" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Mira Road<br>     <b>Listings:</b> 3162<br>     <b>Average Price:</b> ₹8,756,489<br>     <b>Median Price:</b> ₹7,900,000<br>     <b>Average Price/Sqft:</b> ₹11,339     </div>`)[0];
+                popup_296ae75a12468d9afe6593292dc84db3.setContent(html_bd9c41bd85a3e85cf859eb166851852c);
+            
+        
+
+        circle_marker_ee20f46c399fda83db5c2fde8e77b7a8.bindPopup(popup_296ae75a12468d9afe6593292dc84db3)
+        ;
+
+        
+    
+    
+            var circle_marker_ee5f812129c69551a591962f72494568 = L.circleMarker(
+                [19.184381309049833, 72.94781784332476],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_230b17773c1e9f5c32a7792125b13312 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_590c1a4d7c88c4d71e5697cad2242fdd = $(`<div id="html_590c1a4d7c88c4d71e5697cad2242fdd" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Mulund<br>     <b>Listings:</b> 1446<br>     <b>Average Price:</b> ₹22,167,469<br>     <b>Median Price:</b> ₹19,600,000<br>     <b>Average Price/Sqft:</b> ₹22,316     </div>`)[0];
+                popup_230b17773c1e9f5c32a7792125b13312.setContent(html_590c1a4d7c88c4d71e5697cad2242fdd);
+            
+        
+
+        circle_marker_ee5f812129c69551a591962f72494568.bindPopup(popup_230b17773c1e9f5c32a7792125b13312)
+        ;
+
+        
+    
+    
+            var circle_marker_381c60aa1649d8be736d7728e522f7a5 = L.circleMarker(
+                [19.162355903958332, 72.94900610083333],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_327862def8c5a22fb2db2b8f8d6c0b9e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_229c509274063e264ef5a0df727f2c0b = $(`<div id="html_229c509274063e264ef5a0df727f2c0b" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Nahur<br>     <b>Listings:</b> 48<br>     <b>Average Price:</b> ₹20,127,887<br>     <b>Median Price:</b> ₹19,850,000<br>     <b>Average Price/Sqft:</b> ₹18,996     </div>`)[0];
+                popup_327862def8c5a22fb2db2b8f8d6c0b9e.setContent(html_229c509274063e264ef5a0df727f2c0b);
+            
+        
+
+        circle_marker_381c60aa1649d8be736d7728e522f7a5.bindPopup(popup_327862def8c5a22fb2db2b8f8d6c0b9e)
+        ;
+
+        
+    
+    
+            var circle_marker_296749a114ce96fb1dc2e07138d7d83c = L.circleMarker(
+                [19.36546715786337, 72.85950771574127],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_d7171ae4164af81245c19a932fd7d6b0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_98af86738ed37f69d47daac94d557f62 = $(`<div id="html_98af86738ed37f69d47daac94d557f62" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Naigaon<br>     <b>Listings:</b> 688<br>     <b>Average Price:</b> ₹4,367,745<br>     <b>Median Price:</b> ₹3,850,000<br>     <b>Average Price/Sqft:</b> ₹6,331     </div>`)[0];
+                popup_d7171ae4164af81245c19a932fd7d6b0.setContent(html_98af86738ed37f69d47daac94d557f62);
+            
+        
+
+        circle_marker_296749a114ce96fb1dc2e07138d7d83c.bindPopup(popup_d7171ae4164af81245c19a932fd7d6b0)
+        ;
+
+        
+    
+    
+            var circle_marker_ad07a3e7f3c1958be173a18a02e37a2e = L.circleMarker(
+                [19.433184182748537, 72.8142673645614],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_73dde3543ec7c0804af3f5dda5b4ca58 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4c9c5967f25267719a6066c2f3aa3e04 = $(`<div id="html_4c9c5967f25267719a6066c2f3aa3e04" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Nala Sopara<br>     <b>Listings:</b> 342<br>     <b>Average Price:</b> ₹3,760,641<br>     <b>Median Price:</b> ₹3,415,400<br>     <b>Average Price/Sqft:</b> ₹6,756     </div>`)[0];
+                popup_73dde3543ec7c0804af3f5dda5b4ca58.setContent(html_4c9c5967f25267719a6066c2f3aa3e04);
+            
+        
+
+        circle_marker_ad07a3e7f3c1958be173a18a02e37a2e.bindPopup(popup_73dde3543ec7c0804af3f5dda5b4ca58)
+        ;
+
+        
+    
+    
+            var circle_marker_7c2f89c62066214814c83d9ba1d3fe16 = L.circleMarker(
+                [19.41767516422222, 72.80324291722222],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.0, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_62d6b9b0c23b2b19f45d862ca6d2e473 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_329ec80af55b04a2a3e83e0df7f42e9a = $(`<div id="html_329ec80af55b04a2a3e83e0df7f42e9a" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Nalasopara<br>     <b>Listings:</b> 90<br>     <b>Average Price:</b> ₹4,101,430<br>     <b>Median Price:</b> ₹3,325,000<br>     <b>Average Price/Sqft:</b> ₹5,673     </div>`)[0];
+                popup_62d6b9b0c23b2b19f45d862ca6d2e473.setContent(html_329ec80af55b04a2a3e83e0df7f42e9a);
+            
+        
+
+        circle_marker_7c2f89c62066214814c83d9ba1d3fe16.bindPopup(popup_62d6b9b0c23b2b19f45d862ca6d2e473)
+        ;
+
+        
+    
+    
+            var circle_marker_7b50cedfb1442cc67985ea6b40507038 = L.circleMarker(
+                [19.026038744076246, 73.31667580607038],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_622a7ebb25614270f2022fadf9b72bed = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f6f789b156c36ad1a0989ebca379b50c = $(`<div id="html_f6f789b156c36ad1a0989ebca379b50c" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Neral<br>     <b>Listings:</b> 341<br>     <b>Average Price:</b> ₹3,201,303<br>     <b>Median Price:</b> ₹2,425,500<br>     <b>Average Price/Sqft:</b> ₹4,004     </div>`)[0];
+                popup_622a7ebb25614270f2022fadf9b72bed.setContent(html_f6f789b156c36ad1a0989ebca379b50c);
+            
+        
+
+        circle_marker_7b50cedfb1442cc67985ea6b40507038.bindPopup(popup_622a7ebb25614270f2022fadf9b72bed)
+        ;
+
+        
+    
+    
+            var circle_marker_cad94d641b5d80256f758ea0b2addb30 = L.circleMarker(
+                [19.05546006860399, 73.01589498492878],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_57e8580aa2c5ca7229a526907193bdcc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_31f4f127c9ce573d4aa68ab08f36a014 = $(`<div id="html_31f4f127c9ce573d4aa68ab08f36a014" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Nerul<br>     <b>Listings:</b> 351<br>     <b>Average Price:</b> ₹28,457,037<br>     <b>Median Price:</b> ₹22,200,000<br>     <b>Average Price/Sqft:</b> ₹20,630     </div>`)[0];
+                popup_57e8580aa2c5ca7229a526907193bdcc.setContent(html_31f4f127c9ce573d4aa68ab08f36a014);
+            
+        
+
+        circle_marker_cad94d641b5d80256f758ea0b2addb30.bindPopup(popup_57e8580aa2c5ca7229a526907193bdcc)
+        ;
+
+        
+    
+    
+            var circle_marker_beff13915efca942281b24767bef5724 = L.circleMarker(
+                [19.672702154444444, 72.77741877231482],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.8, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_14104b47be96a2bca8c2709bea205ce7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_755fce7a51df4aef822ad0c2369dbc5b = $(`<div id="html_755fce7a51df4aef822ad0c2369dbc5b" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Palghar<br>     <b>Listings:</b> 108<br>     <b>Average Price:</b> ₹2,566,087<br>     <b>Median Price:</b> ₹2,200,000<br>     <b>Average Price/Sqft:</b> ₹5,341     </div>`)[0];
+                popup_14104b47be96a2bca8c2709bea205ce7.setContent(html_755fce7a51df4aef822ad0c2369dbc5b);
+            
+        
+
+        circle_marker_beff13915efca942281b24767bef5724.bindPopup(popup_14104b47be96a2bca8c2709bea205ce7)
+        ;
+
+        
+    
+    
+            var circle_marker_ddf80c88b3f537c1fb6221cf6bd50e2c = L.circleMarker(
+                [18.97584352759576, 73.14137998088835],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_f5bbc92ab73a4dc7bc51da51996e881a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_04577228d615ef0c844766be1b49ccea = $(`<div id="html_04577228d615ef0c844766be1b49ccea" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Panvel<br>     <b>Listings:</b> 1227<br>     <b>Average Price:</b> ₹9,415,466<br>     <b>Median Price:</b> ₹7,900,000<br>     <b>Average Price/Sqft:</b> ₹10,522     </div>`)[0];
+                popup_f5bbc92ab73a4dc7bc51da51996e881a.setContent(html_04577228d615ef0c844766be1b49ccea);
+            
+        
+
+        circle_marker_ddf80c88b3f537c1fb6221cf6bd50e2c.bindPopup(popup_f5bbc92ab73a4dc7bc51da51996e881a)
+        ;
+
+        
+    
+    
+            var circle_marker_d9b0735cd454d1fae2c543f78540929a = L.circleMarker(
+                [19.06759116340755, 72.92653043257492],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_df99aea2096f498934bc43aa55c9f6b7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b51d7cb20055162bc25014a5cab2e9da = $(`<div id="html_b51d7cb20055162bc25014a5cab2e9da" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Parel<br>     <b>Listings:</b> 277<br>     <b>Average Price:</b> ₹47,322,196<br>     <b>Median Price:</b> ₹39,900,000<br>     <b>Average Price/Sqft:</b> ₹38,147     </div>`)[0];
+                popup_df99aea2096f498934bc43aa55c9f6b7.setContent(html_b51d7cb20055162bc25014a5cab2e9da);
+            
+        
+
+        circle_marker_d9b0735cd454d1fae2c543f78540929a.bindPopup(popup_df99aea2096f498934bc43aa55c9f6b7)
+        ;
+
+        
+    
+    
+            var circle_marker_7bb40dddc2af3f64c5541b6c468fa026 = L.circleMarker(
+                [19.121380937395493, 72.92115816514695],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_9e4afcb850e312d8f0ed153f85b5f61c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9b65ad3cb17941b5218a2434cfafd512 = $(`<div id="html_9b65ad3cb17941b5218a2434cfafd512" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Powai<br>     <b>Listings:</b> 917<br>     <b>Average Price:</b> ₹33,571,451<br>     <b>Median Price:</b> ₹27,000,000<br>     <b>Average Price/Sqft:</b> ₹27,523     </div>`)[0];
+                popup_9e4afcb850e312d8f0ed153f85b5f61c.setContent(html_9b65ad3cb17941b5218a2434cfafd512);
+            
+        
+
+        circle_marker_7bb40dddc2af3f64c5541b6c468fa026.bindPopup(popup_9e4afcb850e312d8f0ed153f85b5f61c)
+        ;
+
+        
+    
+    
+            var circle_marker_9750206cd72f10c1fbdc367da14d286d = L.circleMarker(
+                [19.071229487742052, 72.84864663453226],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_35af096802d6bb32a3e4e1daa4f1192f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7d6a71b594d761f138199fa6d3e54d08 = $(`<div id="html_7d6a71b594d761f138199fa6d3e54d08" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Prabhadevi<br>     <b>Listings:</b> 208<br>     <b>Average Price:</b> ₹89,572,431<br>     <b>Median Price:</b> ₹65,000,000<br>     <b>Average Price/Sqft:</b> ₹51,853     </div>`)[0];
+                popup_35af096802d6bb32a3e4e1daa4f1192f.setContent(html_7d6a71b594d761f138199fa6d3e54d08);
+            
+        
+
+        circle_marker_9750206cd72f10c1fbdc367da14d286d.bindPopup(popup_35af096802d6bb32a3e4e1daa4f1192f)
+        ;
+
+        
+    
+    
+            var circle_marker_ba55f68a2253aec1a03670d6aa68d404 = L.circleMarker(
+                [19.059413889344263, 73.00963775983607],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.3, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_0ba259db6bf686e455eeffa5d009ecd8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bd8d7796f84b7d8c5f013f9450afc593 = $(`<div id="html_bd8d7796f84b7d8c5f013f9450afc593" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Sanpada<br>     <b>Listings:</b> 183<br>     <b>Average Price:</b> ₹25,722,714<br>     <b>Median Price:</b> ₹18,900,000<br>     <b>Average Price/Sqft:</b> ₹19,981     </div>`)[0];
+                popup_0ba259db6bf686e455eeffa5d009ecd8.setContent(html_bd8d7796f84b7d8c5f013f9450afc593);
+            
+        
+
+        circle_marker_ba55f68a2253aec1a03670d6aa68d404.bindPopup(popup_0ba259db6bf686e455eeffa5d009ecd8)
+        ;
+
+        
+    
+    
+            var circle_marker_2d999177ca6fdca0dc29a50a63bcc969 = L.circleMarker(
+                [19.0975030684752, 72.85769850560051],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_8a46881ee8a27b12033b5e3ecafe73a3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_04740270ec40d6aa732ba2228b4d7568 = $(`<div id="html_04740270ec40d6aa732ba2228b4d7568" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Santacruz<br>     <b>Listings:</b> 527<br>     <b>Average Price:</b> ₹41,941,260<br>     <b>Median Price:</b> ₹27,900,000<br>     <b>Average Price/Sqft:</b> ₹32,076     </div>`)[0];
+                popup_8a46881ee8a27b12033b5e3ecafe73a3.setContent(html_04740270ec40d6aa732ba2228b4d7568);
+            
+        
+
+        circle_marker_2d999177ca6fdca0dc29a50a63bcc969.bindPopup(popup_8a46881ee8a27b12033b5e3ecafe73a3)
+        ;
+
+        
+    
+    
+            var circle_marker_9e1e96557e5464d4a42e1df299a0d401 = L.circleMarker(
+                [19.01414398310651, 73.01805419464496],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_3afff90803db1c61478d52909bf3ae87 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ad958e663f10bf0ae1ceabf2eea92044 = $(`<div id="html_ad958e663f10bf0ae1ceabf2eea92044" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Seawoods<br>     <b>Listings:</b> 338<br>     <b>Average Price:</b> ₹27,530,344<br>     <b>Median Price:</b> ₹25,000,000<br>     <b>Average Price/Sqft:</b> ₹20,554     </div>`)[0];
+                popup_3afff90803db1c61478d52909bf3ae87.setContent(html_ad958e663f10bf0ae1ceabf2eea92044);
+            
+        
+
+        circle_marker_9e1e96557e5464d4a42e1df299a0d401.bindPopup(popup_3afff90803db1c61478d52909bf3ae87)
+        ;
+
+        
+    
+    
+            var circle_marker_a363b843f08acf477f2e9e9a0da28591 = L.circleMarker(
+                [18.993948593278688, 72.84958477508196],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.1, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_ea008e1b35c07620b2c0f86bdec74345 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3f7412fddf298b194f60407649959243 = $(`<div id="html_3f7412fddf298b194f60407649959243" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Sewri<br>     <b>Listings:</b> 61<br>     <b>Average Price:</b> ₹40,265,319<br>     <b>Median Price:</b> ₹33,090,200<br>     <b>Average Price/Sqft:</b> ₹33,581     </div>`)[0];
+                popup_ea008e1b35c07620b2c0f86bdec74345.setContent(html_3f7412fddf298b194f60407649959243);
+            
+        
+
+        circle_marker_a363b843f08acf477f2e9e9a0da28591.bindPopup(popup_ea008e1b35c07620b2c0f86bdec74345)
+        ;
+
+        
+    
+    
+            var circle_marker_383ff59dcafe9232241d13ac6c6ca7b8 = L.circleMarker(
+                [19.1789983002, 73.08160751426666],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.0, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_f600613c8419fa7a17265100bad07d2a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5b9a5823146afd6da9dbf412e0e03d29 = $(`<div id="html_5b9a5823146afd6da9dbf412e0e03d29" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Shil Phata<br>     <b>Listings:</b> 150<br>     <b>Average Price:</b> ₹5,434,226<br>     <b>Median Price:</b> ₹5,005,000<br>     <b>Average Price/Sqft:</b> ₹8,223     </div>`)[0];
+                popup_f600613c8419fa7a17265100bad07d2a.setContent(html_5b9a5823146afd6da9dbf412e0e03d29);
+            
+        
+
+        circle_marker_383ff59dcafe9232241d13ac6c6ca7b8.bindPopup(popup_f600613c8419fa7a17265100bad07d2a)
+        ;
+
+        
+    
+    
+            var circle_marker_3f10b2cbec0349c8aa8f86c1fca78047 = L.circleMarker(
+                [19.041199840798175, 72.86957687008713],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_4a09001b67a50dc8ac5c072e21d74494 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5fe1977cd86b1a07be4eb8fb3a4a49bf = $(`<div id="html_5fe1977cd86b1a07be4eb8fb3a4a49bf" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Sion<br>     <b>Listings:</b> 489<br>     <b>Average Price:</b> ₹31,370,674<br>     <b>Median Price:</b> ₹24,000,000<br>     <b>Average Price/Sqft:</b> ₹30,847     </div>`)[0];
+                popup_4a09001b67a50dc8ac5c072e21d74494.setContent(html_5fe1977cd86b1a07be4eb8fb3a4a49bf);
+            
+        
+
+        circle_marker_3f10b2cbec0349c8aa8f86c1fca78047.bindPopup(popup_4a09001b67a50dc8ac5c072e21d74494)
+        ;
+
+        
+    
+    
+            var circle_marker_17504abdd82ff5dabb0687cb6582889f = L.circleMarker(
+                [19.076839236709887, 73.10266283930308],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_77e18b56bd84872d47518f627c74eb16 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bc428deb60a1970f35d87b89bf3d7fb2 = $(`<div id="html_bc428deb60a1970f35d87b89bf3d7fb2" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Taloja<br>     <b>Listings:</b> 617<br>     <b>Average Price:</b> ₹4,863,736<br>     <b>Median Price:</b> ₹4,500,000<br>     <b>Average Price/Sqft:</b> ₹6,998     </div>`)[0];
+                popup_77e18b56bd84872d47518f627c74eb16.setContent(html_bc428deb60a1970f35d87b89bf3d7fb2);
+            
+        
+
+        circle_marker_17504abdd82ff5dabb0687cb6582889f.bindPopup(popup_77e18b56bd84872d47518f627c74eb16)
+        ;
+
+        
+    
+    
+            var circle_marker_6d723f1053352514d76581c90875dfa2 = L.circleMarker(
+                [19.076631673199998, 73.10920410279999],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.5, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_8235d42e7ef3dd17416e71cb84fb3684 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_553d18896548ef79dcd9289c1a052902 = $(`<div id="html_553d18896548ef79dcd9289c1a052902" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Taloje<br>     <b>Listings:</b> 75<br>     <b>Average Price:</b> ₹4,471,795<br>     <b>Median Price:</b> ₹4,200,000<br>     <b>Average Price/Sqft:</b> ₹5,829     </div>`)[0];
+                popup_8235d42e7ef3dd17416e71cb84fb3684.setContent(html_553d18896548ef79dcd9289c1a052902);
+            
+        
+
+        circle_marker_6d723f1053352514d76581c90875dfa2.bindPopup(popup_8235d42e7ef3dd17416e71cb84fb3684)
+        ;
+
+        
+    
+    
+            var circle_marker_e7a537da88eaa6d465777cf053a76f52 = L.circleMarker(
+                [18.968450447263432, 72.81190097080133],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.6, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_73aa60e2ed1cbbcf7a1552cd6ee54156 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0b36c78ed58eb04df25f122f18d41ef2 = $(`<div id="html_0b36c78ed58eb04df25f122f18d41ef2" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Tardeo<br>     <b>Listings:</b> 76<br>     <b>Average Price:</b> ₹130,205,780<br>     <b>Median Price:</b> ₹90,000,000<br>     <b>Average Price/Sqft:</b> ₹59,293     </div>`)[0];
+                popup_73aa60e2ed1cbbcf7a1552cd6ee54156.setContent(html_0b36c78ed58eb04df25f122f18d41ef2);
+            
+        
+
+        circle_marker_e7a537da88eaa6d465777cf053a76f52.bindPopup(popup_73aa60e2ed1cbbcf7a1552cd6ee54156)
+        ;
+
+        
+    
+    
+            var circle_marker_b54e6161db49a95f9853a023af58196e = L.circleMarker(
+                [19.22274510952381, 73.0997710452381],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.3, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_585916aa4f00102b23100ecd93c2f831 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cca25e08fb328ce4a37c2b740ad6165c = $(`<div id="html_cca25e08fb328ce4a37c2b740ad6165c" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Thakurli<br>     <b>Listings:</b> 63<br>     <b>Average Price:</b> ₹5,810,389<br>     <b>Median Price:</b> ₹5,300,000<br>     <b>Average Price/Sqft:</b> ₹7,242     </div>`)[0];
+                popup_585916aa4f00102b23100ecd93c2f831.setContent(html_cca25e08fb328ce4a37c2b740ad6165c);
+            
+        
+
+        circle_marker_b54e6161db49a95f9853a023af58196e.bindPopup(popup_585916aa4f00102b23100ecd93c2f831)
+        ;
+
+        
+    
+    
+            var circle_marker_302e366079412ae1d2157fe2f8aeb941 = L.circleMarker(
+                [19.23708281243197, 72.99936071115646],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_4a245864b57ef6b24e596ee3b01717d6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_294b053ae7cebeb770a0d952f24ad06d = $(`<div id="html_294b053ae7cebeb770a0d952f24ad06d" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Thane<br>     <b>Listings:</b> 5292<br>     <b>Average Price:</b> ₹15,752,730<br>     <b>Median Price:</b> ₹12,600,000<br>     <b>Average Price/Sqft:</b> ₹15,598     </div>`)[0];
+                popup_4a245864b57ef6b24e596ee3b01717d6.setContent(html_294b053ae7cebeb770a0d952f24ad06d);
+            
+        
+
+        circle_marker_302e366079412ae1d2157fe2f8aeb941.bindPopup(popup_4a245864b57ef6b24e596ee3b01717d6)
+        ;
+
+        
+    
+    
+            var circle_marker_4f8a9f1d001dc6111cc45c151307cd2d = L.circleMarker(
+                [19.39582824574627, 73.27315971134328],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.4, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_ef232d07389c1abeba2741f8b8094381 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_41067ebec3e965cc3405dc1a5aeb143e = $(`<div id="html_41067ebec3e965cc3405dc1a5aeb143e" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Titwala<br>     <b>Listings:</b> 134<br>     <b>Average Price:</b> ₹3,310,103<br>     <b>Median Price:</b> ₹3,075,000<br>     <b>Average Price/Sqft:</b> ₹4,568     </div>`)[0];
+                popup_ef232d07389c1abeba2741f8b8094381.setContent(html_41067ebec3e965cc3405dc1a5aeb143e);
+            
+        
+
+        circle_marker_4f8a9f1d001dc6111cc45c151307cd2d.bindPopup(popup_ef232d07389c1abeba2741f8b8094381)
+        ;
+
+        
+    
+    
+            var circle_marker_4346e251220c12d342853e45af82a54e = L.circleMarker(
+                [19.293502974130433, 73.19527103652175],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_48109fbcfd6db30304f4e43e57c996a7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fbcd6dfc69f5009e05b53cede67b8f27 = $(`<div id="html_fbcd6dfc69f5009e05b53cede67b8f27" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Ulhasnagar<br>     <b>Listings:</b> 46<br>     <b>Average Price:</b> ₹7,579,849<br>     <b>Median Price:</b> ₹7,200,000<br>     <b>Average Price/Sqft:</b> ₹7,371     </div>`)[0];
+                popup_48109fbcfd6db30304f4e43e57c996a7.setContent(html_fbcd6dfc69f5009e05b53cede67b8f27);
+            
+        
+
+        circle_marker_4346e251220c12d342853e45af82a54e.bindPopup(popup_48109fbcfd6db30304f4e43e57c996a7)
+        ;
+
+        
+    
+    
+            var circle_marker_602988a169030d8e0c8df5f04aa130fe = L.circleMarker(
+                [18.97864275432456, 73.04698372546491],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_59814792eb430f649418210835e9e236 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b20005b4032b5807c4792122c2d15376 = $(`<div id="html_b20005b4032b5807c4792122c2d15376" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Ulwe<br>     <b>Listings:</b> 1140<br>     <b>Average Price:</b> ₹8,630,549<br>     <b>Median Price:</b> ₹7,500,000<br>     <b>Average Price/Sqft:</b> ₹9,342     </div>`)[0];
+                popup_59814792eb430f649418210835e9e236.setContent(html_b20005b4032b5807c4792122c2d15376);
+            
+        
+
+        circle_marker_602988a169030d8e0c8df5f04aa130fe.bindPopup(popup_59814792eb430f649418210835e9e236)
+        ;
+
+        
+    
+    
+            var circle_marker_3ac3e3fe049aa62eb089d8c379dc1a56 = L.circleMarker(
+                [19.384946117486702, 72.83532681363032],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_16d826a09c1dd41018bd7a47a82abb79 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c11708daa255056d81970c5535bf5da9 = $(`<div id="html_c11708daa255056d81970c5535bf5da9" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Vasai<br>     <b>Listings:</b> 752<br>     <b>Average Price:</b> ₹6,192,470<br>     <b>Median Price:</b> ₹5,000,000<br>     <b>Average Price/Sqft:</b> ₹7,577     </div>`)[0];
+                popup_16d826a09c1dd41018bd7a47a82abb79.setContent(html_c11708daa255056d81970c5535bf5da9);
+            
+        
+
+        circle_marker_3ac3e3fe049aa62eb089d8c379dc1a56.bindPopup(popup_16d826a09c1dd41018bd7a47a82abb79)
+        ;
+
+        
+    
+    
+            var circle_marker_c12d1942ce57260a1b735790e298969b = L.circleMarker(
+                [19.119550835362904, 73.01583557745968],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_d88add568831a6712f8fb357b5827e28 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e94da828f9d97b1fa051419a475ef4c7 = $(`<div id="html_e94da828f9d97b1fa051419a475ef4c7" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Vashi<br>     <b>Listings:</b> 248<br>     <b>Average Price:</b> ₹24,497,727<br>     <b>Median Price:</b> ₹22,250,000<br>     <b>Average Price/Sqft:</b> ₹19,091     </div>`)[0];
+                popup_d88add568831a6712f8fb357b5827e28.setContent(html_e94da828f9d97b1fa051419a475ef4c7);
+            
+        
+
+        circle_marker_c12d1942ce57260a1b735790e298969b.bindPopup(popup_d88add568831a6712f8fb357b5827e28)
+        ;
+
+        
+    
+    
+            var circle_marker_34de891deb66ad129d9a81ad3e848c8e = L.circleMarker(
+                [19.10518475467747, 72.93368330077891],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_7297e18a28959135bcf8cb8672144935 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6c4c7f29bd4096cdd13649298ccc803f = $(`<div id="html_6c4c7f29bd4096cdd13649298ccc803f" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Vikhroli<br>     <b>Listings:</b> 900<br>     <b>Average Price:</b> ₹15,292,906<br>     <b>Median Price:</b> ₹11,000,000<br>     <b>Average Price/Sqft:</b> ₹20,730     </div>`)[0];
+                popup_7297e18a28959135bcf8cb8672144935.setContent(html_6c4c7f29bd4096cdd13649298ccc803f);
+            
+        
+
+        circle_marker_34de891deb66ad129d9a81ad3e848c8e.bindPopup(popup_7297e18a28959135bcf8cb8672144935)
+        ;
+
+        
+    
+    
+            var circle_marker_e7cb76e720ef78113e3088d971a8075f = L.circleMarker(
+                [19.102749120238094, 72.93770108869047],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.4, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_a2282ac6e49655f8fd783e087ad28e2d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4fba9936cd06964fa467325294eb88ec = $(`<div id="html_4fba9936cd06964fa467325294eb88ec" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Vikroli<br>     <b>Listings:</b> 84<br>     <b>Average Price:</b> ₹9,767,371<br>     <b>Median Price:</b> ₹9,000,000<br>     <b>Average Price/Sqft:</b> ₹17,773     </div>`)[0];
+                popup_a2282ac6e49655f8fd783e087ad28e2d.setContent(html_4fba9936cd06964fa467325294eb88ec);
+            
+        
+
+        circle_marker_e7cb76e720ef78113e3088d971a8075f.bindPopup(popup_a2282ac6e49655f8fd783e087ad28e2d)
+        ;
+
+        
+    
+    
+            var circle_marker_1be76b4d976e06300afaa13147074172 = L.circleMarker(
+                [19.110993261685724, 72.8392201322898],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.6, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_b1e4b647d152da8b45fc550b6bbf1f78 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d51501b7495eea4d7f34626bf5ef3c45 = $(`<div id="html_d51501b7495eea4d7f34626bf5ef3c45" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Vile Parle<br>     <b>Listings:</b> 126<br>     <b>Average Price:</b> ₹79,028,703<br>     <b>Median Price:</b> ₹75,000,000<br>     <b>Average Price/Sqft:</b> ₹44,538     </div>`)[0];
+                popup_b1e4b647d152da8b45fc550b6bbf1f78.setContent(html_d51501b7495eea4d7f34626bf5ef3c45);
+            
+        
+
+        circle_marker_1be76b4d976e06300afaa13147074172.bindPopup(popup_b1e4b647d152da8b45fc550b6bbf1f78)
+        ;
+
+        
+    
+    
+            var circle_marker_c1f3b6d8c7a5260ed21f566057ab04a9 = L.circleMarker(
+                [19.21681285918429, 72.89975895166162],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_e0134d5151f20e786a1c013d883234fb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_61a40f413a8faf5abf7ae6889f04436d = $(`<div id="html_61a40f413a8faf5abf7ae6889f04436d" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Ville Parle<br>     <b>Listings:</b> 331<br>     <b>Average Price:</b> ₹34,689,734<br>     <b>Median Price:</b> ₹28,500,000<br>     <b>Average Price/Sqft:</b> ₹32,553     </div>`)[0];
+                popup_e0134d5151f20e786a1c013d883234fb.setContent(html_61a40f413a8faf5abf7ae6889f04436d);
+            
+        
+
+        circle_marker_c1f3b6d8c7a5260ed21f566057ab04a9.bindPopup(popup_e0134d5151f20e786a1c013d883234fb)
+        ;
+
+        
+    
+    
+            var circle_marker_b5c8ddc4e2f1d847f25b50051b190dc4 = L.circleMarker(
+                [19.468647859403372, 72.79930875802853],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_639878925c5c25eaab3cac974ea54fd7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4de128506567b0d7b741f8ba66f8dc52 = $(`<div id="html_4de128506567b0d7b741f8ba66f8dc52" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Virar<br>     <b>Listings:</b> 771<br>     <b>Average Price:</b> ₹4,607,453<br>     <b>Median Price:</b> ₹4,020,240<br>     <b>Average Price/Sqft:</b> ₹6,898     </div>`)[0];
+                popup_639878925c5c25eaab3cac974ea54fd7.setContent(html_4de128506567b0d7b741f8ba66f8dc52);
+            
+        
+
+        circle_marker_b5c8ddc4e2f1d847f25b50051b190dc4.bindPopup(popup_639878925c5c25eaab3cac974ea54fd7)
+        ;
+
+        
+    
+    
+            var circle_marker_d22102388971401ff1d7a3e8abb83fdb = L.circleMarker(
+                [19.289465346810463, 72.86876263476168],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_f80a6d871b7e5d4779024984aa1c16b8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8a74faf1354857490afb878f39386202 = $(`<div id="html_8a74faf1354857490afb878f39386202" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Wadala<br>     <b>Listings:</b> 617<br>     <b>Average Price:</b> ₹34,636,142<br>     <b>Median Price:</b> ₹29,000,000<br>     <b>Average Price/Sqft:</b> ₹31,165     </div>`)[0];
+                popup_f80a6d871b7e5d4779024984aa1c16b8.setContent(html_8a74faf1354857490afb878f39386202);
+            
+        
+
+        circle_marker_d22102388971401ff1d7a3e8abb83fdb.bindPopup(popup_f80a6d871b7e5d4779024984aa1c16b8)
+        ;
+
+        
+    
+    
+            var circle_marker_44f4291d28ede3574d6d418d19a55f2a = L.circleMarker(
+                [19.00514783795452, 72.82371245606762],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.8, "stroke": true, "weight": 3}
+            ).addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+    
+        var popup_0b076ce9fec65ed9f2745896978bdec5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_217ada1bc4fb0446a37cf3182f2502b4 = $(`<div id="html_217ada1bc4fb0446a37cf3182f2502b4" style="width: 100.0%; height: 100.0%;">     <b>Locality:</b> Worli<br>     <b>Listings:</b> 188<br>     <b>Average Price:</b> ₹130,346,639<br>     <b>Median Price:</b> ₹82,082,430<br>     <b>Average Price/Sqft:</b> ₹51,566     </div>`)[0];
+                popup_0b076ce9fec65ed9f2745896978bdec5.setContent(html_217ada1bc4fb0446a37cf3182f2502b4);
+            
+        
+
+        circle_marker_44f4291d28ede3574d6d418d19a55f2a.bindPopup(popup_0b076ce9fec65ed9f2745896978bdec5)
+        ;
+
+        
+    
+    
+            tile_layer_b4c86cf4e7a48adbfb6d249c191d9824.addTo(map_d957255cb2e856596dda6796c43286e1);
+        
+</script>
+</html>

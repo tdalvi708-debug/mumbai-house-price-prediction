@@ -1,0 +1,3094 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Property Intelligence | Mumbai</title>
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        crossorigin=""
+    >
+
+    <style>
+
+        /* =========================================================
+           GLOBAL THEME
+        ========================================================= */
+
+        :root {
+            --bg: #07111f;
+            --bg-2: #0b1728;
+            --card: rgba(15, 29, 49, 0.78);
+            --card-2: rgba(19, 36, 60, 0.72);
+
+            --line: rgba(148, 163, 184, 0.16);
+            --line-bright: rgba(96, 165, 250, 0.30);
+
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --muted-2: #64748b;
+
+            --blue: #3b82f6;
+            --blue-light: #60a5fa;
+            --cyan: #22d3ee;
+            --purple: #8b5cf6;
+
+            --green: #22c55e;
+            --yellow: #f59e0b;
+            --red: #ef4444;
+
+            --shadow:
+                0 20px 55px rgba(0, 0, 0, 0.30);
+
+            --radius: 22px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            font-family:
+                Inter,
+                ui-sans-serif,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            color: var(--text);
+
+            background:
+                radial-gradient(
+                    circle at 10% 0%,
+                    rgba(37, 99, 235, 0.18),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 10%,
+                    rgba(139, 92, 246, 0.15),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 50% 100%,
+                    rgba(34, 211, 238, 0.08),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    145deg,
+                    var(--bg),
+                    var(--bg-2)
+                );
+
+            background-attachment: fixed;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .page-shell {
+            width: min(1420px, calc(100% - 36px));
+            margin: 0 auto;
+            padding-bottom: 50px;
+        }
+
+
+        /* =========================================================
+           NAVBAR
+        ========================================================= */
+
+        .navbar {
+            position: sticky;
+            top: 16px;
+            z-index: 1000;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+
+            margin: 18px 0 30px;
+            padding: 14px 18px;
+
+            background: rgba(7, 17, 31, 0.78);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            border: 1px solid var(--line);
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 15px 45px rgba(0, 0, 0, 0.24);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(59, 130, 246, 0.24),
+                    rgba(34, 211, 238, 0.16)
+                );
+
+            border: 1px solid rgba(96, 165, 250, 0.22);
+
+            font-size: 20px;
+        }
+
+        .brand strong {
+            display: block;
+
+            font-size: 14px;
+            font-weight: 800;
+
+            letter-spacing: -0.01em;
+        }
+
+        .brand small {
+            display: block;
+
+            margin-top: 2px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+        .nav-button {
+            padding: 10px 15px;
+
+            border: 1px solid var(--line);
+
+            border-radius: 12px;
+
+            background: rgba(255, 255, 255, 0.04);
+
+            color: #dbeafe;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            transition: 0.2s ease;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+
+            border-color: var(--line-bright);
+
+            background: rgba(59, 130, 246, 0.12);
+        }
+
+
+        /* =========================================================
+           SYSTEM BADGE
+        ========================================================= */
+
+        .system-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 7px 11px;
+
+            margin-bottom: 15px;
+
+            border-radius: 999px;
+
+            background: rgba(34, 197, 94, 0.08);
+
+            border: 1px solid rgba(34, 197, 94, 0.20);
+
+            color: #86efac;
+
+            font-size: 11px;
+            font-weight: 800;
+
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .pulse-dot {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: var(--green);
+
+            box-shadow:
+                0 0 0 5px rgba(34, 197, 94, 0.08),
+                0 0 14px rgba(34, 197, 94, 0.7);
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .result-hero {
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 30px;
+
+            padding: 45px;
+
+            margin-bottom: 28px;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(18, 39, 67, 0.90),
+                    rgba(10, 24, 43, 0.82)
+                );
+
+            border: 1px solid var(--line-bright);
+
+            border-radius: 28px;
+
+            box-shadow: var(--shadow);
+        }
+
+        .result-hero::before {
+            content: "";
+
+            position: absolute;
+
+            width: 420px;
+            height: 420px;
+
+            right: -160px;
+            top: -230px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(59, 130, 246, 0.28),
+                    transparent 68%
+                );
+
+            pointer-events: none;
+        }
+
+        .result-hero::after {
+            content: "";
+
+            position: absolute;
+
+            width: 300px;
+            height: 300px;
+
+            left: -180px;
+            bottom: -220px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(34, 211, 238, 0.12),
+                    transparent 68%
+                );
+
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .result-label {
+            color: #93c5fd;
+
+            font-size: 12px;
+            font-weight: 800;
+
+            letter-spacing: 0.16em;
+        }
+
+        .result-price {
+            margin-top: 8px;
+
+            font-size: clamp(42px, 6vw, 72px);
+
+            line-height: 1;
+
+            font-weight: 900;
+
+            letter-spacing: -0.05em;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffffff,
+                    #93c5fd,
+                    #67e8f9
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .result-ppsf {
+            margin-top: 14px;
+
+            color: var(--muted);
+
+            font-size: 15px;
+        }
+
+        .prediction-badge {
+            position: relative;
+            z-index: 2;
+
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 12px 16px;
+
+            border-radius: 14px;
+
+            color: #bbf7d0;
+
+            background: rgba(34, 197, 94, 0.08);
+
+            border: 1px solid rgba(34, 197, 94, 0.22);
+
+            font-size: 12px;
+            font-weight: 800;
+
+            white-space: nowrap;
+        }
+
+
+        /* =========================================================
+           SECTIONS
+        ========================================================= */
+
+        .content-section {
+            margin-bottom: 26px;
+
+            padding: 28px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(15, 29, 49, 0.82),
+                    rgba(9, 22, 38, 0.76)
+                );
+
+            border: 1px solid var(--line);
+
+            border-radius: var(--radius);
+
+            box-shadow:
+                0 14px 40px rgba(0, 0, 0, 0.18);
+
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+
+            transition:
+                border-color 0.25s ease,
+                transform 0.25s ease;
+        }
+
+        .content-section:hover {
+            border-color: rgba(96, 165, 250, 0.22);
+        }
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+
+            gap: 20px;
+
+            margin-bottom: 22px;
+        }
+
+        .section-kicker {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #60a5fa;
+
+            font-size: 10px;
+            font-weight: 900;
+
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .section-title h2 {
+            margin: 0;
+
+            color: #f8fafc;
+
+            font-size: 22px;
+            font-weight: 850;
+
+            letter-spacing: -0.025em;
+        }
+
+        .section-title p {
+            max-width: 800px;
+
+            margin: 7px 0 0;
+
+            color: var(--muted);
+
+            font-size: 13px;
+
+            line-height: 1.65;
+        }
+
+
+        /* =========================================================
+           METRIC GRIDS
+        ========================================================= */
+
+        .metric-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(190px, 1fr));
+
+            gap: 14px;
+        }
+
+        .metric-card,
+        .intel-card {
+            padding: 19px;
+
+            min-height: 105px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.045),
+                    rgba(255,255,255,0.018)
+                );
+
+            border: 1px solid var(--line);
+
+            border-radius: 17px;
+
+            transition:
+                transform 0.2s ease,
+                border-color 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .metric-card:hover,
+        .intel-card:hover {
+            transform: translateY(-3px);
+
+            border-color: rgba(96, 165, 250, 0.25);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(59,130,246,0.08),
+                    rgba(255,255,255,0.025)
+                );
+        }
+
+        .metric-card > span,
+        .intel-card > span {
+            display: block;
+
+            color: var(--muted);
+
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .metric-card strong,
+        .intel-card strong {
+            display: inline-block;
+
+            margin-top: 9px;
+
+            color: #f8fafc;
+
+            font-size: 22px;
+            font-weight: 850;
+        }
+
+        .metric-card small,
+        .intel-card small {
+            margin-left: 4px;
+
+            color: var(--muted-2);
+
+            font-size: 11px;
+        }
+
+        .text-value {
+            font-size: 17px !important;
+
+            word-break: break-word;
+        }
+
+
+        /* =========================================================
+           INTELLIGENCE GRID
+        ========================================================= */
+
+        .intelligence-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(200px, 1fr));
+
+            gap: 14px;
+        }
+
+
+        /* =========================================================
+           COMPARISON
+        ========================================================= */
+
+        .comparison-card {
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1fr)
+                auto
+                minmax(0, 1fr)
+                minmax(180px, 1fr);
+
+            gap: 20px;
+
+            align-items: center;
+
+            padding: 24px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(59,130,246,0.07),
+                    rgba(255,255,255,0.025)
+                );
+
+            border: 1px solid var(--line);
+
+            border-radius: 19px;
+        }
+
+        .comparison-item span,
+        .comparison-result span {
+            display: block;
+
+            color: var(--muted);
+
+            font-size: 11px;
+            font-weight: 800;
+
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+        }
+
+        .comparison-item strong {
+            display: block;
+
+            margin-top: 7px;
+
+            color: #f8fafc;
+
+            font-size: 24px;
+            font-weight: 850;
+        }
+
+        .comparison-divider {
+            display: grid;
+            place-items: center;
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            color: #93c5fd;
+
+            background: rgba(59,130,246,0.10);
+
+            border: 1px solid rgba(59,130,246,0.20);
+
+            font-size: 10px;
+            font-weight: 900;
+        }
+
+        .comparison-result {
+            padding-left: 20px;
+
+            border-left: 1px solid var(--line);
+        }
+
+        .comparison-result strong {
+            display: block;
+
+            margin-top: 7px;
+
+            color: #67e8f9;
+
+            font-size: 20px;
+            font-weight: 850;
+        }
+
+        .comparison-result small {
+            display: block;
+
+            margin-top: 6px;
+
+            color: var(--muted);
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================================================
+           TABLES
+        ========================================================= */
+
+        .table-card {
+            overflow: hidden;
+
+            border: 1px solid var(--line);
+
+            border-radius: 18px;
+
+            background:
+                rgba(255,255,255,0.025);
+        }
+
+        .table-scroll {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .professional-table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 720px;
+        }
+
+        .professional-table th {
+            padding: 14px 17px;
+
+            background:
+                rgba(59,130,246,0.06);
+
+            border-bottom: 1px solid var(--line);
+
+            color: #93c5fd;
+
+            text-align: left;
+
+            font-size: 10px;
+            font-weight: 900;
+
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .professional-table td {
+            padding: 15px 17px;
+
+            border-bottom: 1px solid rgba(148,163,184,0.09);
+
+            color: #cbd5e1;
+
+            font-size: 13px;
+        }
+
+        .professional-table tbody tr {
+            transition: background 0.18s ease;
+        }
+
+        .professional-table tbody tr:hover {
+            background: rgba(59,130,246,0.055);
+        }
+
+        .professional-table tbody tr:last-child td {
+            border-bottom: 0;
+        }
+
+        .price-cell {
+            color: #67e8f9 !important;
+
+            font-weight: 800;
+        }
+
+
+        /* =========================================================
+           EMPTY STATES
+        ========================================================= */
+
+        .empty-card {
+            padding: 35px 25px;
+
+            text-align: center;
+
+            border: 1px dashed rgba(148,163,184,0.20);
+
+            border-radius: 18px;
+
+            background:
+                rgba(255,255,255,0.018);
+        }
+
+        .empty-card > div:first-child,
+        .empty-icon {
+            font-size: 30px;
+
+            margin-bottom: 10px;
+        }
+
+        .empty-card h3 {
+            margin: 0 0 7px;
+
+            color: #e2e8f0;
+
+            font-size: 16px;
+        }
+
+        .empty-card p {
+            max-width: 650px;
+
+            margin: 0 auto;
+
+            color: var(--muted);
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================================================
+           ANOMALY
+        ========================================================= */
+
+        .anomaly-card {
+            display: grid;
+
+            grid-template-columns:
+                auto
+                1fr
+                auto;
+
+            gap: 18px;
+
+            align-items: center;
+
+            padding: 20px;
+
+            border-radius: 18px;
+
+            border: 1px solid var(--line);
+        }
+
+        .anomaly-normal {
+            background:
+                rgba(34,197,94,0.055);
+
+            border-color:
+                rgba(34,197,94,0.18);
+        }
+
+        .anomaly-warning {
+            background:
+                rgba(245,158,11,0.06);
+
+            border-color:
+                rgba(245,158,11,0.22);
+        }
+
+        .anomaly-icon {
+            width: 46px;
+            height: 46px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 14px;
+
+            background:
+                rgba(255,255,255,0.05);
+
+            font-size: 20px;
+        }
+
+        .anomaly-label {
+            display: block;
+
+            margin-bottom: 5px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+            font-weight: 800;
+
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .anomaly-card strong {
+            color: #f8fafc;
+
+            font-size: 16px;
+        }
+
+        .anomaly-score {
+            text-align: right;
+        }
+
+        .anomaly-score span {
+            display: block;
+
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+        .anomaly-score strong {
+            display: block;
+
+            margin-top: 4px;
+
+            color: #93c5fd;
+        }
+
+
+        /* =========================================================
+           MAP
+        ========================================================= */
+
+        .map-card {
+            overflow: hidden;
+
+            border: 1px solid var(--line);
+
+            border-radius: 18px;
+
+            background: #0b1728;
+        }
+
+        #propertyMap {
+            width: 100%;
+            height: 520px;
+            min-height: 420px;
+
+            z-index: 1;
+        }
+
+        .map-legend {
+            display: flex;
+
+            gap: 20px;
+
+            flex-wrap: wrap;
+            align-items: center;
+
+            margin-top: 14px;
+            padding: 14px 18px;
+
+            background:
+                rgba(255,255,255,0.025);
+
+            border: 1px solid var(--line);
+
+            border-radius: 14px;
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            color: #cbd5e1;
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+
+            border-radius: 50%;
+        }
+
+        .legend-red {
+            background: #ef4444;
+
+            box-shadow: 0 0 12px rgba(239,68,68,0.45);
+        }
+
+        .legend-blue {
+            background: #3b82f6;
+
+            box-shadow: 0 0 12px rgba(59,130,246,0.45);
+        }
+
+        .leaflet-container {
+            background: #0b1728;
+        }
+
+        .leaflet-popup-content-wrapper,
+        .leaflet-popup-tip {
+            background: #101d31;
+
+            color: #e2e8f0;
+        }
+
+        .leaflet-popup-content {
+            line-height: 1.55;
+
+            min-width: 210px;
+        }
+
+        .map-popup-title {
+            margin-bottom: 8px;
+
+            color: #93c5fd;
+
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .map-popup-row {
+            margin: 4px 0;
+
+            color: #cbd5e1;
+
+            font-size: 12px;
+        }
+
+        .map-popup-label {
+            color: #94a3b8;
+
+            font-weight: 700;
+        }
+
+
+        /* =========================================================
+           INTELLIGENCE SCORE
+        ========================================================= */
+
+        .score-main {
+            padding: 28px;
+
+            margin-bottom: 20px;
+
+            text-align: center;
+
+            border-radius: 20px;
+
+            background:
+                radial-gradient(
+                    circle at 50% 0%,
+                    rgba(59,130,246,0.16),
+                    transparent 60%
+                ),
+                rgba(255,255,255,0.025);
+
+            border: 1px solid var(--line);
+        }
+
+        .score-label {
+            color: #60a5fa;
+
+            font-size: 10px;
+            font-weight: 900;
+
+            letter-spacing: 0.16em;
+        }
+
+        .score-number {
+            margin-top: 8px;
+
+            font-size: 62px;
+            line-height: 1;
+
+            font-weight: 900;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffffff,
+                    #60a5fa,
+                    #22d3ee
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .score-number span {
+            color: var(--muted);
+
+            font-size: 20px;
+        }
+
+        .score-status {
+            margin-top: 8px;
+
+            color: #cbd5e1;
+
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .score-disclaimer {
+            max-width: 760px;
+
+            margin: 10px auto 0;
+
+            color: var(--muted);
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+        .score-description {
+            margin-top: 11px !important;
+            padding-top: 11px;
+
+            border-top: 1px solid rgba(148,163,184,0.08);
+        }
+
+
+        /* =========================================================
+           REPORT BUTTONS
+        ========================================================= */
+
+        .result-actions {
+            display: flex;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+
+            justify-content: center;
+
+            margin: 30px 0;
+        }
+
+        .primary-button,
+        .secondary-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-height: 46px;
+
+            padding: 12px 18px;
+
+            border-radius: 13px;
+
+            font-size: 13px;
+            font-weight: 800;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .primary-button {
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #0891b2
+                );
+
+            border: 1px solid rgba(96,165,250,0.35);
+
+            box-shadow:
+                0 10px 25px rgba(37,99,235,0.22);
+        }
+
+        .secondary-button {
+            color: #dbeafe;
+
+            background:
+                rgba(255,255,255,0.045);
+
+            border: 1px solid var(--line);
+        }
+
+        .primary-button:hover,
+        .secondary-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .primary-button:hover {
+            box-shadow:
+                0 15px 30px rgba(37,99,235,0.32);
+        }
+
+        .secondary-button:hover {
+            border-color: var(--line-bright);
+
+            background:
+                rgba(59,130,246,0.08);
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        .footer {
+            padding: 22px 10px;
+
+            color: var(--muted-2);
+
+            text-align: center;
+
+            font-size: 11px;
+
+            border-top: 1px solid rgba(148,163,184,0.08);
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 1000px) {
+
+            .comparison-card {
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+            .comparison-divider {
+                display: none;
+            }
+
+            .comparison-result {
+                padding-left: 0;
+
+                border-left: 0;
+
+                border-top: 1px solid var(--line);
+
+                padding-top: 16px;
+            }
+
+        }
+
+
+        @media (max-width: 760px) {
+
+            .page-shell {
+                width: min(100% - 20px, 1420px);
+            }
+
+            .navbar {
+                position: relative;
+
+                top: 0;
+
+                flex-direction: column;
+
+                align-items: stretch;
+            }
+
+            .nav-button {
+                text-align: center;
+            }
+
+            .result-hero {
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                padding: 30px 24px;
+            }
+
+            .prediction-badge {
+                align-self: flex-start;
+            }
+
+            .content-section {
+                padding: 21px 17px;
+            }
+
+            .section-title h2 {
+                font-size: 19px;
+            }
+
+            .comparison-card {
+                grid-template-columns: 1fr;
+            }
+
+            .anomaly-card {
+                grid-template-columns: auto 1fr;
+            }
+
+            .anomaly-score {
+                grid-column: 1 / -1;
+
+                text-align: left;
+
+                padding-top: 12px;
+
+                border-top: 1px solid var(--line);
+            }
+
+            #propertyMap {
+                height: 420px;
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .result-price {
+                font-size: 43px;
+            }
+
+            .metric-grid,
+            .intelligence-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .result-actions {
+                flex-direction: column;
+            }
+
+            .primary-button,
+            .secondary-button {
+                width: 100%;
+            }
+
+            .score-number {
+                font-size: 50px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="page-shell">
+
+
+    <!-- =========================================================
+         NAVBAR
+    ========================================================= -->
+
+    <nav class="navbar">
+
+        <a href="{{ url_for('home') }}" class="brand">
+
+            <span class="brand-icon">🏠</span>
+
+            <div>
+                <strong>Mumbai Property Intelligence</strong>
+                <small>AI Valuation Result</small>
+            </div>
+
+        </a>
+
+        <a
+            href="{{ url_for('dashboard') }}"
+            class="nav-button"
+        >
+            📊 Market Dashboard
+        </a>
+
+    </nav>
+
+
+    <!-- =========================================================
+         HERO
+    ========================================================= -->
+
+    <section class="result-hero">
+
+        <div class="hero-content">
+
+            <div class="system-status">
+                <span class="pulse-dot"></span>
+                ML System Online
+            </div>
+
+            <div class="result-label">
+                ESTIMATED MARKET VALUE
+            </div>
+
+            <div class="result-price">
+                ₹{{ "{:,.0f}".format(predicted_price) }}
+            </div>
+
+            <div class="result-ppsf">
+                ₹{{ "{:,.0f}".format(predicted_price_per_sqft) }}
+                per sq.ft.
+            </div>
+
+        </div>
+
+        <div class="prediction-badge">
+            ✓ Prediction Generated
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         PROPERTY SUMMARY
+    ========================================================= -->
+
+    <section class="content-section">
+
+        <div class="section-title">
+
+            <div>
+
+                <span class="section-kicker">
+                    PROPERTY PROFILE
+                </span>
+
+                <h2>Property Summary</h2>
+
+                <p>
+                    Key characteristics used by the machine learning valuation engine.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="metric-grid">
+
+            <div class="metric-card">
+                <span>📐 Area</span>
+
+                <strong>
+                    {{ "{:,.0f}".format(area) }}
+                </strong>
+
+                <small>sq.ft.</small>
+            </div>
+
+
+            <div class="metric-card">
+                <span>📍 Locality</span>
+
+                <strong class="text-value">
+                    {{ locality }}
+                </strong>
+            </div>
+
+
+            <div class="metric-card">
+                <span>🛏 Bedrooms</span>
+
+                <strong>
+                    {{ bedroom_num }}
+                </strong>
+            </div>
+
+
+            <div class="metric-card">
+                <span>🚿 Bathrooms</span>
+
+                <strong>
+                    {{ bathroom_num }}
+                </strong>
+            </div>
+
+
+            <div class="metric-card">
+                <span>🌤 Balconies</span>
+
+                <strong>
+                    {{ balcony_num }}
+                </strong>
+            </div>
+
+
+            <div class="metric-card">
+                <span>🏢 Floors</span>
+
+                <strong>
+                    {{ total_floors }}
+                </strong>
+            </div>
+
+
+            <div class="metric-card">
+                <span>🕐 Property Age</span>
+
+                <strong>
+                    {{ age }}
+                </strong>
+
+                <small>years</small>
+            </div>
+
+
+            <div class="metric-card">
+                <span>🏠 Property Type</span>
+
+                <strong class="text-value">
+                    {{ property_type }}
+                </strong>
+            </div>
+
+
+            <div class="metric-card">
+                <span>🛋 Furnishing</span>
+
+                <strong class="text-value">
+                    {{ furnished }}
+                </strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         LOCALITY INTELLIGENCE
+    ========================================================= -->
+
+    <section class="content-section">
+
+        <div class="section-title">
+
+            <div>
+
+                <span class="section-kicker">
+                    MARKET INTELLIGENCE
+                </span>
+
+                <h2>Locality Intelligence</h2>
+
+                <p>
+                    Market statistics available for
+                    <strong>{{ locality }}</strong>.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        {% if locality_listing_count is not none
+           or locality_average_price is not none
+           or locality_median_price is not none
+           or locality_average_price_per_sqft is not none %}
+
+
+        <div class="intelligence-grid">
+
+
+            <div class="intel-card">
+
+                <span>Listings Analysed</span>
+
+                <strong>
+
+                    {% if locality_listing_count is not none %}
+                        {{ "{:,.0f}".format(locality_listing_count) }}
+                    {% else %}
+                        —
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+
+            <div class="intel-card">
+
+                <span>Average Price</span>
+
+                <strong>
+
+                    {% if locality_average_price is not none %}
+                        ₹{{ "{:,.0f}".format(locality_average_price) }}
+                    {% else %}
+                        —
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+
+            <div class="intel-card">
+
+                <span>Median Price</span>
+
+                <strong>
+
+                    {% if locality_median_price is not none %}
+                        ₹{{ "{:,.0f}".format(locality_median_price) }}
+                    {% else %}
+                        —
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+
+            <div class="intel-card">
+
+                <span>Average Price / Sq.ft</span>
+
+                <strong>
+
+                    {% if locality_average_price_per_sqft is not none %}
+                        ₹{{ "{:,.0f}".format(locality_average_price_per_sqft) }}
+                    {% else %}
+                        —
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        {% else %}
+
+
+        <div class="empty-card">
+
+            <div>📍</div>
+
+            <h3>Locality data unavailable</h3>
+
+            <p>
+                Detailed market statistics were not found for this locality.
+                Try a locality name matching the dataset.
+            </p>
+
+        </div>
+
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- =========================================================
+         PRICE COMPARISON
+    ========================================================= -->
+
+    <section class="content-section">
+
+        <div class="section-title">
+
+            <div>
+
+                <span class="section-kicker">
+                    MARKET COMPARISON
+                </span>
+
+                <h2>Model Value vs Locality Market</h2>
+
+                <p>
+                    Compare the predicted value against the locality benchmark.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        {% if locality_average_price is not none %}
+
+
+        <div class="comparison-card">
+
+            <div class="comparison-item">
+
+                <span>Your Estimated Price</span>
+
+                <strong>
+                    ₹{{ "{:,.0f}".format(predicted_price) }}
+                </strong>
+
+            </div>
+
+
+            <div class="comparison-divider">
+                VS
+            </div>
+
+
+            <div class="comparison-item">
+
+                <span>Locality Average</span>
+
+                <strong>
+                    ₹{{ "{:,.0f}".format(locality_average_price) }}
+                </strong>
+
+            </div>
+
+
+            <div class="comparison-result">
+
+                <span>Difference</span>
+
+                {% if price_difference is not none %}
+
+                <strong>
+                    ₹{{ "{:,.0f}".format(price_difference) }}
+                </strong>
+
+                {% else %}
+
+                <strong>—</strong>
+
+                {% endif %}
+
+
+                {% if price_difference_percent is not none %}
+
+                <small>
+                    {{ "{:.2f}".format(price_difference_percent) }}%
+                </small>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        {% else %}
+
+
+        <div class="empty-card">
+            Price comparison is unavailable.
+        </div>
+
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- =========================================================
+         PROPERTY INTELLIGENCE SCORE
+    ========================================================= -->
+
+    <section class="content-section">
+
+        <div class="section-title">
+
+            <div>
+
+                <span class="section-kicker">
+                    PROPERTY INTELLIGENCE
+                </span>
+
+                <h2>Property Intelligence Score</h2>
+
+                <p>
+                    A transparent 0–100 analytical score built from the supplied
+                    property details, locality market data, model confidence,
+                    comparable properties and anomaly checks.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        {% set intel = intelligence_score | default(intelligence | default({}, true), true) %}
+
+        {% set overall =
+            intel.score
+            | default(intel.percentage | default(0, true), true)
+            | float
+        %}
+
+        {% set explanations =
+            intel.explanations
+            | default({}, true)
+        %}
+
+
+        <div class="score-main">
+
+            <div class="score-label">
+                OVERALL INTELLIGENCE SCORE
+            </div>
+
+            <div class="score-number">
+
+                {{ "{:.0f}".format(overall) }}
+
+                <span>/ 100</span>
+
+            </div>
+
+            <div class="score-status">
+
+                {{ intel.label
+                   | default(
+                       intel.status
+                       | default('Property Intelligence')
+                   )
+                }}
+
+            </div>
+
+            <div class="score-disclaimer">
+
+                The score is an analytical summary, not a construction-quality
+                certificate or a guarantee of market price.
+
+            </div>
+
+        </div>
+
+
+        <div class="metric-grid">
+
+
+            <div class="metric-card">
+
+                <span>
+                    🏠 Property Quality
+                </span>
+
+                <strong>
+                    {{
+                        "{:.0f}".format(
+                            intel.property_quality
+                            | default(
+                                intel.property_quality_score
+                                | default(0, true),
+                                true
+                            )
+                            | float
+                        )
+                    }}
+                </strong>
+
+                <small>/ 100</small>
+
+                <p class="score-description">
+
+                    {{
+                        explanations.property_quality
+                        | default(
+                            intel.property_quality_explanation
+                            | default(
+                                'Based on area, rooms, balconies, age and floors.'
+                            )
+                        )
+                    }}
+
+                </p>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <span>
+                    💰 Price Efficiency
+                </span>
+
+                <strong>
+                    {{
+                        "{:.0f}".format(
+                            intel.price_efficiency
+                            | default(
+                                intel.price_efficiency_score
+                                | default(0, true),
+                                true
+                            )
+                            | float
+                        )
+                    }}
+                </strong>
+
+                <small>/ 100</small>
+
+                <p class="score-description">
+
+                    {{
+                        explanations.price_efficiency
+                        | default(
+                            intel.price_efficiency_explanation
+                            | default(
+                                'Compares predicted price with the locality benchmark.'
+                            )
+                        )
+                    }}
+
+                </p>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <span>
+                    📈 Market Activity
+                </span>
+
+                <strong>
+                    {{
+                        "{:.0f}".format(
+                            intel.market_activity
+                            | default(
+                                intel.market_activity_score
+                                | default(0, true),
+                                true
+                            )
+                            | float
+                        )
+                    }}
+                </strong>
+
+                <small>/ 100</small>
+
+                <p class="score-description">
+
+                    {{
+                        explanations.market_activity
+                        | default(
+                            intel.market_activity_explanation
+                            | default(
+                                'Based on the number of analysed listings in the locality.'
+                            )
+                        )
+                    }}
+
+                </p>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <span>
+                    📊 Market Position
+                </span>
+
+                <strong>
+                    {{
+                        "{:.0f}".format(
+                            intel.market_position
+                            | default(
+                                intel.market_position_score
+                                | default(0, true),
+                                true
+                            )
+                            | float
+                        )
+                    }}
+                </strong>
+
+                <small>/ 100</small>
+
+                <p class="score-description">
+
+                    {{
+                        explanations.market_position
+                        | default(
+                            intel.market_position_explanation
+                            | default(
+                                'Shows how close the model value is to the locality average.'
+                            )
+                        )
+                    }}
+
+                </p>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <span>
+                    ⚠️ Risk Indicator
+                </span>
+
+                <strong>
+                    {{
+                        "{:.0f}".format(
+                            intel.risk_indicator
+                            | default(
+                                intel.risk_score
+                                | default(0, true),
+                                true
+                            )
+                            | float
+                        )
+                    }}
+                </strong>
+
+                <small>/ 100</small>
+
+                <p class="score-description">
+
+                    {{
+                        explanations.risk_indicator
+                        | default(
+                            intel.risk_indicator_explanation
+                            | default(
+                                'Higher means lower observed risk from available model evidence.'
+                            )
+                        )
+                    }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         PREDICTION CONFIDENCE
+    ========================================================= -->
+
+    <section class="content-section">
+
+        <div class="section-title">
+
+            <div>
+
+                <span class="section-kicker">
+                    MODEL CONFIDENCE
+                </span>
+
+                <h2>Prediction Confidence</h2>
+
+                <p>
+                    Estimated range produced from the model's prediction behaviour.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        {% set conf = confidence | default({}, true) %}
+
+
+        <div class="intelligence-grid">
+
+
+            <div class="intel-card">
+
+                <span>
+                    Estimated Lower Range
+                </span>
+
+                <strong>
+                    ₹{{
+                        "{:,.0f}".format(
+                            conf.lower
+                            | default(predicted_price, true)
+                            | float
+                        )
+                    }}
+                </strong>
+
+            </div>
+
+
+            <div class="intel-card">
+
+                <span>
+                    Predicted Value
+                </span>
+
+                <strong>
+                    ₹{{ "{:,.0f}".format(predicted_price | float) }}
+                </strong>
+
+            </div>
+
+
+            <div class="intel-card">
+
+                <span>
+                    Estimated Upper Range
+                </span>
+
+                <strong>
+                    ₹{{
+                        "{:,.0f}".format(
+                            conf.upper
+                            | default(predicted_price, true)
+                            | float
+                        )
+                    }}
+                </strong>
+
+            </div>
+
+
+            <div class="intel-card">
+
+                <span>
+                    Confidence
+                </span>
+
+                <strong>
+                    {{
+                        conf.confidence_percent
+                        | default(
+                            conf.percentage
+                            | default(0, true),
+                            true
+                        )
+                    }}%
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         DEAL ANALYSIS
+    ========================================================= -->
+
+    <section class="content-section">
+
+        <div class="section-title">
+
+            <div>
+
+                <span class="section-kicker">
+                    DEAL ANALYSIS
+                </span>
+
+                <h2>Listed Price vs Model Value</h2>
+
+                <p>
+                    Compare the property's current asking price with the
+                    machine learning estimate.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        {% set deal = deal_analysis | default({}, true) %}
+
+        {% set has_listing_price =
+            listed_price is not none
+            and (listed_price | float) > 0
+        %}
+
+
+        <div class="comparison-card">
+
+
+            <div class="comparison-item">
+
+                <span>
+                    Listed / Asking Price
+                </span>
+
+                <strong>
+
+                    {% if has_listing_price %}
+
+                        ₹{{ "{:,.0f}".format(listed_price | float) }}
+
+                    {% else %}
+
+                        Not supplied
+
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+
+            <div class="comparison-divider">
+                VS
+            </div>
+
+
+            <div class="comparison-item">
+
+                <span>
+                    Model Estimate
+                </span>
+
+                <strong>
+                    ₹{{ "{:,.0f}".format(predicted_price | float) }}
+                </strong>
+
+            </div>
+
+
+            <div class="comparison-result">
+
+                <span>
+                    Status
+                </span>
+
+
+                {% if has_listing_price %}
+
+                    <strong>
+                        {{ deal.status | default('Comparison available') }}
+                    </strong>
+
+                    <small>
+
+                        {{
+                            deal.message
+                            | default(
+                                'The listed price has been compared with the model estimate.'
+                            )
+                        }}
+
+                        {% if deal.difference_percent is not none %}
+
+                            Difference:
+                            {{ "{:+.1f}".format(
+                                deal.difference_percent | float
+                            ) }}%
+
+                        {% endif %}
+
+                    </small>
+
+                {% else %}
+
+                    <strong>
+                        Listing price required
+                    </strong>
+
+                    <small>
+                        No asking price was entered for this prediction.
+                        Add the current asking price on the prediction page
+                        to enable deal comparison.
+                    </small>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         SIMILAR PROPERTIES
+    ========================================================= -->
+
+    <section class="content-section">
+
+        <div class="section-title">
+
+            <div>
+
+                <span class="section-kicker">
+                    PROPERTY DISCOVERY
+                </span>
+
+                <h2>Similar Properties</h2>
+
+                <p>
+                    Properties with similar structural characteristics
+                    identified by the property intelligence system.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        {% if similar_properties %}
+
+
+        <div class="table-card">
+
+            <div class="table-scroll">
+
+                <table class="professional-table">
+
+                    <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Locality</th>
+                        <th>Price</th>
+                        <th>Area</th>
+                        <th>Bedrooms</th>
+                        <th>Bathrooms</th>
+                        <th>Property Type</th>
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    {% for property in similar_properties %}
+
+                    <tr>
+
+                        <td>
+                            {{ loop.index }}
+                        </td>
+
+                        <td>
+                            {{ property.locality }}
+                        </td>
+
+                        <td class="price-cell">
+
+                            {% if property.price is not none %}
+
+                                ₹{{ "{:,.0f}".format(property.price) }}
+
+                            {% else %}
+
+                                —
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            {% if property.area is not none %}
+
+                                {{ "{:,.0f}".format(property.area) }}
+
+                            {% else %}
+
+                                —
+
+                            {% endif %}
+
+                            sqft
+
+                        </td>
+
+                        <td>
+                            {{ property.bedroom_num }}
+                        </td>
+
+                        <td>
+                            {{ property.bathroom_num }}
+                        </td>
+
+                        <td>
+                            {{ property.property_type }}
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        {% else %}
+
+
+        <div class="empty-card">
+            Similar properties are currently unavailable.
+        </div>
+
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- =========================================================
+         EXPLAINABLE AI
+    ========================================================= -->
+
+    <section class="content-section">
+
+        <div class="section-title">
+
+            <div>
+
+                <span class="section-kicker">
+                    EXPLAINABLE AI
+                </span>
+
+                <h2>Why did the model predict this?</h2>
+
+                <p>
+                    SHAP identifies features that influence the machine
+                    learning prediction.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        {% if shap_top_features %}
+
+
+        <div class="table-card">
+
+            <div class="table-scroll">
+
+                <table class="professional-table">
+
+                    <thead>
+
+                    <tr>
+                        <th>Feature</th>
+                        <th>Contribution</th>
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    {% for feature in shap_top_features %}
+
+                    <tr>
+
+                        <td>
+                            {{ feature.feature }}
+                        </td>
+
+                        <td class="price-cell">
+
+                            {% if feature.shap_value is not none %}
+
+                                {{ "{:,.2f}".format(feature.shap_value) }}
+
+                            {% else %}
+
+                                —
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        {% else %}
+
+
+        <div class="empty-card">
+
+            <div class="empty-icon">
+                🧠
+            </div>
+
+            <h3>
+                SHAP explanation unavailable
+            </h3>
+
+            <p>
+                The prediction was generated successfully,
+                but the explanation could not be displayed.
+            </p>
+
+        </div>
+
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- =========================================================
+         ANOMALY DETECTION
+    ========================================================= -->
+
+    <section class="content-section">
+
+        <div class="section-title">
+
+            <div>
+
+                <span class="section-kicker">
+                    DATA QUALITY
+                </span>
+
+                <h2>Property Anomaly Detection</h2>
+
+                <p>
+                    Checks whether the property appears unusual compared
+                    with the learned property patterns.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="anomaly-card
+            {% if is_anomaly %}
+                anomaly-warning
+            {% else %}
+                anomaly-normal
+            {% endif %}
+        ">
+
+
+            <div class="anomaly-icon">
+
+                {% if is_anomaly %}
+                    ⚠️
+                {% else %}
+                    ✓
+                {% endif %}
+
+            </div>
+
+
+            <div>
+
+                <span class="anomaly-label">
+                    Status
+                </span>
+
+                <strong>
+                    {{ anomaly_status }}
+                </strong>
+
+            </div>
+
+
+            <div class="anomaly-score">
+
+                <span>
+                    Anomaly Score
+                </span>
+
+                <strong>
+
+                    {% if anomaly_score is not none %}
+
+                        {{ "{:.4f}".format(anomaly_score) }}
+
+                    {% else %}
+
+                        —
+
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         LOCATION + MAP
+    ========================================================= -->
+
+    <section class="content-section">
+
+        <div class="section-title">
+
+            <div>
+
+                <span class="section-kicker">
+                    LOCATION INTELLIGENCE
+                </span>
+
+                <h2>{{ locality }}</h2>
+
+                <p>
+                    Predicted property and comparable properties
+                    are visualised using locality coordinates.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        {% if latitude is not none and longitude is not none %}
+
+
+        <div class="map-card">
+
+            <div id="propertyMap"></div>
+
+        </div>
+
+
+        <div class="map-legend">
+
+            <span class="legend-item">
+
+                <span class="legend-dot legend-red"></span>
+
+                Predicted Property
+
+            </span>
+
+
+            <span class="legend-item">
+
+                <span class="legend-dot legend-blue"></span>
+
+                Similar Properties
+
+            </span>
+
+
+            <span>
+                📍 Location is estimated from the selected locality.
+            </span>
+
+        </div>
+
+
+        {% else %}
+
+
+        <div class="empty-card">
+
+            <div>
+                📍
+            </div>
+
+            <h3>
+                Map location unavailable
+            </h3>
+
+            <p>
+                Coordinates were not available for this locality.
+            </p>
+
+        </div>
+
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- =========================================================
+         WHAT IF ANALYSIS
+    ========================================================= -->
+
+    <section class="content-section">
+
+        <div class="section-title">
+
+            <div>
+
+                <span class="section-kicker">
+                    SCENARIO ANALYSIS
+                </span>
+
+                <h2>What-If Area Analysis</h2>
+
+                <p>
+                    See how changing the property area affects the
+                    predicted market value.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        {% set scenarios =
+            what_if
+            | default(
+                what_if_analysis
+                | default(
+                    what_if_data
+                    | default([], true),
+                    true
+                ),
+                true
+            )
+        %}
+
+
+        {% if scenarios %}
+
+
+        <div class="table-card">
+
+            <div class="table-scroll">
+
+                <table class="professional-table">
+
+                    <thead>
+
+                    <tr>
+                        <th>Area</th>
+                        <th>Predicted Price</th>
+                        <th>Price / Sq.ft</th>
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    {% for item in scenarios %}
+
+                    <tr>
+
+                        <td>
+                            {{ "{:,.0f}".format(item.area | float) }}
+                            sq.ft
+                        </td>
+
+                        <td class="price-cell">
+                            ₹{{ "{:,.0f}".format(
+                                item.predicted_price | float
+                            ) }}
+                        </td>
+
+                        <td>
+                            ₹{{ "{:,.0f}".format(
+                                item.price_per_sqft | float
+                            ) }}
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        {% else %}
+
+
+        <div class="empty-card">
+            What-if scenarios are currently unavailable.
+        </div>
+
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- =========================================================
+         PDF REPORT
+    ========================================================= -->
+
+    <section class="content-section">
+
+        <div class="section-title">
+
+            <div>
+
+                <span class="section-kicker">
+                    REPORT CENTER
+                </span>
+
+                <h2>Property Valuation Report</h2>
+
+                <p>
+                    Download the complete valuation report containing
+                    prediction, market analysis, intelligence score,
+                    anomaly detection, SHAP explanation, comparable
+                    properties and scenario analysis.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="result-actions"
+             style="justify-content:flex-start; margin:0;">
+
+            <a
+                href="{{ url_for('download_report') }}"
+                class="primary-button"
+            >
+                📄 Download PDF Report
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         FINAL ACTIONS
+    ========================================================= -->
+
+    <div class="result-actions">
+
+        <a
+            href="{{ url_for('home') }}"
+            class="primary-button"
+        >
+            ← New Prediction
+        </a>
+
+
+        <a
+            href="{{ url_for('dashboard') }}"
+            class="secondary-button"
+        >
+            📊 Market Dashboard
+        </a>
+
+    </div>
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================= -->
+
+    <footer class="footer">
+
+        Mumbai House Price Prediction
+        ·
+        Property Intelligence System
+
+    </footer>
+
+
+</div>
+
+
+<!-- =============================================================
+     LEAFLET
+============================================================= -->
+
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    crossorigin=""
+></script>
+
+
+<script>
+
+    const mapProperties =
+        {{ map_properties | default([]) | tojson }};
+
+    const mapElement =
+        document.getElementById("propertyMap");
+
+
+    if (mapElement && typeof L !== "undefined") {
+
+
+        const defaultCenter =
+            [19.0760, 72.8777];
+
+
+        const validProperties =
+            mapProperties.filter(
+                property =>
+                    property.latitude !== null &&
+                    property.longitude !== null &&
+                    !isNaN(Number(property.latitude)) &&
+                    !isNaN(Number(property.longitude))
+            );
+
+
+        const firstProperty =
+            validProperties.length > 0
+                ? validProperties[0]
+                : null;
+
+
+        const initialCenter =
+            firstProperty
+                ? [
+                    Number(firstProperty.latitude),
+                    Number(firstProperty.longitude)
+                  ]
+                : defaultCenter;
+
+
+        const map =
+            L.map("propertyMap")
+                .setView(
+                    initialCenter,
+                    firstProperty ? 13 : 11
+                );
+
+
+        L.tileLayer(
+            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            {
+                maxZoom: 19,
+
+                attribution:
+                    "&copy; OpenStreetMap contributors"
+            }
+        ).addTo(map);
+
+
+        const bounds = [];
+
+
+        validProperties.forEach((property) => {
+
+
+            const lat =
+                Number(property.latitude);
+
+            const lon =
+                Number(property.longitude);
+
+
+            const isPredicted =
+                property.type === "predicted";
+
+
+            const markerColor =
+                isPredicted
+                    ? "#ef4444"
+                    : "#3b82f6";
+
+
+            const radius =
+                isPredicted
+                    ? 11
+                    : 8;
+
+
+            const marker =
+                L.circleMarker(
+                    [lat, lon],
+                    {
+                        radius: radius,
+
+                        color: markerColor,
+
+                        fillColor: markerColor,
+
+                        fillOpacity: 0.85,
+
+                        weight: 2
+                    }
+                ).addTo(map);
+
+
+            const priceText =
+                property.price !== null &&
+                property.price !== undefined &&
+                !isNaN(Number(property.price))
+
+                    ? "₹" +
+                      Number(property.price)
+                        .toLocaleString("en-IN")
+
+                    : "Not available";
+
+
+            const areaText =
+                property.area !== null &&
+                property.area !== undefined &&
+                !isNaN(Number(property.area))
+
+                    ? Number(property.area)
+                        .toLocaleString("en-IN") +
+                      " sq.ft."
+
+                    : "Not available";
+
+
+            const title =
+                isPredicted
+                    ? "🔴 Predicted Property"
+                    : "🔵 Similar Property";
+
+
+            marker.bindPopup(`
+
+                <div class="map-popup-title">
+                    ${title}
+                </div>
+
+                <div class="map-popup-row">
+                    <span class="map-popup-label">
+                        Locality:
+                    </span>
+                    ${property.locality || "Unknown"}
+                </div>
+
+                <div class="map-popup-row">
+                    <span class="map-popup-label">
+                        Price:
+                    </span>
+                    ${priceText}
+                </div>
+
+                <div class="map-popup-row">
+                    <span class="map-popup-label">
+                        Area:
+                    </span>
+                    ${areaText}
+                </div>
+
+                <div class="map-popup-row">
+                    <span class="map-popup-label">
+                        Bedrooms:
+                    </span>
+                    ${property.bedrooms ?? "—"}
+                </div>
+
+                <div class="map-popup-row">
+                    <span class="map-popup-label">
+                        Bathrooms:
+                    </span>
+                    ${property.bathrooms ?? "—"}
+                </div>
+
+                <div class="map-popup-row">
+                    <span class="map-popup-label">
+                        Type:
+                    </span>
+                    ${property.property_type || "Unknown"}
+                </div>
+
+            `);
+
+
+            bounds.push(
+                [lat, lon]
+            );
+
+        });
+
+
+        if (bounds.length > 1) {
+
+            map.fitBounds(
+                bounds,
+                {
+                    padding: [40, 40],
+                    maxZoom: 14
+                }
+            );
+
+        }
+
+
+        setTimeout(
+            () => {
+                map.invalidateSize();
+            },
+            300
+        );
+
+    }
+
+</script>
+
+
+</body>
+</html>

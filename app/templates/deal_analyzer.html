@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Deal Analyzer - Mumbai Property Intelligence</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            margin: 0;
+
+            background: #f4f7fb;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            color: #10233f;
+        }
+
+
+        .page {
+
+            max-width: 1150px;
+
+            margin: auto;
+
+            padding:
+                35px 20px 60px;
+        }
+
+
+        .card {
+
+            background: white;
+
+            border-radius: 24px;
+
+            padding: 35px;
+
+            box-shadow:
+                0 10px 35px
+                rgba(0, 0, 0, 0.06);
+
+            margin-bottom: 24px;
+        }
+
+
+        .header {
+
+            margin-bottom: 25px;
+        }
+
+
+        .header h1 {
+
+            margin: 0 0 10px;
+
+            font-size: 34px;
+        }
+
+
+        .header p {
+
+            margin: 0;
+
+            color: #64748b;
+
+            font-size: 17px;
+        }
+
+
+        .status {
+
+            padding: 18px;
+
+            border-radius: 16px;
+
+            background: #f8fafc;
+
+            border: 1px solid #e2e8f0;
+
+            margin-bottom: 25px;
+        }
+
+
+        .status h2 {
+
+            margin:
+                0 0 8px;
+
+            font-size: 22px;
+        }
+
+
+        .status p {
+
+            margin: 0;
+
+            color: #64748b;
+
+            line-height: 1.6;
+        }
+
+
+        .grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+        }
+
+
+        .metric {
+
+            background: #f8fafc;
+
+            border: 1px solid #e2e8f0;
+
+            border-radius: 18px;
+
+            padding: 22px;
+        }
+
+
+        .metric-label {
+
+            color: #64748b;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.5px;
+
+            margin-bottom: 9px;
+        }
+
+
+        .metric-value {
+
+            font-size: 25px;
+
+            font-weight: 800;
+
+            color: #10233f;
+
+            word-break: break-word;
+        }
+
+
+        .verdict {
+
+            margin-top: 25px;
+
+            padding: 24px;
+
+            border-radius: 18px;
+
+            border: 1px solid #e2e8f0;
+
+            background: #f8fafc;
+        }
+
+
+        .verdict-title {
+
+            color: #64748b;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            margin-bottom: 8px;
+        }
+
+
+        .verdict-text {
+
+            font-size: 26px;
+
+            font-weight: 800;
+        }
+
+
+        .good {
+
+            color: #15803d;
+        }
+
+
+        .warning {
+
+            color: #b45309;
+        }
+
+
+        .bad {
+
+            color: #dc2626;
+        }
+
+
+        .neutral {
+
+            color: #475569;
+        }
+
+
+        .comparison {
+
+            margin-top: 25px;
+
+            padding: 22px;
+
+            background: white;
+
+            border-radius: 18px;
+
+            border:
+                1px solid #e2e8f0;
+        }
+
+
+        .comparison h2 {
+
+            margin-top: 0;
+
+            font-size: 21px;
+        }
+
+
+        .row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 14px 0;
+
+            border-bottom:
+                1px solid #e2e8f0;
+        }
+
+
+        .row:last-child {
+
+            border-bottom: none;
+        }
+
+
+        .row-label {
+
+            color: #64748b;
+        }
+
+
+        .row-value {
+
+            font-weight: 800;
+
+            text-align: right;
+        }
+
+
+        .actions {
+
+            display: flex;
+
+            gap: 14px;
+
+            flex-wrap: wrap;
+
+            margin-top: 25px;
+        }
+
+
+        .button {
+
+            display: inline-block;
+
+            padding:
+                13px 20px;
+
+            border-radius: 12px;
+
+            text-decoration: none;
+
+            font-weight: 800;
+
+            background: #4f46e5;
+
+            color: white;
+        }
+
+
+        .button.secondary {
+
+            background: #e2e8f0;
+
+            color: #10233f;
+        }
+
+
+        .note {
+
+            margin-top: 22px;
+
+            color: #64748b;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+
+        @media (max-width: 850px) {
+
+            .grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .page {
+
+                padding:
+                    20px 12px 40px;
+            }
+
+
+            .card {
+
+                padding: 24px;
+            }
+
+
+            .grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .header h1 {
+
+                font-size: 28px;
+            }
+
+
+            .verdict-text {
+
+                font-size: 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="page">
+
+
+    <div class="card">
+
+        <div class="header">
+
+            <h1>
+                🏷️ Deal Analyzer
+            </h1>
+
+            <p>
+                Compare the seller's asking price with
+                the ML-estimated market value and
+                locality market data.
+            </p>
+
+        </div>
+
+
+        {% if deal_analysis and deal_analysis.available %}
+
+
+            <div class="status">
+
+                <h2>
+                    Deal analysis generated
+                </h2>
+
+                <p>
+
+                    The asking price has been compared
+                    with the machine-learning estimated
+                    property value.
+
+                </p>
+
+            </div>
+
+
+            <div class="grid">
+
+
+                <!-- LISTED PRICE -->
+
+                <div class="metric">
+
+                    <div class="metric-label">
+                        Seller Asking Price
+                    </div>
+
+                    <div class="metric-value">
+
+                        ₹{{ "{:,.0f}".format(
+                            deal_analysis.listed_price
+                            | default(0, true)
+                        ) }}
+
+                    </div>
+
+                </div>
+
+
+                <!-- ML PRICE -->
+
+                <div class="metric">
+
+                    <div class="metric-label">
+                        ML Estimated Value
+                    </div>
+
+                    <div class="metric-value">
+
+                        ₹{{ "{:,.0f}".format(
+                            deal_analysis.predicted_price
+                            | default(0, true)
+                        ) }}
+
+                    </div>
+
+                </div>
+
+
+                <!-- DIFFERENCE -->
+
+                <div class="metric">
+
+                    <div class="metric-label">
+                        Estimated Difference
+                    </div>
+
+                    <div class="metric-value">
+
+                        ₹{{ "{:,.0f}".format(
+                            deal_analysis.difference
+                            | default(0, true)
+                        ) }}
+
+                    </div>
+
+                </div>
+
+
+                <!-- DIFFERENCE % -->
+
+                <div class="metric">
+
+                    <div class="metric-label">
+                        Difference %
+                    </div>
+
+                    <div class="metric-value">
+
+                        {{ "{:.2f}".format(
+                            deal_analysis.difference_percent
+                            | default(0, true)
+                        ) }}%
+
+                    </div>
+
+                </div>
+
+
+                <!-- ASKING PRICE / SQFT -->
+
+                <div class="metric">
+
+                    <div class="metric-label">
+                        Asking Price / Sq.Ft
+                    </div>
+
+                    <div class="metric-value">
+
+                        {% if deal_analysis.price_per_sqft
+                        is not none %}
+
+                            ₹{{ "{:,.0f}".format(
+                                deal_analysis.price_per_sqft
+                                | default(0, true)
+                            ) }}
+
+                        {% else %}
+
+                            N/A
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOCALITY PRICE / SQFT -->
+
+                <div class="metric">
+
+                    <div class="metric-label">
+                        Locality Avg / Sq.Ft
+                    </div>
+
+                    <div class="metric-value">
+
+                        {% if deal_analysis.locality_price_per_sqft
+                        is not none %}
+
+                            ₹{{ "{:,.0f}".format(
+                                deal_analysis.locality_price_per_sqft
+                                | default(0, true)
+                            ) }}
+
+                        {% else %}
+
+                            N/A
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- VERDICT -->
+
+            <div class="verdict">
+
+                <div class="verdict-title">
+                    Deal Analysis
+                </div>
+
+
+                {% set verdict_type =
+                    deal_analysis.verdict_type
+                    | default("neutral", true)
+                %}
+
+
+                <div
+                    class="verdict-text {{ verdict_type }}"
+                >
+
+                    {{ deal_analysis.verdict
+                        | default(
+                            "Analysis unavailable",
+                            true
+                        )
+                    }}
+
+                </div>
+
+            </div>
+
+
+            <!-- MARKET COMPARISON -->
+
+            <div class="comparison">
+
+                <h2>
+                    📊 Market Comparison
+                </h2>
+
+
+                <div class="row">
+
+                    <span class="row-label">
+                        Property Locality
+                    </span>
+
+                    <span class="row-value">
+
+                        {{ locality
+                            | default(
+                                "Unknown",
+                                true
+                            )
+                        }}
+
+                    </span>
+
+                </div>
+
+
+                <div class="row">
+
+                    <span class="row-label">
+                        Property Area
+                    </span>
+
+                    <span class="row-value">
+
+                        {% if area is not none %}
+
+                            {{ "{:,.0f}".format(
+                                area
+                                | default(0, true)
+                            ) }}
+                            sq.ft
+
+                        {% else %}
+
+                            N/A
+
+                        {% endif %}
+
+                    </span>
+
+                </div>
+
+
+                <div class="row">
+
+                    <span class="row-label">
+                        Locality Average Price
+                    </span>
+
+                    <span class="row-value">
+
+                        {% if locality_average_price
+                        is not none %}
+
+                            ₹{{ "{:,.0f}".format(
+                                locality_average_price
+                                | default(0, true)
+                            ) }}
+
+                        {% else %}
+
+                            N/A
+
+                        {% endif %}
+
+                    </span>
+
+                </div>
+
+
+                <div class="row">
+
+                    <span class="row-label">
+                        Asking Price vs Locality
+                    </span>
+
+                    <span class="row-value">
+
+                        {% if deal_analysis.market_gap_percent
+                        is not none %}
+
+                            {{ "{:.2f}".format(
+                                deal_analysis.market_gap_percent
+                                | default(0, true)
+                            ) }}%
+
+                        {% else %}
+
+                            N/A
+
+                        {% endif %}
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="note">
+
+                This analyzer compares the entered asking
+                price with the ML model's estimated value
+                and available locality statistics. It should
+                be treated as an analytical aid rather than
+                a guarantee of the actual transaction value.
+
+            </div>
+
+
+        {% else %}
+
+
+            <div class="status">
+
+                <h2>
+                    No listed price was entered.
+                </h2>
+
+                <p>
+
+                    Go back to the prediction page and
+                    enter the seller's asking price to
+                    activate the Deal Analyzer.
+
+                </p>
+
+            </div>
+
+
+        {% endif %}
+
+
+        <div class="actions">
+
+            <a
+                href="/"
+                class="button"
+            >
+                ← New Prediction
+            </a>
+
+
+            <a
+                href="/dashboard"
+                class="button secondary"
+            >
+                📊 Market Dashboard
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>
+

@@ -1,0 +1,1666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mumbai Property Intelligence Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        :root {
+            --bg: #07111f;
+            --bg-2: #0b1729;
+            --panel: rgba(15, 28, 48, 0.78);
+            --panel-strong: #101f35;
+            --panel-soft: rgba(255,255,255,0.055);
+            --border: rgba(148,163,184,0.16);
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --blue: #38bdf8;
+            --blue-2: #2563eb;
+            --cyan: #22d3ee;
+            --green: #34d399;
+            --orange: #f59e0b;
+            --red: #fb7185;
+            --purple: #a78bfa;
+            --shadow: 0 24px 70px rgba(0,0,0,.28);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 10% 0%, rgba(37,99,235,.22), transparent 30%),
+                radial-gradient(circle at 90% 8%, rgba(34,211,238,.14), transparent 28%),
+                linear-gradient(135deg, var(--bg), var(--bg-2));
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
+                         "Segoe UI", sans-serif;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+            background-size: 42px 42px;
+            mask-image: linear-gradient(to bottom, black, transparent 85%);
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .page-shell {
+            min-height: 100vh;
+        }
+
+        .dashboard-shell {
+            width: min(1480px, calc(100% - 40px));
+            margin: 0 auto;
+            padding: 0 0 80px;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            width: min(1480px, calc(100% - 40px));
+            margin: 18px auto 0;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: rgba(8,20,36,.72);
+            backdrop-filter: blur(18px);
+            box-shadow: 0 16px 45px rgba(0,0,0,.18);
+            position: sticky;
+            top: 14px;
+            z-index: 20;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            border-radius: 14px;
+            font-size: 21px;
+            background: linear-gradient(135deg, #2563eb, #06b6d4);
+            box-shadow: 0 10px 30px rgba(37,99,235,.35);
+        }
+
+        .brand strong {
+            display: block;
+            font-size: 14px;
+            letter-spacing: -.2px;
+        }
+
+        .brand small {
+            display: block;
+            margin-top: 3px;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .nav-button {
+            text-decoration: none;
+            padding: 11px 16px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 13px;
+            background: linear-gradient(135deg, var(--blue-2), #0891b2);
+            box-shadow: 0 10px 25px rgba(37,99,235,.24);
+            transition: .2s ease;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 30px rgba(37,99,235,.34);
+        }
+
+        /* HERO */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            margin-top: 28px;
+            padding: 58px 52px;
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            background:
+                linear-gradient(135deg,
+                    rgba(37,99,235,.22),
+                    rgba(8,145,178,.09) 45%,
+                    rgba(15,23,42,.72));
+            box-shadow: var(--shadow);
+        }
+
+        .hero::after {
+            content: "₹";
+            position: absolute;
+            right: 55px;
+            top: -35px;
+            font-size: 260px;
+            font-weight: 900;
+            color: rgba(255,255,255,.025);
+            pointer-events: none;
+        }
+
+        .kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--cyan);
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .kicker::before {
+            content: "";
+            width: 24px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--cyan), transparent);
+        }
+
+        .hero h1 {
+            max-width: 820px;
+            margin: 15px 0 15px;
+            font-size: clamp(42px, 6vw, 76px);
+            line-height: .98;
+            letter-spacing: -3.5px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(90deg, #fff, #67e8f9, #60a5fa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            max-width: 760px;
+            margin: 0;
+            color: #a9b7ca;
+            font-size: 16px;
+            line-height: 1.75;
+        }
+
+        .hero-badge {
+            position: absolute;
+            right: 45px;
+            bottom: 38px;
+            padding: 10px 14px;
+            border: 1px solid rgba(52,211,153,.2);
+            border-radius: 999px;
+            color: #86efac;
+            background: rgba(16,185,129,.08);
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .actions {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            gap: 11px;
+            flex-wrap: wrap;
+            margin-top: 28px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 44px;
+            padding: 11px 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 800;
+            border: 1px solid var(--border);
+            transition: .2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            color: #fff;
+            border-color: transparent;
+            background: linear-gradient(135deg, #2563eb, #0891b2);
+            box-shadow: 0 10px 26px rgba(37,99,235,.25);
+        }
+
+        .btn-secondary {
+            color: #dbeafe;
+            background: rgba(255,255,255,.055);
+            backdrop-filter: blur(12px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,.09);
+        }
+
+        /* STATS */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .stat {
+            position: relative;
+            overflow: hidden;
+            min-height: 155px;
+            padding: 22px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: var(--panel);
+            backdrop-filter: blur(15px);
+            box-shadow: var(--shadow);
+            transition: transform .22s ease, border-color .22s ease;
+        }
+
+        .stat:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56,189,248,.3);
+        }
+
+        .stat::after {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            right: -30px;
+            bottom: -40px;
+            border-radius: 50%;
+            background: rgba(56,189,248,.08);
+        }
+
+        .stat-icon {
+            width: 43px;
+            height: 43px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 18px;
+            border-radius: 13px;
+            background: rgba(56,189,248,.09);
+            font-size: 19px;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .stat-value {
+            margin-top: 7px;
+            font-size: clamp(23px, 2.4vw, 31px);
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        .stat:nth-child(2) .stat-icon {
+            background: rgba(167,139,250,.11);
+        }
+
+        .stat:nth-child(3) .stat-icon {
+            background: rgba(52,211,153,.10);
+        }
+
+        .stat:nth-child(4) .stat-icon {
+            background: rgba(245,158,11,.11);
+        }
+
+        /* SECTIONS */
+        .section {
+            margin-top: 48px;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .section h2 {
+            margin: 9px 0 5px;
+            font-size: 30px;
+            letter-spacing: -1.2px;
+        }
+
+        .section-description {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.65;
+            font-size: 14px;
+        }
+
+        /* CARDS */
+        .card {
+            margin-top: 18px;
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            background: var(--panel);
+            backdrop-filter: blur(15px);
+            box-shadow: var(--shadow);
+        }
+
+        /* EXPLORER */
+        .explorer {
+            padding: 25px;
+        }
+
+        .explorer-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr auto;
+            gap: 13px;
+            align-items: end;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 7px;
+            color: #a8b6ca;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .field select,
+        .field input {
+            width: 100%;
+            height: 47px;
+            padding: 0 13px;
+            color: var(--text);
+            background: rgba(255,255,255,.045);
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .field select option {
+            color: #111827;
+            background: #fff;
+        }
+
+        .field select:focus,
+        .field input:focus {
+            border-color: rgba(56,189,248,.65);
+            box-shadow: 0 0 0 3px rgba(56,189,248,.10);
+        }
+
+        .explore-btn {
+            height: 47px;
+            padding: 0 20px;
+            color: #fff;
+            border: 0;
+            border-radius: 11px;
+            background: linear-gradient(135deg, #2563eb, #0891b2);
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(37,99,235,.2);
+        }
+
+        .explore-btn:hover {
+            filter: brightness(1.08);
+        }
+
+        .explore-btn:disabled {
+            opacity: .6;
+            cursor: wait;
+        }
+
+        .market-result {
+            display: none;
+            margin-top: 18px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: rgba(255,255,255,.035);
+        }
+
+        .market-result.show {
+            display: block;
+            animation: fadeUp .3s ease;
+        }
+
+        .market-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .market-title strong {
+            font-size: 21px;
+        }
+
+        .market-title span {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .market-metric {
+            padding: 15px;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: rgba(255,255,255,.045);
+        }
+
+        .market-metric small {
+            display: block;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .market-metric strong {
+            display: block;
+            margin-top: 7px;
+            font-size: 18px;
+        }
+
+        .market-message {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        /* ANALYTICS GRID */
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: 1.15fr .85fr;
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        .analytics-card {
+            min-width: 0;
+            padding: 24px;
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            background: var(--panel);
+            box-shadow: var(--shadow);
+        }
+
+        .analytics-card h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .analytics-card > p {
+            margin: 7px 0 22px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .bar-row {
+            margin: 17px 0;
+        }
+
+        .bar-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 8px;
+            font-size: 12px;
+        }
+
+        .bar-top strong {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .bar-top span {
+            color: #cbd5e1;
+            white-space: nowrap;
+        }
+
+        .bar-track {
+            height: 8px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: rgba(255,255,255,.07);
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #2563eb, #22d3ee);
+            box-shadow: 0 0 18px rgba(34,211,238,.22);
+            transform-origin: left;
+            animation: growBar .9s ease both;
+        }
+
+        .price-card .bar-fill {
+            background: linear-gradient(90deg, #7c3aed, #c084fc);
+        }
+
+        /* TABLES */
+        .table-card {
+            overflow: hidden;
+        }
+
+        .table-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 22px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .table-heading h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .table-heading span {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid rgba(148,163,184,.09);
+            white-space: nowrap;
+        }
+
+        th {
+            color: #7f91aa;
+            background: rgba(255,255,255,.025);
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        td {
+            color: #cbd5e1;
+            font-size: 13px;
+        }
+
+        tbody tr {
+            transition: background .18s ease;
+        }
+
+        tbody tr:hover {
+            background: rgba(56,189,248,.045);
+        }
+
+        td strong {
+            color: #f8fafc;
+        }
+
+        .rank {
+            width: 30px;
+            height: 30px;
+            display: inline-grid;
+            place-items: center;
+            border-radius: 9px;
+            background: rgba(37,99,235,.12);
+            color: #7dd3fc;
+            font-weight: 900;
+        }
+
+        .price-pill {
+            display: inline-flex;
+            padding: 6px 9px;
+            border-radius: 8px;
+            background: rgba(52,211,153,.08);
+            color: #86efac;
+            font-weight: 800;
+        }
+
+        .empty {
+            padding: 50px 20px;
+            color: var(--muted);
+            text-align: center;
+        }
+
+        /* FOOTER */
+        .footer {
+            margin-top: 55px;
+            padding-top: 25px;
+            color: #64748b;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 12px;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes growBar {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1100px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .market-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 800px) {
+            .dashboard-shell,
+            .navbar {
+                width: min(100% - 24px, 1480px);
+            }
+
+            .hero {
+                padding: 40px 28px;
+            }
+
+            .hero::after,
+            .hero-badge {
+                display: none;
+            }
+
+            .explorer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .explore-btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .navbar {
+                position: relative;
+                top: 0;
+            }
+
+            .brand small {
+                display: none;
+            }
+
+            .stats,
+            .market-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 43px;
+                letter-spacing: -2px;
+            }
+
+            .hero {
+                border-radius: 23px;
+            }
+
+            .analytics-card,
+            .explorer {
+                padding: 18px;
+            }
+        }
+    
+/* ===== Command Center polish: presentation-only ===== */
+.command-pulse {
+    display:inline-flex; align-items:center; gap:8px;
+    padding:8px 12px; border:1px solid rgba(96,165,250,.25);
+    border-radius:999px; background:rgba(15,23,42,.55);
+    color:#bfdbfe; font-size:12px; font-weight:700;
+}
+.command-pulse i {
+    width:8px; height:8px; border-radius:50%; background:#22c55e;
+    box-shadow:0 0 14px rgba(34,197,94,.8); display:block;
+}
+.command-grid {
+    display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:18px;
+}
+.command-card { grid-column:span 4; }
+.command-card.wide { grid-column:span 8; }
+.command-card.full { grid-column:1/-1; }
+@media(max-width:900px){
+    .command-card,.command-card.wide { grid-column:1/-1; }
+}
+.kpi-card, .glass-card, .analytics-card, .table-card {
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.kpi-card:hover, .glass-card:hover, .analytics-card:hover, .table-card:hover {
+    transform:translateY(-4px);
+    box-shadow:0 18px 50px rgba(2,8,23,.32);
+}
+.section-divider {
+    height:1px; margin:28px 0;
+    background:linear-gradient(90deg,transparent,rgba(96,165,250,.35),transparent);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="page-shell">
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+
+        <a href="{{ url_for('home') }}" class="brand">
+
+            <span class="brand-icon">🏠</span>
+
+            <div>
+                <strong>Mumbai Property Intelligence</strong>
+                <small>AI-Powered Market Analytics</small>
+            </div>
+
+        </a>
+
+        <a href="{{ url_for('home') }}" class="nav-button">
+            + New Prediction
+        </a>
+
+    </nav>
+
+
+    <main class="dashboard-shell">
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <div class="kicker">
+                Market Intelligence
+            </div>
+
+            <h1>
+                Mumbai Property
+                <span>Market Dashboard</span>
+            </h1>
+
+            <p>
+                Explore analysed property listings, locality-level pricing,
+                market activity and price-per-square-foot trends from your
+                Mumbai property intelligence system.
+            </p>
+
+            <div class="actions">
+
+                <a class="btn btn-primary"
+                   href="{{ url_for('property_finder') }}">
+                    🗺 Find Properties
+                </a>
+
+                <a class="btn btn-secondary"
+                   href="{{ url_for('property_map') }}">
+                    📍 Full Property Map
+                </a>
+
+                <a class="btn btn-secondary"
+                   href="{{ url_for('property_density_heatmap') }}">
+                    🔥 Density Heatmap
+                </a>
+
+            </div>
+
+            <div class="hero-badge">
+                ● ML System Online
+            </div>
+
+        </section>
+
+
+        <!-- TOP STATS -->
+        <section class="stats">
+
+            <div class="stat">
+
+                <div class="stat-icon">🏠</div>
+
+                <div class="stat-label">
+                    Properties Analysed
+                </div>
+
+                <div class="stat-value">
+                    {{ "{:,.0f}".format(total_properties or 0) }}
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">📍</div>
+
+                <div class="stat-label">
+                    Localities Covered
+                </div>
+
+                <div class="stat-value">
+                    {{ "{:,.0f}".format(total_localities or 0) }}
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">💰</div>
+
+                <div class="stat-label">
+                    Average Property Price
+                </div>
+
+                <div class="stat-value">
+                    ₹{{ "{:,.0f}".format(average_price or 0) }}
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">🔎</div>
+
+                <div class="stat-label">
+                    Potential Anomalies
+                </div>
+
+                <div class="stat-value">
+                    {{ "{:,.0f}".format(anomaly_count or 0) }}
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- LOCALITY EXPLORER -->
+        <section class="section">
+
+            <div class="section-head">
+
+                <div>
+
+                    <div class="kicker">
+                        Locality Explorer
+                    </div>
+
+                    <h2>
+                        Understand a locality before predicting
+                    </h2>
+
+                    <p class="section-description">
+                        Select or type a Mumbai locality to instantly retrieve
+                        its analysed market statistics.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="card explorer">
+
+                <div class="explorer-grid">
+
+                    <div class="field">
+
+                        <label for="localitySelect">
+                            Locality
+                        </label>
+
+                        <select id="localitySelect">
+
+                            <option value="">
+                                Select a locality
+                            </option>
+
+                            {% for locality in available_localities %}
+
+                                <option value="{{ locality }}">
+                                    {{ locality }}
+                                </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="localitySearch">
+                            Or type locality
+                        </label>
+
+                        <input
+                            id="localitySearch"
+                            placeholder="e.g. Andheri West"
+                        >
+
+                    </div>
+
+
+                    <button
+                        class="explore-btn"
+                        id="exploreBtn"
+                    >
+                        Explore Market
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="market-result"
+                    id="marketResult"
+                ></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- VISUAL ANALYTICS -->
+        <section class="section">
+
+            <div class="section-head">
+
+                <div>
+
+                    <div class="kicker">
+                        Market Analytics
+                    </div>
+
+                    <h2>
+                        Mumbai market snapshot
+                    </h2>
+
+                    <p class="section-description">
+                        Quick visual comparison of the most active and
+                        highest-priced localities in the analysed dataset.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="analytics-grid">
+
+                <!-- LISTING ACTIVITY -->
+                <div class="analytics-card">
+
+                    <h3>
+                        📊 Most Active Localities
+                    </h3>
+
+                    <p>
+                        Based on number of analysed property listings.
+                    </p>
+
+
+                    {% if top_localities %}
+
+                        {% set max_listings =
+                            top_localities[0].listing_count or 1
+                        %}
+
+                        {% for row in top_localities[:8] %}
+
+                            {% set listing_value =
+                                row.listing_count or 0
+                            %}
+
+                            {% set bar_width =
+                                ((listing_value / max_listings) * 100)
+                            %}
+
+                            <div class="bar-row">
+
+                                <div class="bar-top">
+
+                                    <strong>
+                                        {{ row.locality }}
+                                    </strong>
+
+                                    <span>
+                                        {{ "{:,.0f}".format(listing_value) }}
+                                    </span>
+
+                                </div>
+
+                                <div class="bar-track">
+
+                                    <div
+                                        class="bar-fill"
+                                        style="width: {{ bar_width }}%;"
+                                    ></div>
+
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <div class="empty">
+                            Locality activity data is unavailable.
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- PRICE / SQFT -->
+                <div class="analytics-card price-card">
+
+                    <h3>
+                        💎 Price / Sqft Leaders
+                    </h3>
+
+                    <p>
+                        Localities ordered by average price per square foot.
+                    </p>
+
+
+                    {% if price_sqft_localities %}
+
+                        {% set max_ppsf =
+                            price_sqft_localities[0].average_price_per_sqft
+                            or 1
+                        %}
+
+                        {% for row in price_sqft_localities[:8] %}
+
+                            {% set ppsf =
+                                row.average_price_per_sqft or 0
+                            %}
+
+                            {% set bar_width =
+                                ((ppsf / max_ppsf) * 100)
+                            %}
+
+                            <div class="bar-row">
+
+                                <div class="bar-top">
+
+                                    <strong>
+                                        {{ row.locality }}
+                                    </strong>
+
+                                    <span>
+                                        ₹{{ "{:,.0f}".format(ppsf) }}
+                                    </span>
+
+                                </div>
+
+                                <div class="bar-track">
+
+                                    <div
+                                        class="bar-fill"
+                                        style="width: {{ bar_width }}%;"
+                                    ></div>
+
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <div class="empty">
+                            Price-per-square-foot data is unavailable.
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TOP LOCALITIES TABLE -->
+        <section class="section">
+
+            <div class="kicker">
+                Locality Analysis
+            </div>
+
+            <h2>
+                Top Localities
+            </h2>
+
+            <p class="section-description">
+                Localities with the highest number of analysed listings.
+            </p>
+
+
+            <div class="card table-card">
+
+                <div class="table-heading">
+
+                    <h3>
+                        🏙 Listing Activity
+                    </h3>
+
+                    <span>
+                        Top 10 localities
+                    </span>
+
+                </div>
+
+
+                {% if top_localities %}
+
+                    <div class="table-wrap">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Locality</th>
+                                    <th>Listings</th>
+                                    <th>Average Price</th>
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+                            {% for row in top_localities %}
+
+                                <tr>
+
+                                    <td>
+                                        <span class="rank">
+                                            {{ loop.index }}
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <strong>
+                                            {{ row.locality }}
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        {{ "{:,.0f}".format(
+                                            row.listing_count or 0
+                                        ) }}
+                                    </td>
+
+                                    <td>
+
+                                        {% if row.average_price is not none %}
+
+                                            <span class="price-pill">
+                                                ₹{{ "{:,.0f}".format(
+                                                    row.average_price
+                                                ) }}
+                                            </span>
+
+                                        {% else %}
+
+                                            —
+
+                                        {% endif %}
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                {% else %}
+
+                    <div class="empty">
+                        Locality data is unavailable.
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+
+        <!-- PRICE SQFT TABLE -->
+        <section class="section">
+
+            <div class="kicker">
+                Price Analysis
+            </div>
+
+            <h2>
+                Average Price per Sqft
+            </h2>
+
+            <p class="section-description">
+                Localities ordered by average property price per square foot.
+            </p>
+
+
+            <div class="card table-card">
+
+                <div class="table-heading">
+
+                    <h3>
+                        💰 Price Benchmark
+                    </h3>
+
+                    <span>
+                        Top 10 localities
+                    </span>
+
+                </div>
+
+
+                {% if price_sqft_localities %}
+
+                    <div class="table-wrap">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Locality</th>
+                                    <th>Average Price / Sqft</th>
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+                            {% for row in price_sqft_localities %}
+
+                                <tr>
+
+                                    <td>
+                                        <span class="rank">
+                                            {{ loop.index }}
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <strong>
+                                            {{ row.locality }}
+                                        </strong>
+                                    </td>
+
+                                    <td>
+
+                                        <span class="price-pill">
+                                            ₹{{ "{:,.0f}".format(
+                                                row.average_price_per_sqft or 0
+                                            ) }}
+                                        </span>
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                {% else %}
+
+                    <div class="empty">
+                        Price-per-square-foot data is unavailable.
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+
+        <footer class="footer">
+            Mumbai House Price Prediction & Property Intelligence System
+            <br>
+            <span style="display:inline-block;margin-top:6px;">
+                Machine Learning • Explainable AI • Market Intelligence
+            </span>
+        </footer>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    const select =
+        document.getElementById("localitySelect");
+
+    const typed =
+        document.getElementById("localitySearch");
+
+    const button =
+        document.getElementById("exploreBtn");
+
+    const result =
+        document.getElementById("marketResult");
+
+
+    function money(value) {
+
+        if (
+            value === null ||
+            value === undefined ||
+            Number.isNaN(Number(value))
+        ) {
+            return "—";
+        }
+
+        return "₹" +
+            Number(value).toLocaleString(
+                "en-IN",
+                {
+                    maximumFractionDigits: 0
+                }
+            );
+    }
+
+
+    function escapeHtml(value) {
+
+        return String(value ?? "")
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+    }
+
+
+    function showMessage(html) {
+
+        result.classList.add("show");
+
+        result.innerHTML = html;
+
+    }
+
+
+    async function explore() {
+
+        const locality =
+            (
+                typed.value.trim() ||
+                select.value.trim()
+            );
+
+
+        if (!locality) {
+
+            showMessage(
+                '<p class="market-message">' +
+                'Please select or enter a locality.' +
+                '</p>'
+            );
+
+            return;
+
+        }
+
+
+        button.disabled = true;
+
+        button.textContent =
+            "Loading...";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "{{ url_for('api_locality_data') }}" +
+                    "?locality=" +
+                    encodeURIComponent(locality)
+                );
+
+
+            const payload =
+                await response.json();
+
+
+            if (!payload.success) {
+
+                showMessage(
+                    '<p class="market-message">' +
+                    'Market data unavailable for <strong>' +
+                    escapeHtml(locality) +
+                    '</strong>.' +
+                    '</p>'
+                );
+
+                return;
+
+            }
+
+
+            const d =
+                payload.data || {};
+
+
+            showMessage(`
+
+                <div class="market-title">
+
+                    <strong>
+                        ${escapeHtml(
+                            d.locality || locality
+                        )}
+                    </strong>
+
+                    <span>
+                        Data source: analysed property listings
+                    </span>
+
+                </div>
+
+
+                <div class="market-grid">
+
+                    <div class="market-metric">
+
+                        <small>
+                            Listings analysed
+                        </small>
+
+                        <strong>
+                            ${Number(
+                                d.listing_count || 0
+                            ).toLocaleString("en-IN")}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="market-metric">
+
+                        <small>
+                            Average price
+                        </small>
+
+                        <strong>
+                            ${money(
+                                d.average_price
+                            )}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="market-metric">
+
+                        <small>
+                            Median price
+                        </small>
+
+                        <strong>
+                            ${money(
+                                d.median_price
+                            )}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="market-metric">
+
+                        <small>
+                            Average / sq.ft.
+                        </small>
+
+                        <strong>
+                            ${money(
+                                d.average_price_per_sqft
+                            )}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            `);
+
+
+        } catch (error) {
+
+            showMessage(
+                '<p class="market-message">' +
+                'Could not load locality data. ' +
+                'Check that Flask is running.' +
+                '</p>'
+            );
+
+
+        } finally {
+
+            button.disabled = false;
+
+            button.textContent =
+                "Explore Market";
+
+        }
+
+    }
+
+
+    button.addEventListener(
+        "click",
+        explore
+    );
+
+
+    typed.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+                explore();
+            }
+
+        }
+    );
+
+
+    select.addEventListener(
+        "change",
+        function() {
+
+            typed.value = "";
+
+        }
+    );
+
+</script>
+
+</body>
+</html>

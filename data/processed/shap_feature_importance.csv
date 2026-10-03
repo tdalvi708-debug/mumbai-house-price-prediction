@@ -1,0 +1,113 @@
+feature,mean_abs_shap_value
+num__longitude,7453347.388926971
+num__latitude,5530193.235234735
+num__bedroom_num,4139833.4173984244
+num__area,2706845.422104839
+num__area_per_bedroom,812048.0388110637
+num__balcony_num,554160.8023401791
+num__age,171197.11918221024
+cat__city_Mumbai,114521.63225414371
+cat__locality_Powai,103210.47702016364
+cat__furnished_Furnished,102285.06644259462
+num__bathroom_num,101968.11870215197
+cat__furnished_Unfurnished,87552.66245706963
+cat__locality_Bandra,71614.21490205915
+cat__locality_Andheri,62422.762159163365
+cat__locality_Kharghar,57749.915354061835
+cat__locality_Kurla,54242.831566896115
+cat__locality_infrequent_sklearn,44183.801428870225
+cat__furnished_Semi-Furnished,41730.013051269125
+cat__locality_Nerul,33476.621057355485
+cat__locality_Koper Khairane,23945.5761906902
+cat__locality_Mulund,23929.96382464277
+cat__city_Central Mumbai,21827.735720614055
+cat__age_group_Moderately New,21491.574186321417
+num__bathroom_per_bedroom,19872.27158906004
+cat__locality_Borivali,19868.019221477836
+cat__city_Western Mumbai,19635.283530445377
+cat__locality_Ulwe,18707.938374292382
+cat__city_Mumbai South,18022.274998041827
+cat__locality_Agripada,17855.386532005934
+cat__locality_Ville Parle,17586.90938031541
+cat__age_group_New,16077.601886911114
+cat__locality_Panvel,13621.418943034563
+cat__locality_Matunga,13332.183655976612
+cat__locality_Prabhadevi,12067.829052711164
+cat__locality_Kanjurmarg,11298.980736794174
+cat__locality_Goregaon,11225.627066944022
+cat__locality_Sion,11184.469673363084
+cat__locality_Seawoods,10718.27304360175
+cat__locality_Vikhroli,8889.121990788622
+cat__locality_Mahim,8364.247803408205
+cat__locality_Bhandup,7821.508110026198
+cat__locality_Chembur,7440.231871577031
+cat__locality_Wadala,7066.178433732483
+cat__property_type_Apartment,6619.174078938175
+cat__locality_Santacruz,6575.828255532598
+cat__locality_Girgaon,6505.526981476296
+cat__locality_Taloja,6112.089391557509
+cat__locality_Juhu,6034.122874373862
+cat__locality_Vasai,5918.8327028301555
+cat__locality_Malabar Hill,5839.131059115498
+cat__locality_Sanpada,5649.944723350859
+cat__locality_Malad,5631.509129107823
+cat__locality_Khar,5072.367220448874
+cat__locality_Colaba,4535.918256700976
+cat__locality_Worli,4411.227661694499
+cat__locality_Vashi,3725.787198608101
+cat__locality_Thane,3704.8919858550735
+cat__locality_Jogeshwari,3584.151992722087
+cat__locality_Dadar,3523.141062883743
+cat__property_type_Villa,3384.9526633447954
+cat__locality_Dombivali,3285.77313609767
+cat__property_type_Independent House,3282.9813177122996
+cat__locality_Bhiwandi,2763.062741377421
+cat__locality_Kandivali,2576.5493230972306
+cat__locality_Ghansoli,2494.411133689463
+cat__locality_Kalyan,2467.75028820847
+cat__locality_Deonar,2394.894118103384
+cat__locality_Neral,2048.264874119711
+cat__locality_Palghar,2000.1760084598452
+cat__locality_Vile Parle,1999.0141228479129
+cat__locality_Lower Parel,1909.645502433065
+cat__locality_Kalwa,1837.9825725767591
+cat__locality_Vikroli,1601.8175183280296
+cat__locality_Belapur,1522.6367984624378
+cat__locality_Mahalaxmi,1497.444827840399
+cat__locality_Airoli,1487.9983245655199
+cat__age_group_Old,1455.4394301586767
+cat__locality_Dronagiri,1257.702898230808
+cat__locality_Mira Road,1219.2960350719118
+cat__locality_Virar,1126.393998457111
+cat__locality_Sewri,1096.3261636823268
+cat__locality_Ghatkopar,1093.639784508297
+cat__locality_Ambernath,1070.2095259583268
+cat__locality_Byculla,1046.2013360583462
+cat__locality_Kamothe,897.4244963590767
+cat__locality_Tardeo,895.5244908471643
+cat__locality_Dombivli,879.379121304788
+cat__locality_Parel,813.2618161220003
+cat__locality_Ulhasnagar,792.6347547693624
+num__total_floors,680.4425532043649
+cat__locality_Dahisar,670.2602185555144
+cat__locality_Boisar,643.3244272107066
+cat__locality_Naigaon,595.8649951270488
+cat__locality_Karanjade,451.68301701742075
+cat__locality_Shil Phata,441.9846848507793
+cat__locality_Bhayandar,380.67943232015006
+cat__locality_Anjurdive,346.9679184904727
+cat__property_type_Independent Floor,319.5165112310791
+cat__locality_Taloje,309.4806247661347
+cat__age_group_Very Old,292.69921565720693
+cat__locality_Badlapur,283.3335731053711
+cat__locality_Nalasopara,255.88380934195507
+cat__locality_Kalamboli,255.18849213343242
+cat__locality_Hiranandani Estates,223.4321445014948
+cat__locality_Karjat,160.1732656528408
+cat__locality_Nahur,143.23837220251352
+cat__locality_Thakurli,109.52132023246016
+cat__locality_Kasaradavali Thane,85.05299655036715
+cat__locality_Nala Sopara,53.14724159232185
+cat__locality_Titwala,15.79660188093294
+cat__locality_Khopoli,15.088765988822269
+cat__property_type_infrequent_sklearn,0.9251487286055609

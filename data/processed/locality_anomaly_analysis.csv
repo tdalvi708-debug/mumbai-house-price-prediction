@@ -1,0 +1,409 @@
+locality,total_properties,potential_anomalies,anomaly_percentage
+Andheri,2039,47,2.30505149583129
+Worli,188,46,24.46808510638298
+Bandra,708,44,6.214689265536723
+Lower Parel,349,40,11.461318051575931
+Juhu,179,39,21.787709497206702
+Prabhadevi,208,29,13.942307692307693
+Thane,5292,27,0.5102040816326531
+Tardeo,76,23,30.263157894736842
+Khar,136,19,13.970588235294118
+Malabar Hill,36,14,38.88888888888889
+Santacruz,527,14,2.6565464895635675
+Bandra Kurla Complex,25,11,44.0
+Vile Parle,126,11,8.73015873015873
+Chembur,1591,10,0.6285355122564426
+Mahalaxmi,165,10,6.0606060606060606
+Colaba,46,9,19.565217391304348
+Borivali,1678,9,0.5363528009535161
+Byculla,471,9,1.910828025477707
+Marine Lines,33,9,27.27272727272727
+Kandivali,2039,7,0.34330554193231977
+Parel,277,6,2.166064981949458
+Girgaon,84,5,5.952380952380952
+Ville Parle,331,5,1.5105740181268883
+Churchgate,5,5,100.0
+Goregaon,1287,4,0.3108003108003108
+Juhu Scheme,11,4,36.36363636363637
+Powai,917,4,0.43620501635768816
+Mira Road,3162,3,0.09487666034155598
+Cuffe Parade,16,3,18.75
+Cumballa Hill,25,3,12.0
+Karjat,268,3,1.1194029850746268
+Kharghar,1904,3,0.15756302521008403
+Seawoods,338,3,0.8875739644970414
+Malad,1522,3,0.19710906701708278
+Agripada,40,2,5.0
+Charni Road,3,2,66.66666666666666
+Vashi,248,2,0.8064516129032258
+Deonar,116,2,1.7241379310344827
+Marine Drive,2,2,100.0
+Ghatkopar,906,2,0.22075055187637968
+Nerul,351,2,0.5698005698005698
+Peddar Road,3,2,66.66666666666666
+Manpada,14,1,7.142857142857142
+Boisar,107,1,0.9345794392523363
+Altamount Road,1,1,100.0
+Hiranandani Estates,54,1,1.8518518518518516
+Lokhandwala Complex,3,1,33.33333333333333
+Matunga,260,1,0.38461538461538464
+Kalyan,1738,1,0.05753739930955121
+Oshiwara Police Station Road,1,1,100.0
+Bandstand,1,1,100.0
+Pali Hill,3,1,33.33333333333333
+Sanpada,183,1,0.546448087431694
+Panvel,1227,1,0.08149959250203749
+Napeansea Road,4,1,25.0
+Dahisar,453,1,0.22075055187637968
+Napean Sea Road,1,1,100.0
+Mulund,1446,1,0.06915629322268327
+Jacob Circle,12,1,8.333333333333332
+Breach Candy,2,1,50.0
+Worli Sea Fase,4,1,25.0
+Ambernath,981,1,0.10193679918450561
+Ghodbunder Road,2,1,50.0
+Balkum,4,0,0.0
+Battipada,2,0,0.0
+Bdd Chawls Worli,1,0,0.0
+Belapur,92,0,0.0
+Beturkar Pada,1,0,0.0
+Beverly Park,1,0,0.0
+Bhakti Park Wadala,1,0,0.0
+Bhandup,673,0,0.0
+Bhayandar,411,0,0.0
+Bhiwandi,365,0,0.0
+Bhuleshwar,1,0,0.0
+Bkc Bandra,1,0,0.0
+Bolinj,1,0,0.0
+Bolinj Naka,3,0,0.0
+Bopele,1,0,0.0
+Borivali Old Mhb Colony,1,0,0.0
+Cbd Belapur,1,0,0.0
+Century Mills,1,0,0.0
+Chakala,2,0,0.0
+Chandivali,11,0,0.0
+Charkop,13,0,0.0
+Charkop Sector 8,1,0,0.0
+Chedda Nagar,3,0,0.0
+Chikan Ghar,2,0,0.0
+Chinchodyacha Pada,3,0,0.0
+Chincholi Bunder,4,0,0.0
+Chinchpada,1,0,0.0
+Chinchpada Gaon,2,0,0.0
+Chinchpokli,24,0,0.0
+Crawford Market,1,0,0.0
+Dadar,336,0,0.0
+Dahanu,1,0,0.0
+Damat,1,0,0.0
+Dattapada,1,0,0.0
+Desale Pada,8,0,0.0
+Devad,1,0,0.0
+Dharavi,1,0,0.0
+Dighe,1,0,0.0
+Dindoshi,3,0,0.0
+Diva,19,0,0.0
+Diva Gaon,12,0,0.0
+Dn Nagar,2,0,0.0
+Dockyard Road,1,0,0.0
+Dombivali,1872,0,0.0
+Dombivli,235,0,0.0
+Dronagiri,68,0,0.0
+Eksar,3,0,0.0
+Ekta Nagar,2,0,0.0
+Ern Express Highway Vikhroli,5,0,0.0
+Evershine Nagar,5,0,0.0
+Fort,26,0,0.0
+Gamdevi,3,0,0.0
+Gawand Baug,1,0,0.0
+Ghansoli,455,0,0.0
+Ghansoli Gaon,2,0,0.0
+Ghati Pada,2,0,0.0
+Ghodbunder Thane,1,0,0.0
+Gokuldham Colony,2,0,0.0
+Gorai 1,1,0,0.0
+Gorai 2,1,0,0.0
+Govandi,11,0,0.0
+Grant Road,4,0,0.0
+Greater Khanda,12,0,0.0
+Haji Malang Road Kalyan E,2,0,0.0
+Haranwali,1,0,0.0
+Hariyali,6,0,0.0
+Haware City,1,0,0.0
+Hendre Pada,7,0,0.0
+Hiranandani Gardens Powai,4,0,0.0
+Hiranandani Meadows,1,0,0.0
+Ibhadpada,2,0,0.0
+Irani Wadi,1,0,0.0
+J B Nagar,2,0,0.0
+Jambli Naka,1,0,0.0
+Jambrung,5,0,0.0
+Jari Mari,1,0,0.0
+Jawahar Nagar,1,0,0.0
+Jawhar,2,0,0.0
+Jogeshwari,534,0,0.0
+Joveli Gaon,1,0,0.0
+Juhu Tara,1,0,0.0
+Juinagar,26,0,0.0
+Jvlr,6,0,0.0
+Jvpd Scheme,10,0,0.0
+Kalamboli,166,0,0.0
+Kalbadevi,7,0,0.0
+Kalina,3,0,0.0
+Kalwa,164,0,0.0
+Kalyan Shilphata Road,1,0,0.0
+Kamathipura,1,0,0.0
+Kamothe,471,0,0.0
+Kanjur Marg,1,0,0.0
+Kanjur Village,2,0,0.0
+Kanjurmarg,731,0,0.0
+Kannamwar Nagar 1,2,0,0.0
+Karanjade,123,0,0.0
+Karanjade Panvel,2,0,0.0
+Kasar Vadavali,2,0,0.0
+Kasaradavali Thane,85,0,0.0
+Kasheli,3,0,0.0
+Kewale,8,0,0.0
+Khadakpada,6,0,0.0
+Khalapur,3,0,0.0
+Khanda Colony,1,0,0.0
+Khar Danda,1,0,0.0
+Khardi,4,0,0.0
+Kharodi,2,0,0.0
+Khopoli,44,0,0.0
+Kiravli Village,3,0,0.0
+Kolegaon,1,0,0.0
+Kolhare,13,0,0.0
+Kolshet,22,0,0.0
+Kolshet Road,2,0,0.0
+Kolshet Road Thane,3,0,0.0
+Kon,1,0,0.0
+Kongaon,1,0,0.0
+Koparkhairane Station Road,1,0,0.0
+Koper Khairane,536,0,0.0
+Koproli,8,0,0.0
+Kurla,531,0,0.0
+Lalbaug,4,0,0.0
+Lbs Marg,2,0,0.0
+Lbs Marg Mulund,3,0,0.0
+Lic Colony,1,0,0.0
+Lodhivali,3,0,0.0
+Lokhandwala Andheri,1,0,0.0
+Lonavala,2,0,0.0
+Louis Wadi,1,0,0.0
+Madanpura,1,0,0.0
+Madh,2,0,0.0
+Magathane,12,0,0.0
+Mahim,170,0,0.0
+Majiwada,16,0,0.0
+Makane Kapase,7,0,0.0
+Malad Mithchowki,1,0,0.0
+Mandvi,1,0,0.0
+Maneklal Estate,2,0,0.0
+Manjarli,1,0,0.0
+Mankhurd,4,0,0.0
+Manor,2,0,0.0
+Marol,7,0,0.0
+Ambarnath,27,0,0.0
+Mazagaon,32,0,0.0
+Mazgaon,21,0,0.0
+Mira Bhayandar,1,0,0.0
+Mira Bhayander Road,3,0,0.0
+Yogi Nagar,2,0,0.0
+Mogra Pada,2,0,0.0
+Mount Marry,1,0,0.0
+Acc Cement Road,1,0,0.0
+Mulund Gavanpada,1,0,0.0
+Mulund Mumbai,1,0,0.0
+Mumbai,4,0,0.0
+Mumbai Central,8,0,0.0
+Mumbra,24,0,0.0
+Murarbaug,1,0,0.0
+Murbad,4,0,0.0
+Muthaval,2,0,0.0
+Nagpada,1,0,0.0
+Nahur,48,0,0.0
+Naigaon,688,0,0.0
+Nala Sopara,342,0,0.0
+Nalasopara,90,0,0.0
+Nallasopara W,3,0,0.0
+Nandivali Gaon,2,0,0.0
+Adarsh Nagar,2,0,0.0
+Additional M.I.D.C,2,0,0.0
+Natakwala Lane,2,0,0.0
+Naupada,2,0,0.0
+Navade,2,0,0.0
+Navapada,1,0,0.0
+Navghar,14,0,0.0
+Navgharh,1,0,0.0
+Navpada Vile Parle,1,0,0.0
+Nehru Nagar,1,0,0.0
+"Nehru Nagar, Kanjurmarg",1,0,0.0
+Neral,341,0,0.0
+Nere,17,0,0.0
+Adharwadi,2,0,0.0
+New Panvel Karanjade,1,0,0.0
+New Panvel Navi Mumbai,2,0,0.0
+New Rajaram Wadi,3,0,0.0
+Nilje Gaon,9,0,0.0
+Old Panvel,3,0,0.0
+Oshiwara,4,0,0.0
+Agasan Village,2,0,0.0
+Owale,1,0,0.0
+P L Lokhande Marg,1,0,0.0
+Padgha,2,0,0.0
+Padle Gaon,1,0,0.0
+Pakhadi,1,0,0.0
+Palava,3,0,0.0
+Palghar,108,0,0.0
+Vidya Vihar,1,0,0.0
+Palidevad,2,0,0.0
+Panch Pakhadi,1,0,0.0
+Panch Pakhdi,7,0,0.0
+Pant Nagar,2,0,0.0
+Vakas,3,0,0.0
+Vakola Pipeline Road,1,0,0.0
+Parel Village,2,0,0.0
+Parksite Colony,1,0,0.0
+Patil Nagar Vasind,4,0,0.0
+Patlipada,2,0,0.0
+Vakola Santacuz E,1,0,0.0
+Perry Cross Rd,1,0,0.0
+Pisarve,2,0,0.0
+Pisavli Village,8,0,0.0
+Pokhran 2,4,0,0.0
+Pokhran Road No 2,1,0,0.0
+Police Colony,1,0,0.0
+Vakola Yashwant Nagar,1,0,0.0
+Vallabh Baug Lane,1,0,0.0
+Rabale,17,0,0.0
+Rabale Station Road,3,0,0.0
+Railwaycolony,1,0,0.0
+Ram Mandir Road,3,0,0.0
+Ramchandra Lane,1,0,0.0
+Rasayani,17,0,0.0
+Residential Flat Virar,1,0,0.0
+Roadpali Navimumbai,1,0,0.0
+Rohinjan,2,0,0.0
+Sabe Gaon,2,0,0.0
+Sagaon,5,0,0.0
+Sahkar Nagar,1,0,0.0
+Sai Baba Nagar Lane,1,0,0.0
+Sai Samarth Mitra,5,0,0.0
+Saki Naka,10,0,0.0
+Sakinaka,3,0,0.0
+Sambhaji Nagar,4,0,0.0
+Vangani,16,0,0.0
+Vasai,752,0,0.0
+Santosh Nagar,4,0,0.0
+Saphale,22,0,0.0
+Sarsole,1,0,0.0
+Satpati,1,0,0.0
+Savitribai Phule Nagar,2,0,0.0
+Vasant Vihar Thane,16,0,0.0
+Sector 11 Koparkhairane,2,0,0.0
+Sector 12 Kharghar,1,0,0.0
+Sector 16 A,1,0,0.0
+Sector 16 Vashi,1,0,0.0
+Sector 17 Ulwe,3,0,0.0
+Sector 17 Vashi,1,0,0.0
+Sector 18 Kharghar,1,0,0.0
+Sector 19 Kamothe,2,0,0.0
+Sector 19 Kharghar,3,0,0.0
+Sector 19 Ulwe,1,0,0.0
+Sector 2 Charkop Kandivali,1,0,0.0
+Sector 21 Ghansoli,3,0,0.0
+Sector 21 Kamothe,9,0,0.0
+Sector 21 Kharghar,1,0,0.0
+Sector 21 Nerul,1,0,0.0
+Sector 22 Kamothe,1,0,0.0
+Sector 23 Ulwe,1,0,0.0
+Sector 30 Kharghar,1,0,0.0
+Sector 44 Seawoods,1,0,0.0
+Sector 5 Ghansoli,4,0,0.0
+Sector 6 Kamothe,2,0,0.0
+Sector 8 Charkop,2,0,0.0
+Sector-12 Kamothe,2,0,0.0
+Sector-14 Koparkhairane,2,0,0.0
+Sector-15 Ghansoli,2,0,0.0
+Sector-20 Koparkhairane,1,0,0.0
+Sector-3 Ghansoli,1,0,0.0
+Sector-50 Seawoods,1,0,0.0
+Sector-9 Ulwe,4,0,0.0
+Sector-9A Vashi,1,0,0.0
+Sector13 Kharghar,1,0,0.0
+Sector15 Ghansoli,2,0,0.0
+Sector20 Koparkhairane,1,0,0.0
+Sector35D Kharghar,1,0,0.0
+Sewri,61,0,0.0
+Shahapur,16,0,0.0
+Shahpur,1,0,0.0
+Shelu,8,0,0.0
+Sher E Punjab Colony,3,0,0.0
+Shil Phata,150,0,0.0
+Shilgaon,2,0,0.0
+Shilphata,21,0,0.0
+Shirgaon,1,0,0.0
+Shivaji Park,5,0,0.0
+Shivkar,3,0,0.0
+Shreyas Colony,2,0,0.0
+Shri Hari Nagar Kalyan,2,0,0.0
+"Siddharth Nagar, Goregaon",5,0,0.0
+Siddhartha Nagar,1,0,0.0
+Sindhi Society Chembur,2,0,0.0
+Sion,489,0,0.0
+Sion Koliwada,1,0,0.0
+Subhash Nagar,2,0,0.0
+Tagore Nagar,2,0,0.0
+Taloja,617,0,0.0
+Taloja Panvel,1,0,0.0
+Taloja Phase 2,1,0,0.0
+Taloje,75,0,0.0
+Vasind,3,0,0.0
+Tembhode Palghar,1,0,0.0
+Thakur Village,3,0,0.0
+Thakurli,63,0,0.0
+Vazira Naka,1,0,0.0
+Thane Diva,1,0,0.0
+Tilak Nagar,14,0,0.0
+Titwala,134,0,0.0
+Ulhasnagar,46,0,0.0
+Ulhasnagar 4,3,0,0.0
+Ulwe,1140,0,0.0
+Umerkhadi,2,0,0.0
+Umroli,8,0,0.0
+Uran,1,0,0.0
+Usarghar,2,0,0.0
+Usarghar Gaon,1,0,0.0
+Uttan,3,0,0.0
+Airoli,240,0,0.0
+Vijay Nagar,1,0,0.0
+Vikhroli,900,0,0.0
+Vikhroli Park Site,1,0,0.0
+Vikramgad,1,0,0.0
+Vikroli,84,0,0.0
+Veera Desai Road,1,0,0.0
+Vile Parle E,19,0,0.0
+Versova,11,0,0.0
+Vinobha Bhave Nagar Kurla,1,0,0.0
+Virar,771,0,0.0
+Wadala,617,0,0.0
+Vevoor,21,0,0.0
+Atgaon,1,0,0.0
+Yari Road,1,0,0.0
+Ashok Nagar,2,0,0.0
+Vajreshwari,1,0,0.0
+Babhai,1,0,0.0
+Ambivali,7,0,0.0
+Ambivli,7,0,0.0
+Amboli,1,0,0.0
+Anand Nagar,2,0,0.0
+"Anand Nagar,Dahisar",2,0,0.0
+Badlapur,471,0,0.0
+Anjurdive,77,0,0.0
+Antarli,4,0,0.0
+Antop Hill,4,0,0.0
+Anushakti Nagar,3,0,0.0
+Arya Nagar,1,0,0.0
+Asalpha,2,0,0.0
+Asangaon,6,0,0.0
+Vichumbe,7,0,0.0

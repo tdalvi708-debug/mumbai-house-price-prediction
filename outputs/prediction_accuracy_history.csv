@@ -1,0 +1,6 @@
+accuracy_category,prediction_count,percentage
+Accurate,12034,23.2464697587266
+High Error,2212,4.272992446925648
+Moderate Error,7595,14.671508876311162
+Very Accurate,27733,53.572739389958855
+Very High Error,2193,4.236289528077733

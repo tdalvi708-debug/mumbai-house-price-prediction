@@ -1,0 +1,11 @@
+similarity_score,price,predicted_price,area,locality,bedroom_num,bathroom_num,property_type,furnished,age,total_floors
+99.7,3400000.0,3838622.075714286,755.0,Kalyan,2,2,Apartment,Unfurnished,0.0,1.0
+98.95,3700000.0,5231805.476666667,750.0,Kalyan,2,2,Apartment,Unfurnished,0.0,1.0
+98.95,7900000.0,6793174.380141296,750.0,Kalyan,2,2,Apartment,Unfurnished,0.0,1.0
+98.95,6800000.0,6522288.09375394,750.0,Kalyan,2,2,Apartment,Unfurnished,0.0,1.0
+98.95,4650000.0,4353704.394315744,750.0,Kalyan,2,2,Apartment,Unfurnished,0.0,1.0
+98.95,5500000.0,6067286.115748413,750.0,Kalyan,2,2,Apartment,Unfurnished,0.0,1.0
+98.95,6799000.0,6479269.8586694,750.0,Kalyan,2,2,Apartment,Unfurnished,0.0,1.0
+98.66,7021922.0,6381189.220241791,766.0,Kalyan,2,2,Apartment,Unfurnished,0.0,1.0
+98.07,7200000.0,6795646.567961118,770.0,Kalyan,2,2,Apartment,Unfurnished,0.0,1.0
+97.78,3000000.0,3685463.283204633,742.0,Kalyan,2,2,Apartment,Unfurnished,0.0,1.0

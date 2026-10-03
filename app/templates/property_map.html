@@ -1,0 +1,4984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mumbai Property Finder | AI Property Intelligence</title>
+
+    <!-- Leaflet -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #06101d;
+            --bg2: #091728;
+            --card: rgba(13, 28, 48, 0.82);
+            --card2: rgba(17, 35, 58, 0.72);
+
+            --line: rgba(148, 163, 184, 0.16);
+            --line2: rgba(96, 165, 250, 0.22);
+
+            --text: #f8fafc;
+            --muted: #94a3b8;
+
+            --blue: #3b82f6;
+            --cyan: #22d3ee;
+            --purple: #8b5cf6;
+            --green: #22c55e;
+            --orange: #f59e0b;
+            --red: #ef4444;
+
+            --shadow:
+                0 25px 70px rgba(0, 0, 0, 0.38);
+        }
+
+        body {
+            font-family:
+                Inter,
+                ui-sans-serif,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            color: var(--text);
+
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at 10% 0%,
+                    rgba(59, 130, 246, 0.18),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 10%,
+                    rgba(34, 211, 238, 0.12),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 50% 100%,
+                    rgba(139, 92, 246, 0.12),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    135deg,
+                    var(--bg),
+                    var(--bg2)
+                );
+
+            background-attachment: fixed;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        select,
+        input {
+            font: inherit;
+        }
+
+        /* =========================================================
+           NAVBAR
+        ========================================================= */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            height: 72px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 32px;
+
+            background:
+                rgba(4, 12, 23, 0.82);
+
+            backdrop-filter: blur(20px);
+
+            border-bottom:
+                1px solid rgba(148, 163, 184, 0.12);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--blue),
+                    var(--cyan)
+                );
+
+            box-shadow:
+                0 8px 30px rgba(59, 130, 246, 0.32);
+
+            font-size: 20px;
+        }
+
+        .brand-text span {
+            display: block;
+            color: var(--muted);
+
+            font-size: 10px;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-link {
+            padding: 10px 14px;
+
+            border-radius: 10px;
+
+            color: var(--muted);
+
+            font-size: 13px;
+            font-weight: 600;
+
+            transition: 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: white;
+            background: rgba(255,255,255,0.06);
+        }
+
+        .nav-link.active {
+            color: white;
+
+            background:
+                rgba(59, 130, 246, 0.13);
+
+            border:
+                1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .system-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 9px 12px;
+
+            border-radius: 999px;
+
+            background:
+                rgba(34, 197, 94, 0.08);
+
+            border:
+                1px solid rgba(34, 197, 94, 0.18);
+
+            color: #86efac;
+
+            font-size: 11px;
+            font-weight: 700;
+
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #22c55e;
+
+            box-shadow:
+                0 0 12px rgba(34,197,94,0.8);
+
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0%,100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.45;
+                transform: scale(0.78);
+            }
+        }
+
+        /* =========================================================
+           MAIN
+        ========================================================= */
+
+        .container {
+            width: min(1450px, calc(100% - 48px));
+
+            margin: 0 auto;
+
+            padding: 36px 0 60px;
+        }
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+
+            padding: 34px;
+
+            margin-bottom: 24px;
+
+            border-radius: 26px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(20, 45, 78, 0.88),
+                    rgba(11, 26, 46, 0.78)
+                );
+
+            border:
+                1px solid rgba(96, 165, 250, 0.18);
+
+            box-shadow: var(--shadow);
+        }
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+
+            width: 360px;
+            height: 360px;
+
+            right: -100px;
+            top: -170px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(34,211,238,0.15),
+                    transparent 68%
+                );
+        }
+
+        .hero::after {
+            content: "";
+
+            position: absolute;
+
+            width: 280px;
+            height: 280px;
+
+            left: 35%;
+            bottom: -220px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(139,92,246,0.13),
+                    transparent 68%
+                );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 7px 11px;
+
+            border-radius: 999px;
+
+            background:
+                rgba(59, 130, 246, 0.10);
+
+            border:
+                1px solid rgba(59, 130, 246, 0.18);
+
+            color: #93c5fd;
+
+            font-size: 10px;
+            font-weight: 800;
+
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            margin-top: 17px;
+
+            font-size: clamp(30px, 4vw, 48px);
+
+            line-height: 1.04;
+
+            letter-spacing: -1.8px;
+        }
+
+        .hero h1 span {
+            background:
+                linear-gradient(
+                    90deg,
+                    #60a5fa,
+                    #22d3ee,
+                    #a78bfa
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .hero p {
+            max-width: 760px;
+
+            margin-top: 14px;
+
+            color: var(--muted);
+
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+
+            margin-top: 22px;
+        }
+
+        .meta-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            padding: 9px 12px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid var(--line);
+
+            color: #cbd5e1;
+
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* =========================================================
+           FILTER CARD
+        ========================================================= */
+
+        .glass-card {
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(17, 35, 58, 0.82),
+                    rgba(8, 20, 35, 0.76)
+                );
+
+            border:
+                1px solid var(--line);
+
+            border-radius: 22px;
+
+            box-shadow: var(--shadow);
+
+            backdrop-filter: blur(18px);
+        }
+
+        .filter-card {
+            padding: 25px;
+
+            margin-bottom: 24px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .section-subtitle {
+            margin-top: 5px;
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+        .ai-badge {
+            padding: 7px 10px;
+
+            border-radius: 9px;
+
+            color: #c4b5fd;
+
+            background:
+                rgba(139,92,246,0.08);
+
+            border:
+                1px solid rgba(139,92,246,0.18);
+
+            font-size: 10px;
+            font-weight: 800;
+
+            letter-spacing: 0.7px;
+
+            white-space: nowrap;
+        }
+
+        .filter-grid {
+            display: grid;
+
+            grid-template-columns:
+                1.5fr
+                1fr
+                1fr
+                1fr
+                1.1fr
+                auto;
+
+            gap: 13px;
+
+            align-items: end;
+        }
+
+        .field {
+            min-width: 0;
+        }
+
+        .field label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #cbd5e1;
+
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .field-control {
+            width: 100%;
+
+            height: 46px;
+
+            padding: 0 13px;
+
+            border-radius: 12px;
+
+            outline: none;
+
+            color: #f8fafc;
+
+            background:
+                rgba(4, 14, 26, 0.74);
+
+            border:
+                1px solid rgba(148,163,184,0.16);
+
+            transition: 0.2s ease;
+        }
+
+        .field-control:hover {
+            border-color:
+                rgba(96,165,250,0.30);
+        }
+
+        .field-control:focus {
+            border-color:
+                rgba(59,130,246,0.65);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(59,130,246,0.10);
+        }
+
+        select.field-control {
+            cursor: pointer;
+        }
+
+        select.field-control option {
+            background: #0b1728;
+            color: white;
+        }
+
+        .search-button {
+            height: 46px;
+
+            padding: 0 21px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            cursor: pointer;
+
+            color: white;
+
+            font-weight: 800;
+            font-size: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #0891b2
+                );
+
+            box-shadow:
+                0 10px 28px
+                rgba(37,99,235,0.28);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .search-button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 15px 34px
+                rgba(37,99,235,0.38);
+        }
+
+        .search-button:active {
+            transform: translateY(0);
+        }
+
+        .reset-row {
+            display: flex;
+            justify-content: flex-end;
+
+            margin-top: 12px;
+        }
+
+        .reset-button {
+            border: none;
+            background: transparent;
+
+            color: #64748b;
+
+            cursor: pointer;
+
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .reset-button:hover {
+            color: #94a3b8;
+        }
+
+        /* =========================================================
+           SUMMARY CARDS
+        ========================================================= */
+
+        .summary-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 14px;
+
+            margin-bottom: 24px;
+        }
+
+        .summary-card {
+            position: relative;
+            overflow: hidden;
+
+            padding: 20px;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(16,35,59,0.82),
+                    rgba(8,20,35,0.75)
+                );
+
+            border:
+                1px solid var(--line);
+
+            box-shadow:
+                0 15px 45px
+                rgba(0,0,0,0.20);
+        }
+
+        .summary-card::after {
+            content: "";
+
+            position: absolute;
+
+            width: 100px;
+            height: 100px;
+
+            right: -45px;
+            bottom: -55px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(59,130,246,0.10);
+        }
+
+        .summary-label {
+            color: var(--muted);
+
+            font-size: 10px;
+            font-weight: 800;
+
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .summary-value {
+            margin-top: 9px;
+
+            font-size: 25px;
+            font-weight: 850;
+
+            letter-spacing: -0.8px;
+        }
+
+        .summary-small {
+            margin-top: 4px;
+
+            color: #64748b;
+
+            font-size: 10px;
+        }
+
+        /* =========================================================
+           CONTENT GRID
+        ========================================================= */
+
+        .content-grid {
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1.65fr)
+                minmax(360px, 0.85fr);
+
+            gap: 20px;
+
+            align-items: start;
+        }
+
+        .map-card {
+            overflow: hidden;
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 18px 20px;
+
+            border-bottom:
+                1px solid var(--line);
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .card-description {
+            margin-top: 3px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+        .result-count {
+            padding: 6px 9px;
+
+            border-radius: 8px;
+
+            background:
+                rgba(59,130,246,0.10);
+
+            border:
+                1px solid rgba(59,130,246,0.16);
+
+            color: #93c5fd;
+
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        #map {
+            width: 100%;
+            height: 610px;
+
+            background: #091522;
+        }
+
+        /* =========================================================
+           RESULTS
+        ========================================================= */
+
+        .results-card {
+            overflow: hidden;
+
+            max-height: 674px;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .results-container {
+            padding: 13px;
+
+            overflow-y: auto;
+
+            flex: 1;
+        }
+
+        .results-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .results-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .results-container::-webkit-scrollbar-thumb {
+            background: #263850;
+            border-radius: 999px;
+        }
+
+        .property-item {
+            position: relative;
+
+            padding: 15px;
+
+            margin-bottom: 10px;
+
+            border-radius: 15px;
+
+            background:
+                rgba(5,16,29,0.65);
+
+            border:
+                1px solid rgba(148,163,184,0.11);
+
+            cursor: pointer;
+
+            transition:
+                transform 0.2s ease,
+                border-color 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .property-item:hover {
+            transform: translateY(-2px);
+
+            border-color:
+                rgba(59,130,246,0.32);
+
+            background:
+                rgba(14,31,53,0.85);
+        }
+
+        .property-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .property-top {
+            display: flex;
+            justify-content: space-between;
+
+            gap: 10px;
+        }
+
+        .property-locality {
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .property-type {
+            margin-top: 3px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+        .property-price {
+            color: #67e8f9;
+
+            font-size: 15px;
+            font-weight: 850;
+
+            white-space: nowrap;
+        }
+
+        .property-meta {
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 7px;
+
+            margin-top: 12px;
+        }
+
+        .property-chip {
+            padding: 5px 8px;
+
+            border-radius: 7px;
+
+            color: #94a3b8;
+
+            background:
+                rgba(148,163,184,0.06);
+
+            border:
+                1px solid rgba(148,163,184,0.09);
+
+            font-size: 9px;
+            font-weight: 600;
+        }
+
+        .property-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-top: 12px;
+
+            padding-top: 10px;
+
+            border-top:
+                1px solid rgba(148,163,184,0.08);
+
+            color: #64748b;
+
+            font-size: 9px;
+        }
+
+        .view-map {
+            color: #60a5fa;
+
+            font-weight: 700;
+        }
+
+        /* =========================================================
+           EMPTY / LOADING
+        ========================================================= */
+
+        .empty-state {
+            padding: 60px 20px;
+
+            text-align: center;
+
+            color: var(--muted);
+        }
+
+        .empty-icon {
+            width: 54px;
+            height: 54px;
+
+            display: grid;
+            place-items: center;
+
+            margin: 0 auto 13px;
+
+            border-radius: 16px;
+
+            background:
+                rgba(59,130,246,0.08);
+
+            border:
+                1px solid rgba(59,130,246,0.15);
+
+            font-size: 23px;
+        }
+
+        .empty-state strong {
+            display: block;
+
+            color: #cbd5e1;
+
+            margin-bottom: 5px;
+        }
+
+        .loading {
+            padding: 45px 20px;
+
+            text-align: center;
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+        .spinner {
+            width: 28px;
+            height: 28px;
+
+            margin: 0 auto 12px;
+
+            border-radius: 50%;
+
+            border:
+                3px solid rgba(148,163,184,0.14);
+
+            border-top-color:
+                var(--cyan);
+
+            animation:
+                spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* =========================================================
+           LEAFLET DARK THEME
+        ========================================================= */
+
+        .leaflet-control-zoom a {
+            background:
+                rgba(8,20,35,0.90) !important;
+
+            color: #cbd5e1 !important;
+
+            border-color:
+                rgba(148,163,184,0.15) !important;
+        }
+
+        .leaflet-control-zoom a:hover {
+            background:
+                rgba(30,58,90,0.95) !important;
+
+            color: white !important;
+        }
+
+        .leaflet-control-attribution {
+            background:
+                rgba(5,15,27,0.80) !important;
+
+            color: #64748b !important;
+        }
+
+        .leaflet-control-attribution a {
+            color: #60a5fa !important;
+        }
+
+        .dark-popup .leaflet-popup-content-wrapper,
+        .dark-popup .leaflet-popup-tip {
+            background: #0b1728;
+
+            color: #e2e8f0;
+        }
+
+        .dark-popup .leaflet-popup-content {
+            margin: 14px;
+        }
+
+        .popup-title {
+            font-weight: 800;
+            font-size: 13px;
+        }
+
+        .popup-price {
+            margin-top: 5px;
+
+            color: #67e8f9;
+
+            font-weight: 800;
+        }
+
+        .popup-info {
+            margin-top: 7px;
+
+            color: #94a3b8;
+
+            font-size: 10px;
+
+            line-height: 1.6;
+        }
+
+        /* =========================================================
+           TOAST
+        ========================================================= */
+
+        .toast {
+            position: fixed;
+
+            right: 22px;
+            bottom: 22px;
+
+            z-index: 5000;
+
+            max-width: 360px;
+
+            padding: 13px 16px;
+
+            border-radius: 13px;
+
+            color: #e2e8f0;
+
+            background:
+                rgba(10,23,40,0.95);
+
+            border:
+                1px solid rgba(148,163,184,0.16);
+
+            box-shadow:
+                0 18px 50px rgba(0,0,0,0.35);
+
+            font-size: 11px;
+
+            opacity: 0;
+
+            transform:
+                translateY(15px);
+
+            pointer-events: none;
+
+            transition: 0.25s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+
+            transform:
+                translateY(0);
+        }
+
+        .toast.error {
+            border-color:
+                rgba(239,68,68,0.3);
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 1200px) {
+            .filter-grid {
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+
+            .search-button {
+                width: 100%;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .results-card {
+                max-height: none;
+            }
+        }
+
+        @media (max-width: 800px) {
+            .navbar {
+                padding: 0 16px;
+            }
+
+            .nav-right .nav-link {
+                display: none;
+            }
+
+            .system-status {
+                display: none;
+            }
+
+            .container {
+                width: min(
+                    100% - 24px,
+                    1450px
+                );
+
+                padding-top: 20px;
+            }
+
+            .hero {
+                padding: 24px;
+            }
+
+            .filter-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .summary-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            #map {
+                height: 470px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 31px;
+            }
+
+            .section-header {
+                flex-direction: column;
+            }
+
+            .ai-badge {
+                align-self: flex-start;
+            }
+
+            .property-top {
+                flex-direction: column;
+            }
+
+            .property-price {
+                font-size: 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- =============================================================
+     NAVBAR
+============================================================= -->
+
+<nav class="navbar">
+
+    <a href="{{ url_for('dashboard') }}" class="brand">
+
+        <div class="brand-icon">
+            🏠
+        </div>
+
+        <div class="brand-text">
+            Mumbai Property AI
+            <span>Property Intelligence Platform</span>
+        </div>
+
+    </a>
+
+    <div class="nav-right">
+
+        <a
+            href="{{ url_for('dashboard') }}"
+            class="nav-link"
+        >
+            Dashboard
+        </a>
+
+        <a
+            href="{{ url_for('property_finder') }}"
+            class="nav-link active"
+        >
+            Find Properties
+        </a>
+
+        <a
+            href="{{ url_for('property_map') }}"
+            class="nav-link"
+        >
+            Property Map
+        </a>
+
+        <div class="system-status">
+            <span class="status-dot"></span>
+            ML System Online
+        </div>
+
+    </div>
+
+</nav>
+
+
+<main class="container">
+
+    <!-- =========================================================
+         HERO
+    ========================================================== -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="eyebrow">
+                ◉ AI PROPERTY SEARCH ENGINE
+            </div>
+
+            <h1>
+                Find Your
+                <span>Ideal Mumbai Property</span>
+            </h1>
+
+            <p>
+                Search across the Mumbai property intelligence dataset
+                using locality, budget, bedroom configuration and
+                property type. Results are connected directly to the
+                project's machine-learning property intelligence system.
+            </p>
+
+            <div class="hero-meta">
+
+                <div class="meta-pill">
+                    ✦ AI-powered property search
+                </div>
+
+                <div class="meta-pill">
+                    ◈ Mumbai locality intelligence
+                </div>
+
+                <div class="meta-pill">
+                    ◉ Interactive map
+                </div>
+
+                <div class="meta-pill">
+                    ⚡ Live filter results
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         FILTERS
+    ========================================================== -->
+
+    <section class="glass-card filter-card">
+
+        <div class="section-header">
+
+            <div>
+                <div class="section-title">
+                    Search Properties
+                </div>
+
+                <div class="section-subtitle">
+                    Apply filters to explore matching properties.
+                </div>
+            </div>
+
+            <div class="ai-badge">
+                AI SEARCH ENGINE
+            </div>
+
+        </div>
+
+
+        <form
+            id="propertySearchForm"
+            onsubmit="event.preventDefault(); searchProperties();"
+        >
+
+            <div class="filter-grid">
+
+                <!-- Locality -->
+
+                <div class="field">
+
+                    <label for="locality">
+                        LOCALITY
+                    </label>
+
+                    <select
+                        id="locality"
+                        class="field-control"
+                    >
+
+                        <option value="">
+                            All Mumbai Localities
+                        </option>
+
+                        {% for locality in localities %}
+
+                        <option value="{{ locality }}">
+                            {{ locality }}
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- Minimum Budget -->
+
+                <div class="field">
+
+                    <label for="min_budget">
+                        MIN BUDGET
+                    </label>
+
+                    <input
+                        type="number"
+                        id="min_budget"
+                        class="field-control"
+                        placeholder="₹ 50 Lakh"
+                        min="0"
+                        step="100000"
+                    >
+
+                </div>
+
+
+                <!-- Maximum Budget -->
+
+                <div class="field">
+
+                    <label for="max_budget">
+                        MAX BUDGET
+                    </label>
+
+                    <input
+                        type="number"
+                        id="max_budget"
+                        class="field-control"
+                        placeholder="₹ 5 Crore"
+                        min="0"
+                        step="100000"
+                    >
+
+                </div>
+
+
+                <!-- Bedrooms -->
+
+                <div class="field">
+
+                    <label for="bedrooms">
+                        BEDROOMS
+                    </label>
+
+                    <select
+                        id="bedrooms"
+                        class="field-control"
+                    >
+
+                        <option value="">
+                            Any
+                        </option>
+
+                        <option value="1">
+                            1 BHK
+                        </option>
+
+                        <option value="2">
+                            2 BHK
+                        </option>
+
+                        <option value="3">
+                            3 BHK
+                        </option>
+
+                        <option value="4">
+                            4 BHK
+                        </option>
+
+                        <option value="5">
+                            5+ BHK
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Property Type -->
+
+                <div class="field">
+
+                    <label for="property_type">
+                        PROPERTY TYPE
+                    </label>
+
+                    <select
+                        id="property_type"
+                        class="field-control"
+                    >
+
+                        <option value="">
+                            All Types
+                        </option>
+
+                        {% for item in property_types %}
+
+                        <option value="{{ item }}">
+                            {{ item }}
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- Search -->
+
+                <button
+                    type="submit"
+                    class="search-button"
+                    id="searchButton"
+                >
+                    🔎 Search
+                </button>
+
+            </div>
+
+        </form>
+
+
+        <div class="reset-row">
+
+            <button
+                type="button"
+                class="reset-button"
+                onclick="resetSearch()"
+            >
+                Reset all filters
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         SUMMARY
+    ========================================================== -->
+
+    <section class="summary-grid">
+
+        <div class="summary-card">
+
+            <div class="summary-label">
+                Matching Properties
+            </div>
+
+            <div
+                class="summary-value"
+                id="totalResults"
+            >
+                —
+            </div>
+
+            <div class="summary-small">
+                Current search result
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-label">
+                Average Price
+            </div>
+
+            <div
+                class="summary-value"
+                id="averagePrice"
+            >
+                —
+            </div>
+
+            <div class="summary-small">
+                Across matching properties
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-label">
+                Price Range
+            </div>
+
+            <div
+                class="summary-value"
+                id="priceRange"
+            >
+                —
+            </div>
+
+            <div class="summary-small">
+                Minimum to maximum
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-label">
+                Average Area
+            </div>
+
+            <div
+                class="summary-value"
+                id="averageArea"
+            >
+                —
+            </div>
+
+            <div class="summary-small">
+                Square feet
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         MAP + RESULTS
+    ========================================================== -->
+
+    <section class="content-grid">
+
+        <!-- MAP -->
+
+        <div class="glass-card map-card">
+
+            <div class="card-top">
+
+                <div>
+
+                    <div class="card-title">
+                        Property Intelligence Map
+                    </div>
+
+                    <div class="card-description">
+                        Click a property marker to inspect details.
+                    </div>
+
+                </div>
+
+                <div
+                    class="result-count"
+                    id="mapResultCount"
+                >
+                    0 properties
+                </div>
+
+            </div>
+
+            <div id="map"></div>
+
+        </div>
+
+
+        <!-- RESULTS -->
+
+        <div class="glass-card results-card">
+
+            <div class="card-top">
+
+                <div>
+
+                    <div class="card-title">
+                        Property Results
+                    </div>
+
+                    <div class="card-description">
+                        Matching properties
+                    </div>
+
+                </div>
+
+                <div
+                    class="result-count"
+                    id="sideResultCount"
+                >
+                    0
+                </div>
+
+            </div>
+
+            <div
+                class="results-container"
+                id="resultsContainer"
+            >
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        🔎
+                    </div>
+
+                    <strong>
+                        Search for properties
+                    </strong>
+
+                    <span>
+                        Choose your filters and start exploring.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<!-- =============================================================
+     LEAFLET
+============================================================= -->
+
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+
+<script>
+
+    /* =========================================================
+       GLOBALS
+    ========================================================= */
+
+    let map = null;
+
+    let markersLayer = null;
+
+    let currentProperties = [];
+
+
+    /* =========================================================
+       INITIALIZE MAP
+    ========================================================= */
+
+    function initializeMap() {
+
+        map = L.map("map", {
+            zoomControl: true
+        }).setView(
+            [19.0760, 72.8777],
+            10.5
+        );
+
+
+        L.tileLayer(
+            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            {
+                maxZoom: 19,
+                attribution:
+                    '&copy; OpenStreetMap contributors'
+            }
+        ).addTo(map);
+
+
+        markersLayer = L.layerGroup().addTo(map);
+
+    }
+
+
+    /* =========================================================
+       MONEY FORMATTER
+    ========================================================= */
+
+    function money(value) {
+
+        if (
+            value === null ||
+            value === undefined ||
+            value === "" ||
+            isNaN(Number(value))
+        ) {
+            return "—";
+        }
+
+
+        const amount = Number(value);
+
+
+        if (amount >= 10000000) {
+
+            return "₹ " +
+                (amount / 10000000)
+                    .toFixed(2)
+                    .replace(/\.00$/, "") +
+                " Cr";
+
+        }
+
+
+        if (amount >= 100000) {
+
+            return "₹ " +
+                (amount / 100000)
+                    .toFixed(2)
+                    .replace(/\.00$/, "") +
+                " L";
+
+        }
+
+
+        return "₹ " +
+            Math.round(amount)
+                .toLocaleString("en-IN");
+
+    }
+
+
+    /* =========================================================
+       NUMBER FORMATTER
+    ========================================================= */
+
+    function numberFormat(value) {
+
+        if (
+            value === null ||
+            value === undefined ||
+            value === "" ||
+            isNaN(Number(value))
+        ) {
+            return "—";
+        }
+
+        return Number(value)
+            .toLocaleString("en-IN", {
+                maximumFractionDigits: 0
+            });
+
+    }
+
+
+    /* =========================================================
+       ESCAPE HTML
+    ========================================================= */
+
+    function escapeHtml(value) {
+
+        if (
+            value === null ||
+            value === undefined
+        ) {
+            return "";
+        }
+
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* =========================================================
+       TOAST
+    ========================================================= */
+
+    function showToast(message, isError = false) {
+
+        const toast =
+            document.getElementById("toast");
+
+
+        toast.textContent = message;
+
+        toast.classList.toggle(
+            "error",
+            isError
+        );
+
+        toast.classList.add("show");
+
+
+        setTimeout(() => {
+
+            toast.classList.remove("show");
+
+        }, 3200);
+
+    }
+
+
+    /* =========================================================
+       SUMMARY
+    ========================================================= */
+
+    function renderSummary(data) {
+
+        const results =
+            data.results || [];
+
+
+        document.getElementById(
+            "totalResults"
+        ).textContent =
+            numberFormat(
+                data.total_results ??
+                results.length
+            );
+
+
+        document.getElementById(
+            "mapResultCount"
+        ).textContent =
+            `${results.length} properties`;
+
+
+        document.getElementById(
+            "sideResultCount"
+        ).textContent =
+            numberFormat(
+                data.total_results ??
+                results.length
+            );
+
+
+        let prices = [];
+
+        let areas = [];
+
+
+        results.forEach(property => {
+
+            const price =
+                Number(
+                    property.price ??
+                    property.listed_price ??
+                    property.amount
+                );
+
+
+            const area =
+                Number(
+                    property.area ??
+                    property.built_up_area ??
+                    property.size
+                );
+
+
+            if (
+                Number.isFinite(price) &&
+                price > 0
+            ) {
+                prices.push(price);
+            }
+
+
+            if (
+                Number.isFinite(area) &&
+                area > 0
+            ) {
+                areas.push(area);
+            }
+
+        });
+
+
+        if (prices.length > 0) {
+
+            const avg =
+                prices.reduce(
+                    (sum, value) =>
+                        sum + value,
+                    0
+                ) / prices.length;
+
+
+            const min =
+                Math.min(...prices);
+
+            const max =
+                Math.max(...prices);
+
+
+            document.getElementById(
+                "averagePrice"
+            ).textContent =
+                money(avg);
+
+
+            document.getElementById(
+                "priceRange"
+            ).textContent =
+                `${money(min)} – ${money(max)}`;
+
+        }
+        else {
+
+            document.getElementById(
+                "averagePrice"
+            ).textContent = "—";
+
+            document.getElementById(
+                "priceRange"
+            ).textContent = "—";
+
+        }
+
+
+        if (areas.length > 0) {
+
+            const avgArea =
+                areas.reduce(
+                    (sum, value) =>
+                        sum + value,
+                    0
+                ) / areas.length;
+
+
+            document.getElementById(
+                "averageArea"
+            ).textContent =
+                `${numberFormat(avgArea)} sq.ft`;
+
+        }
+        else {
+
+            document.getElementById(
+                "averageArea"
+            ).textContent = "—";
+
+        }
+
+    }
+
+
+    /* =========================================================
+       GET PROPERTY COORDINATES
+    ========================================================= */
+
+    function getLatitude(property) {
+
+        return Number(
+            property.latitude ??
+            property.lat ??
+            property.Latitude
+        );
+
+    }
+
+
+    function getLongitude(property) {
+
+        return Number(
+            property.longitude ??
+            property.lng ??
+            property.lon ??
+            property.Longitude
+        );
+
+    }
+
+
+    /* =========================================================
+       PROPERTY POPUP
+    ========================================================= */
+
+    function propertyPopup(property) {
+
+        const locality =
+            property.locality ??
+            property.Locality ??
+            "Mumbai";
+
+
+        const price =
+            property.price ??
+            property.listed_price ??
+            property.amount ??
+            property.predicted_price;
+
+
+        const area =
+            property.area ??
+            property.built_up_area ??
+            property.size;
+
+
+        const bedrooms =
+            property.bedroom_num ??
+            property.bedrooms ??
+            property.bhk;
+
+
+        const bathrooms =
+            property.bathroom_num ??
+            property.bathrooms;
+
+
+        const type =
+            property.property_type ??
+            property.type ??
+            "Property";
+
+
+        return `
+            <div class="popup-title">
+                ${escapeHtml(locality)}
+            </div>
+
+            <div class="popup-price">
+                ${money(price)}
+            </div>
+
+            <div class="popup-info">
+
+                ${escapeHtml(type)}
+                <br>
+
+                ${bedrooms !== undefined
+                    ? escapeHtml(bedrooms) + " BHK"
+                    : ""
+                }
+
+                ${bathrooms !== undefined
+                    ? " • " +
+                      escapeHtml(bathrooms) +
+                      " Bath"
+                    : ""
+                }
+
+                ${area !== undefined
+                    ? "<br>" +
+                      numberFormat(area) +
+                      " sq.ft"
+                    : ""
+                }
+
+            </div>
+        `;
+
+    }
+
+
+    /* =========================================================
+       RENDER MAP
+    ========================================================= */
+
+    function renderMap(properties) {
+
+        if (!map || !markersLayer) {
+            return;
+        }
+
+
+        markersLayer.clearLayers();
+
+
+        const bounds = [];
+
+
+        properties.forEach((property, index) => {
+
+            const lat =
+                getLatitude(property);
+
+            const lng =
+                getLongitude(property);
+
+
+            if (
+                !Number.isFinite(lat) ||
+                !Number.isFinite(lng)
+            ) {
+                return;
+            }
+
+
+            const marker =
+                L.marker([lat, lng]);
+
+
+            marker.bindPopup(
+                propertyPopup(property),
+                {
+                    className: "dark-popup"
+                }
+            );
+
+
+            marker.on(
+                "click",
+                function () {
+
+                    highlightProperty(index);
+
+                }
+            );
+
+
+            marker.addTo(markersLayer);
+
+
+            bounds.push([lat, lng]);
+
+        });
+
+
+        if (bounds.length > 0) {
+
+            map.fitBounds(
+                bounds,
+                {
+                    padding: [35, 35],
+                    maxZoom: 14
+                }
+            );
+
+        }
+
+    }
+
+
+    /* =========================================================
+       RENDER RESULTS
+    ========================================================= */
+
+    function renderResults(properties) {
+
+        const container =
+            document.getElementById(
+                "resultsContainer"
+            );
+
+
+        if (!properties || properties.length === 0) {
+
+            container.innerHTML = `
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        🏙️
+                    </div>
+
+                    <strong>
+                        No matching properties
+                    </strong>
+
+                    <span>
+                        Try changing your filters.
+                    </span>
+
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML =
+            properties.map(
+                (property, index) => {
+
+                    const locality =
+                        property.locality ??
+                        property.Locality ??
+                        "Mumbai";
+
+
+                    const price =
+                        property.price ??
+                        property.listed_price ??
+                        property.amount ??
+                        property.predicted_price;
+
+
+                    const area =
+                        property.area ??
+                        property.built_up_area ??
+                        property.size;
+
+
+                    const bedrooms =
+                        property.bedroom_num ??
+                        property.bedrooms ??
+                        property.bhk;
+
+
+                    const bathrooms =
+                        property.bathroom_num ??
+                        property.bathrooms;
+
+
+                    const propertyType =
+                        property.property_type ??
+                        property.type ??
+                        "Property";
+
+
+                    const furnished =
+                        property.furnished ??
+                        "";
+
+
+                    const ppsf =
+                        property.price_per_sqft ??
+                        property.predicted_price_per_sqft;
+
+
+                    return `
+
+                        <div
+                            class="property-item"
+                            id="property-${index}"
+                            onclick="focusProperty(${index})"
+                        >
+
+                            <div class="property-top">
+
+                                <div>
+
+                                    <div class="property-locality">
+                                        ${escapeHtml(locality)}
+                                    </div>
+
+                                    <div class="property-type">
+                                        ${escapeHtml(propertyType)}
+                                    </div>
+
+                                </div>
+
+                                <div class="property-price">
+                                    ${money(price)}
+                                </div>
+
+                            </div>
+
+
+                            <div class="property-meta">
+
+                                ${
+                                    bedrooms !== undefined &&
+                                    bedrooms !== null &&
+                                    bedrooms !== ""
+                                    ?
+                                    `<span class="property-chip">
+                                        🛏 ${escapeHtml(bedrooms)} BHK
+                                    </span>`
+                                    :
+                                    ""
+                                }
+
+
+                                ${
+                                    bathrooms !== undefined &&
+                                    bathrooms !== null &&
+                                    bathrooms !== ""
+                                    ?
+                                    `<span class="property-chip">
+                                        🛁 ${escapeHtml(bathrooms)} Bath
+                                    </span>`
+                                    :
+                                    ""
+                                }
+
+
+                                ${
+                                    area !== undefined &&
+                                    area !== null &&
+                                    area !== ""
+                                    ?
+                                    `<span class="property-chip">
+                                        📐 ${numberFormat(area)} sq.ft
+                                    </span>`
+                                    :
+                                    ""
+                                }
+
+
+                                ${
+                                    furnished
+                                    ?
+                                    `<span class="property-chip">
+                                        🛋 ${escapeHtml(furnished)}
+                                    </span>`
+                                    :
+                                    ""
+                                }
+
+                            </div>
+
+
+                            <div class="property-footer">
+
+                                <span>
+                                    ${
+                                        ppsf
+                                        ?
+                                        money(ppsf) +
+                                        " / sq.ft"
+                                        :
+                                        "Property intelligence available"
+                                    }
+                                </span>
+
+                                <span class="view-map">
+                                    View on map →
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }
+            ).join("");
+
+    }
+
+
+    /* =========================================================
+       FOCUS PROPERTY
+    ========================================================= */
+
+    function focusProperty(index) {
+
+        const property =
+            currentProperties[index];
+
+
+        if (!property) {
+            return;
+        }
+
+
+        const lat =
+            getLatitude(property);
+
+        const lng =
+            getLongitude(property);
+
+
+        if (
+            Number.isFinite(lat) &&
+            Number.isFinite(lng)
+        ) {
+
+            map.setView(
+                [lat, lng],
+                15,
+                {
+                    animate: true
+                }
+            );
+
+
+            let foundMarker = null;
+
+
+            markersLayer.eachLayer(
+                marker => {
+
+                    const position =
+                        marker.getLatLng();
+
+
+                    if (
+                        Math.abs(
+                            position.lat - lat
+                        ) < 0.000001 &&
+                        Math.abs(
+                            position.lng - lng
+                        ) < 0.000001
+                    ) {
+                        foundMarker = marker;
+                    }
+
+                }
+            );
+
+
+            if (foundMarker) {
+
+                foundMarker.openPopup();
+
+            }
+
+        }
+
+
+        highlightProperty(index);
+
+    }
+
+
+    /* =========================================================
+       HIGHLIGHT PROPERTY
+    ========================================================= */
+
+    function highlightProperty(index) {
+
+        document
+            .querySelectorAll(
+                ".property-item"
+            )
+            .forEach(item => {
+
+                item.style.borderColor =
+                    "rgba(148,163,184,0.11)";
+
+                item.style.background =
+                    "rgba(5,16,29,0.65)";
+
+            });
+
+
+        const element =
+            document.getElementById(
+                `property-${index}`
+            );
+
+
+        if (element) {
+
+            element.style.borderColor =
+                "rgba(34,211,238,0.38)";
+
+            element.style.background =
+                "rgba(14,37,60,0.90)";
+
+            element.scrollIntoView({
+                behavior: "smooth",
+                block: "nearest"
+            });
+
+        }
+
+    }
+
+
+    /* =========================================================
+       LOADING
+    ========================================================= */
+
+    function showLoading() {
+
+        const container =
+            document.getElementById(
+                "resultsContainer"
+            );
+
+
+        container.innerHTML = `
+
+            <div class="loading">
+
+                <div class="spinner"></div>
+
+                Searching property intelligence database...
+
+            </div>
+
+        `;
+
+    }
+
+
+    /* =========================================================
+       SEARCH PROPERTIES
+    ========================================================= */
+
+    async function searchProperties() {
+
+        const locality =
+            document.getElementById(
+                "locality"
+            ).value.trim();
+
+
+        const minBudget =
+            document.getElementById(
+                "min_budget"
+            ).value;
+
+
+        const maxBudget =
+            document.getElementById(
+                "max_budget"
+            ).value;
+
+
+        const bedrooms =
+            document.getElementById(
+                "bedrooms"
+            ).value;
+
+
+        const propertyType =
+            document.getElementById(
+                "property_type"
+            ).value;
+
+
+        if (
+            minBudget &&
+            maxBudget &&
+            Number(minBudget) >
+            Number(maxBudget)
+        ) {
+
+            showToast(
+                "Minimum budget cannot be greater than maximum budget.",
+                true
+            );
+
+            return;
+
+        }
+
+
+        showLoading();
+
+
+        const button =
+            document.getElementById(
+                "searchButton"
+            );
+
+
+        button.disabled = true;
+
+        button.textContent =
+            "Searching...";
+
+
+        const params =
+            new URLSearchParams();
+
+
+        if (locality) {
+
+            params.set(
+                "locality",
+                locality
+            );
+
+        }
+
+
+        if (minBudget) {
+
+            params.set(
+                "min_budget",
+                minBudget
+            );
+
+        }
+
+
+        if (maxBudget) {
+
+            params.set(
+                "max_budget",
+                maxBudget
+            );
+
+        }
+
+
+        if (bedrooms) {
+
+            params.set(
+                "bedrooms",
+                bedrooms
+            );
+
+        }
+
+
+        if (propertyType) {
+
+            params.set(
+                "property_type",
+                propertyType
+            );
+
+        }
+
+
+        params.set(
+            "limit",
+            "250"
+        );
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "{{ url_for('api_property_search') }}?" +
+                    params.toString()
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                !response.ok ||
+                data.success === false
+            ) {
+
+                throw new Error(
+                    data.message ||
+                    "Property search failed."
+                );
+
+            }
+
+
+            currentProperties =
+                data.results || [];
+
+
+            renderSummary(data);
+
+            renderResults(
+                currentProperties
+            );
+
+            renderMap(
+                currentProperties
+            );
+
+
+            showToast(
+                `${currentProperties.length} matching properties found.`
+            );
+
+        }
+        catch (error) {
+
+            console.error(error);
+
+
+            currentProperties = [];
+
+
+            renderResults([]);
+
+
+            showToast(
+                error.message ||
+                "Unable to search properties.",
+                true
+            );
+
+        }
+        finally {
+
+            button.disabled = false;
+
+            button.textContent =
+                "🔎 Search";
+
+        }
+
+    }
+
+
+    /* =========================================================
+       RESET SEARCH
+    ========================================================= */
+
+    function resetSearch() {
+
+        document
+            .getElementById(
+                "propertySearchForm"
+            )
+            .reset();
+
+
+        currentProperties = [];
+
+
+        document.getElementById(
+            "totalResults"
+        ).textContent = "—";
+
+
+        document.getElementById(
+            "averagePrice"
+        ).textContent = "—";
+
+
+        document.getElementById(
+            "priceRange"
+        ).textContent = "—";
+
+
+        document.getElementById(
+            "averageArea"
+        ).textContent = "—";
+
+
+        document.getElementById(
+            "mapResultCount"
+        ).textContent =
+            "0 properties";
+
+
+        document.getElementById(
+            "sideResultCount"
+        ).textContent = "0";
+
+
+        renderResults([]);
+
+
+        if (markersLayer) {
+
+            markersLayer.clearLayers();
+
+        }
+
+
+        if (map) {
+
+            map.setView(
+                [19.0760, 72.8777],
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mumbai Property Intelligence | Property Finder</title>
+
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          crossorigin="">
+
+    <style>
+        :root{
+            --bg:#07111f;
+            --bg2:#0a1627;
+            --panel:rgba(15,27,45,.82);
+            --panel-strong:rgba(17,31,51,.96);
+            --panel-soft:rgba(255,255,255,.045);
+
+            --ink:#f8fbff;
+            --muted:#91a4bd;
+            --muted2:#71859f;
+
+            --line:rgba(148,163,184,.14);
+            --line2:rgba(148,163,184,.22);
+
+            --blue:#3b82f6;
+            --blue2:#60a5fa;
+            --cyan:#22d3ee;
+            --purple:#8b5cf6;
+            --green:#22c55e;
+
+            --shadow:0 24px 70px rgba(0,0,0,.30);
+        }
+
+        *{
+            box-sizing:border-box;
+        }
+
+        html{
+            scroll-behavior:smooth;
+        }
+
+        body{
+            margin:0;
+            min-height:100vh;
+            background:
+                radial-gradient(circle at 8% 0%, rgba(37,99,235,.16), transparent 30%),
+                radial-gradient(circle at 90% 10%, rgba(34,211,238,.10), transparent 26%),
+                linear-gradient(135deg,var(--bg),var(--bg2));
+            color:var(--ink);
+            font-family:
+                Inter,
+                ui-sans-serif,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+        }
+
+        body::before{
+            content:"";
+            position:fixed;
+            inset:0;
+            pointer-events:none;
+            background-image:
+                linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+                linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+            background-size:40px 40px;
+            mask-image:linear-gradient(to bottom,black,transparent 85%);
+        }
+
+        a{
+            color:inherit;
+        }
+
+        button,
+        input,
+        select{
+            font:inherit;
+        }
+
+        .shell{
+            width:min(1540px,calc(100% - 40px));
+            margin:auto;
+            padding:22px 0 55px;
+            position:relative;
+            z-index:1;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar{
+            height:68px;
+            padding:0 18px;
+            border:1px solid var(--line);
+            border-radius:20px;
+
+            background:rgba(9,21,36,.76);
+            backdrop-filter:blur(18px);
+            -webkit-backdrop-filter:blur(18px);
+
+            box-shadow:0 16px 45px rgba(0,0,0,.22);
+
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:20px;
+        }
+
+        .brand{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            text-decoration:none;
+        }
+
+        .brand-icon{
+            width:40px;
+            height:40px;
+            border-radius:13px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            background:
+                linear-gradient(135deg,#2563eb,#22d3ee);
+
+            box-shadow:
+                0 0 25px rgba(37,99,235,.30);
+
+            font-size:19px;
+        }
+
+        .brand-text strong{
+            display:block;
+            font-size:14px;
+            letter-spacing:.2px;
+        }
+
+        .brand-text span{
+            display:block;
+            margin-top:2px;
+            font-size:10px;
+            color:var(--muted2);
+            letter-spacing:1.4px;
+            text-transform:uppercase;
+            font-weight:800;
+        }
+
+        .nav-right{
+            display:flex;
+            align-items:center;
+            gap:12px;
+        }
+
+        .system-status{
+            display:flex;
+            align-items:center;
+            gap:8px;
+
+            padding:9px 13px;
+            border-radius:999px;
+
+            background:rgba(34,197,94,.08);
+            border:1px solid rgba(34,197,94,.18);
+
+            color:#9df0b5;
+            font-size:11px;
+            font-weight:800;
+            letter-spacing:.4px;
+        }
+
+        .status-dot{
+            width:7px;
+            height:7px;
+            border-radius:50%;
+            background:#22c55e;
+            box-shadow:0 0 12px rgba(34,197,94,.85);
+        }
+
+        .back{
+            text-decoration:none;
+            padding:10px 15px;
+            border-radius:11px;
+
+            color:#dce8f8;
+            background:rgba(255,255,255,.045);
+            border:1px solid var(--line);
+
+            font-size:12px;
+            font-weight:800;
+
+            transition:.2s ease;
+        }
+
+        .back:hover{
+            transform:translateY(-1px);
+            border-color:rgba(96,165,250,.4);
+            background:rgba(59,130,246,.10);
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero{
+            padding:48px 8px 28px;
+            display:flex;
+            justify-content:space-between;
+            align-items:flex-end;
+            gap:25px;
+        }
+
+        .hero-left{
+            max-width:900px;
+        }
+
+        .kicker{
+            display:inline-flex;
+            align-items:center;
+            gap:8px;
+
+            color:#72b4ff;
+            font-size:11px;
+            font-weight:900;
+            letter-spacing:1.7px;
+            text-transform:uppercase;
+        }
+
+        .kicker::before{
+            content:"";
+            width:28px;
+            height:2px;
+            border-radius:10px;
+            background:linear-gradient(90deg,var(--blue),var(--cyan));
+        }
+
+        h1{
+            margin:13px 0 10px;
+
+            font-size:clamp(38px,5vw,62px);
+            line-height:1.02;
+            letter-spacing:-2.8px;
+
+            background:
+                linear-gradient(100deg,#ffffff 15%,#b9d9ff 55%,#6ee7f9);
+
+            -webkit-background-clip:text;
+            background-clip:text;
+            color:transparent;
+        }
+
+        .hero-description{
+            max-width:780px;
+            margin:0;
+
+            color:var(--muted);
+            line-height:1.75;
+            font-size:14px;
+        }
+
+        .hero-badge{
+            flex-shrink:0;
+
+            padding:12px 16px;
+            border-radius:14px;
+
+            border:1px solid rgba(59,130,246,.20);
+            background:rgba(59,130,246,.07);
+
+            color:#b9d7ff;
+            font-size:11px;
+            font-weight:800;
+            letter-spacing:.5px;
+        }
+
+        /* =========================
+           GLASS CARD
+        ========================= */
+
+        .glass{
+            background:var(--panel);
+            border:1px solid var(--line);
+            border-radius:20px;
+
+            backdrop-filter:blur(18px);
+            -webkit-backdrop-filter:blur(18px);
+
+            box-shadow:var(--shadow);
+        }
+
+        /* =========================
+           FILTER PANEL
+        ========================= */
+
+        .filter-card{
+            padding:20px;
+        }
+
+        .filter-header{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:15px;
+            margin-bottom:18px;
+        }
+
+        .section-title{
+            display:flex;
+            align-items:center;
+            gap:10px;
+        }
+
+        .section-icon{
+            width:34px;
+            height:34px;
+            border-radius:10px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            background:rgba(59,130,246,.12);
+            border:1px solid rgba(59,130,246,.18);
+
+            font-size:15px;
+        }
+
+        .section-title strong{
+            font-size:14px;
+        }
+
+        .section-title span{
+            display:block;
+            color:var(--muted2);
+            font-size:10px;
+            margin-top:2px;
+            text-transform:uppercase;
+            letter-spacing:.8px;
+        }
+
+        .filter-status{
+            font-size:10px;
+            color:#79aef0;
+            font-weight:800;
+            text-transform:uppercase;
+            letter-spacing:1px;
+        }
+
+        .filters{
+            display:grid;
+            grid-template-columns:
+                1.35fr
+                1fr
+                1fr
+                .75fr
+                1fr
+                auto;
+            gap:12px;
+            align-items:end;
+        }
+
+        .field label{
+            display:block;
+            margin:0 0 7px 2px;
+
+            color:#8ea3bc;
+            font-size:10px;
+            font-weight:900;
+            text-transform:uppercase;
+            letter-spacing:.75px;
+        }
+
+        input,
+        select{
+            width:100%;
+            height:46px;
+
+            border-radius:12px;
+            border:1px solid var(--line2);
+
+            outline:none;
+
+            background:rgba(255,255,255,.045);
+            color:#edf5ff;
+
+            padding:0 13px;
+
+            transition:.2s ease;
+        }
+
+        select{
+            cursor:pointer;
+        }
+
+        select option{
+            background:#101e31;
+            color:#fff;
+        }
+
+        input::placeholder{
+            color:#637892;
+        }
+
+        input:focus,
+        select:focus{
+            border-color:rgba(59,130,246,.70);
+            background:rgba(59,130,246,.06);
+            box-shadow:
+                0 0 0 3px rgba(59,130,246,.10),
+                0 0 25px rgba(59,130,246,.06);
+        }
+
+        .search-button{
+            height:46px;
+            border:0;
+            border-radius:12px;
+
+            padding:0 20px;
+
+            color:#fff;
+            font-weight:900;
+            font-size:12px;
+
+            cursor:pointer;
+
+            background:
+                linear-gradient(135deg,#2563eb,#0ea5e9);
+
+            box-shadow:
+                0 10px 25px rgba(37,99,235,.24);
+
+            transition:.2s ease;
+            white-space:nowrap;
+        }
+
+        .search-button:hover{
+            transform:translateY(-2px);
+            box-shadow:
+                0 14px 32px rgba(37,99,235,.35);
+        }
+
+        .search-button:disabled{
+            opacity:.6;
+            cursor:wait;
+            transform:none;
+        }
+
+        /* =========================
+           SUMMARY
+        ========================= */
+
+        .summary{
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:12px;
+            margin:16px 0;
+        }
+
+        .summary-card{
+            min-height:78px;
+            padding:16px 17px;
+
+            border-radius:16px;
+            border:1px solid var(--line);
+
+            background:rgba(15,27,45,.70);
+
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+
+            box-shadow:0 12px 30px rgba(0,0,0,.13);
+        }
+
+        .summary-card span{
+            color:var(--muted2);
+            font-size:10px;
+            font-weight:900;
+            letter-spacing:.8px;
+            text-transform:uppercase;
+        }
+
+        .summary-card strong{
+            color:#eef6ff;
+            font-size:19px;
+            margin-top:6px;
+            letter-spacing:-.4px;
+        }
+
+        .summary-card:first-child{
+            border-color:rgba(59,130,246,.22);
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(37,99,235,.13),
+                    rgba(15,27,45,.75)
+                );
+        }
+
+        /* =========================
+           MAIN LAYOUT
+        ========================= */
+
+        .layout{
+            display:grid;
+            grid-template-columns:minmax(0,1.45fr) minmax(360px,.75fr);
+            gap:16px;
+            margin-top:16px;
+        }
+
+        .map-card{
+            overflow:hidden;
+            position:relative;
+        }
+
+        .map-toolbar{
+            height:58px;
+            padding:0 17px;
+
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:15px;
+
+            border-bottom:1px solid var(--line);
+            background:rgba(10,20,34,.88);
+        }
+
+        .map-title{
+            display:flex;
+            align-items:center;
+            gap:9px;
+        }
+
+        .map-title .map-pin{
+            width:30px;
+            height:30px;
+            border-radius:9px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            background:rgba(34,211,238,.10);
+            border:1px solid rgba(34,211,238,.18);
+        }
+
+        .map-title strong{
+            font-size:12px;
+        }
+
+        .map-title span{
+            display:block;
+            color:var(--muted2);
+            font-size:9px;
+            margin-top:2px;
+            letter-spacing:.7px;
+            text-transform:uppercase;
+        }
+
+        .map-info{
+            color:#7892af;
+            font-size:10px;
+            font-weight:800;
+        }
+
+        #map{
+            height:650px;
+            width:100%;
+            background:#0c1727;
+        }
+
+        /* Leaflet styling */
+
+        .leaflet-container{
+            font-family:Inter,system-ui,sans-serif;
+            background:#0c1727;
+        }
+
+        .leaflet-control-zoom a{
+            background:#102238 !important;
+            color:#d9eaff !important;
+            border-color:rgba(148,163,184,.16) !important;
+        }
+
+        .leaflet-control-attribution{
+            background:rgba(5,14,25,.78) !important;
+            color:#71859d !important;
+        }
+
+        .leaflet-control-attribution a{
+            color:#82b8f8 !important;
+        }
+
+        .leaflet-popup-content-wrapper,
+        .leaflet-popup-tip{
+            background:#102238;
+            color:#eef6ff;
+            box-shadow:0 16px 40px rgba(0,0,0,.38);
+        }
+
+        .leaflet-popup-content{
+            line-height:1.65;
+            font-size:12px;
+        }
+
+        .leaflet-popup-content strong{
+            color:#fff;
+            font-size:13px;
+        }
+
+        .leaflet-popup-close-button{
+            color:#91a4bd !important;
+        }
+
+        /* =========================
+           RESULTS
+        ========================= */
+
+        .results-card{
+            overflow:hidden;
+            display:flex;
+            flex-direction:column;
+            min-height:708px;
+        }
+
+        .results-header{
+            min-height:58px;
+            padding:0 17px;
+
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+
+            border-bottom:1px solid var(--line);
+            background:rgba(10,20,34,.88);
+        }
+
+        .results-header-left{
+            display:flex;
+            align-items:center;
+            gap:10px;
+        }
+
+        .results-icon{
+            width:30px;
+            height:30px;
+            border-radius:9px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            background:rgba(139,92,246,.10);
+            border:1px solid rgba(139,92,246,.18);
+        }
+
+        .results-header strong{
+            font-size:12px;
+        }
+
+        .results-header span{
+            display:block;
+            color:var(--muted2);
+            font-size:9px;
+            margin-top:2px;
+            letter-spacing:.7px;
+            text-transform:uppercase;
+        }
+
+        .results-count{
+            padding:6px 9px;
+            border-radius:999px;
+
+            background:rgba(59,130,246,.09);
+            border:1px solid rgba(59,130,246,.16);
+
+            color:#8ec1ff;
+            font-size:10px;
+            font-weight:900;
+        }
+
+        .results{
+            flex:1;
+            max-height:650px;
+            overflow:auto;
+        }
+
+        .results::-webkit-scrollbar{
+            width:7px;
+        }
+
+        .results::-webkit-scrollbar-track{
+            background:rgba(255,255,255,.02);
+        }
+
+        .results::-webkit-scrollbar-thumb{
+            background:rgba(100,116,139,.35);
+            border-radius:20px;
+        }
+
+        .property{
+            padding:17px 18px;
+            border-bottom:1px solid rgba(148,163,184,.09);
+            cursor:pointer;
+
+            transition:.18s ease;
+        }
+
+        .property:hover{
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(59,130,246,.09),
+                    rgba(59,130,246,.025)
+                );
+
+            padding-left:21px;
+        }
+
+        .property-head{
+            display:flex;
+            justify-content:space-between;
+            align-items:flex-start;
+            gap:12px;
+        }
+
+        .property h3{
+            margin:0 0 5px;
+            font-size:14px;
+            color:#eef6ff;
+        }
+
+        .property-type{
+            color:#758ba6;
+            font-size:10px;
+            font-weight:700;
+        }
+
+        .price{
+            color:#65b5ff;
+            font-size:14px;
+            font-weight:900;
+            white-space:nowrap;
+        }
+
+        .meta{
+            display:flex;
+            gap:7px;
+            flex-wrap:wrap;
+            margin-top:11px;
+        }
+
+        .meta span{
+            padding:5px 8px;
+            border-radius:7px;
+
+            color:#8195ad;
+            background:rgba(255,255,255,.035);
+            border:1px solid rgba(148,163,184,.09);
+
+            font-size:10px;
+            font-weight:700;
+        }
+
+        .empty{
+            min-height:360px;
+            padding:50px 24px;
+
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+
+            text-align:center;
+            color:var(--muted);
+        }
+
+        .empty-icon{
+            width:58px;
+            height:58px;
+            border-radius:17px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            margin-bottom:14px;
+
+            background:rgba(59,130,246,.08);
+            border:1px solid rgba(59,130,246,.15);
+
+            font-size:23px;
+        }
+
+        .empty h3{
+            margin:0 0 7px;
+            color:#e7f0fb;
+            font-size:15px;
+        }
+
+        .empty p{
+            margin:0;
+            max-width:340px;
+            line-height:1.6;
+            font-size:12px;
+            color:#72859d;
+        }
+
+        .count{
+            padding:11px 17px;
+
+            background:rgba(59,130,246,.045);
+            border-bottom:1px solid rgba(148,163,184,.09);
+
+            color:#8eacd0;
+            font-size:10px;
+            font-weight:900;
+            text-transform:uppercase;
+            letter-spacing:.6px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer{
+            margin-top:18px;
+            padding:15px 4px;
+
+            display:flex;
+            justify-content:space-between;
+            gap:15px;
+
+            color:#536982;
+            font-size:10px;
+            font-weight:700;
+        }
+
+        .footer span:last-child{
+            color:#65809f;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media(max-width:1150px){
+
+            .filters{
+                grid-template-columns:repeat(3,1fr);
+            }
+
+            .search-button{
+                width:100%;
+            }
+
+            .layout{
+                grid-template-columns:1fr;
+            }
+
+            #map{
+                height:540px;
+            }
+
+            .results-card{
+                min-height:500px;
+            }
+
+            .results{
+                max-height:600px;
+            }
+        }
+
+        @media(max-width:800px){
+
+            .shell{
+                width:min(100% - 24px,1540px);
+                padding-top:12px;
+            }
+
+            .navbar{
+                height:auto;
+                min-height:62px;
+                padding:10px 13px;
+            }
+
+            .system-status{
+                display:none;
+            }
+
+            .hero{
+                padding:35px 4px 22px;
+            }
+
+            .hero-badge{
+                display:none;
+            }
+
+            .summary{
+                grid-template-columns:repeat(2,1fr);
+            }
+
+            .filters{
+                grid-template-columns:repeat(2,1fr);
+            }
+
+            .filters .wide{
+                grid-column:1/-1;
+            }
+
+            .filter-header{
+                align-items:flex-start;
+            }
+
+            .filter-status{
+                display:none;
+            }
+        }
+
+        @media(max-width:520px){
+
+            .shell{
+                width:calc(100% - 16px);
+            }
+
+            .brand-text{
+                display:none;
+            }
+
+            .back{
+                padding:8px 10px;
+                font-size:10px;
+            }
+
+            h1{
+                font-size:39px;
+                letter-spacing:-1.8px;
+            }
+
+            .hero-description{
+                font-size:12px;
+            }
+
+            .filters{
+                grid-template-columns:1fr;
+            }
+
+            .filters .wide{
+                grid-column:auto;
+            }
+
+            .summary{
+                grid-template-columns:1fr 1fr;
+            }
+
+            .summary-card strong{
+                font-size:15px;
+            }
+
+            #map{
+                height:430px;
+            }
+
+            .map-toolbar,
+            .results-header{
+                padding:0 12px;
+            }
+
+            .map-info{
+                display:none;
+            }
+
+            .footer{
+                flex-direction:column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="shell">
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <nav class="navbar">
+
+        <a href="{{ url_for('dashboard') }}" class="brand">
+
+            <div class="brand-icon">
+                🏙️
+            </div>
+
+            <div class="brand-text">
+                <strong>Mumbai Property Intelligence</strong>
+                <span>AI Real Estate Command Center</span>
+            </div>
+
+        </a>
+
+        <div class="nav-right">
+
+            <div class="system-status">
+                <span class="status-dot"></span>
+                ML SYSTEM ONLINE
+            </div>
+
+            <a href="{{ url_for('dashboard') }}" class="back">
+                ← Dashboard
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section class="hero">
+
+        <div class="hero-left">
+
+            <div class="kicker">
+                PROPERTY DISCOVERY ENGINE
+            </div>
+
+            <h1>Find Properties<br>Across Mumbai</h1>
+
+            <p class="hero-description">
+                Search the analysed Mumbai property dataset using locality,
+                budget, bedrooms and property type. Explore matching
+                properties directly on the interactive intelligence map.
+            </p>
+
+        </div>
+
+        <div class="hero-badge">
+            ◉ LIVE PROPERTY EXPLORER
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FILTERS
+    ========================== -->
+
+    <section class="glass filter-card">
+
+        <div class="filter-header">
+
+            <div class="section-title">
+
+                <div class="section-icon">
+                    ⚙️
+                </div>
+
+                <div>
+                    <strong>Property Search</strong>
+                    <span>Configure discovery parameters</span>
+                </div>
+
+            </div>
+
+            <div class="filter-status">
+                Dataset Connected
+            </div>
+
+        </div>
+
+
+        <form class="filters" id="searchForm">
+
+            <!-- LOCALITY -->
+
+            <div class="field wide">
+
+                <label>Locality</label>
+
+                <select id="locality">
+
+                    <option value="">
+                        Any locality
+                    </option>
+
+                    {% for locality in localities %}
+
+                        <option value="{{ locality }}">
+                            {{ locality }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <!-- MIN BUDGET -->
+
+            <div class="field">
+
+                <label>Minimum Budget ₹</label>
+
+                <input
+                    id="minBudget"
+                    type="number"
+                    min="0"
+                    step="100000"
+                    placeholder="e.g. 5000000"
+                >
+
+            </div>
+
+
+            <!-- MAX BUDGET -->
+
+            <div class="field">
+
+                <label>Maximum Budget ₹</label>
+
+                <input
+                    id="maxBudget"
+                    type="number"
+                    min="0"
+                    step="100000"
+                    placeholder="e.g. 15000000"
+                >
+
+            </div>
+
+
+            <!-- BEDROOMS -->
+
+            <div class="field">
+
+                <label>Bedrooms</label>
+
+                <select id="bedrooms">
+
+                    <option value="">
+                        Any
+                    </option>
+
+                    <option value="1">1+</option>
+                    <option value="2">2+</option>
+                    <option value="3">3+</option>
+                    <option value="4">4+</option>
+                    <option value="5">5+</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- PROPERTY TYPE -->
+
+            <div class="field">
+
+                <label>Property Type</label>
+
+                <select id="propertyType">
+
+                    <option value="">
+                        Any type
+                    </option>
+
+                    {% for item in property_types %}
+
+                        <option value="{{ item }}">
+                            {{ item }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <!-- SEARCH -->
+
+            <button
+                id="searchButton"
+                class="search-button"
+                type="submit"
+            >
+                🔎 Search Properties
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <!-- =========================
+         SUMMARY
+    ========================== -->
+
+    <div class="summary" id="summary">
+
+        <div class="summary-card">
+
+            <span>Matching Results</span>
+
+            <strong>0</strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <span>Average Price</span>
+
+            <strong>—</strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <span>Price Range</span>
+
+            <strong>—</strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <span>Average Area</span>
+
+            <strong>—</strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         MAP + RESULTS
+    ========================== -->
+
+    <div class="layout">
+
+
+        <!-- MAP -->
+
+        <section class="glass map-card">
+
+            <div class="map-toolbar">
+
+                <div class="map-title">
+
+                    <div class="map-pin">
+                        📍
+                    </div>
+
+                    <div>
+                        <strong>Mumbai Property Map</strong>
+                        <span>Interactive location intelligence</span>
+                    </div>
+
+                </div>
+
+                <div class="map-info">
+                    OPENSTREETMAP • LEAFLET
+                </div>
+
+            </div>
+
+            <div id="map"></div>
+
+        </section>
+
+
+        <!-- RESULTS -->
+
+        <section class="glass results-card">
+
+            <div class="results-header">
+
+                <div class="results-header-left">
+
+                    <div class="results-icon">
+                        🏠
+                    </div>
+
+                    <div>
+                        <strong>Matching Properties</strong>
+                        <span>Search results</span>
+                    </div>
+
+                </div>
+
+                <div class="results-count" id="resultCount">
+                    0 RESULTS
+                </div>
+
+            </div>
+
+
+            <div class="results" id="results">
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        🔎
+                    </div>
+
+                    <h3>Ready to Explore</h3>
+
+                    <p>
+                        Set your filters above and click
+                        <strong>Search Properties</strong>
+                        to discover matching properties.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <div class="footer">
+
+        <span>
+            Mumbai Property Intelligence • ML-powered property discovery
+        </span>
+
+        <span>
+            Data-driven • Interactive • Explainable
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     LEAFLET
+========================== -->
+
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    crossorigin="">
+</script>
+
+
+<script>
+
+/* =========================================================
+   MAP INITIALIZATION
+========================================================= */
+
+const map = L.map("map").setView(
+    [19.076, 72.8777],
+    10.5
+);
+
+
+L.tileLayer(
+    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {
+        maxZoom:19,
+        attribution:"&copy; OpenStreetMap contributors"
+    }
+).addTo(map);
+
+
+let markers = [];
+
+
+/* =========================================================
+   CLEAR MAP MARKERS
+========================================================= */
+
+function clearMarkers(){
+
+    markers.forEach(
+        marker => map.removeLayer(marker)
+    );
+
+    markers = [];
+}
+
+
+/* =========================================================
+   MONEY FORMATTER
+========================================================= */
+
+function money(v){
+
+    if(
+        v === null ||
+        v === undefined ||
+        Number.isNaN(Number(v))
+    ){
+        return "—";
+    }
+
+    const n = Number(v);
+
+    if(n >= 10000000){
+
+        return "₹" +
+            (n / 10000000).toFixed(2) +
+            " Cr";
+
+    }
+
+    if(n >= 100000){
+
+        return "₹" +
+            (n / 100000).toFixed(2) +
+            " L";
+
+    }
+
+    return "₹" +
+        n.toLocaleString("en-IN");
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+function renderSummary(s){
+
+    document.getElementById("summary").innerHTML = `
+
+        <div class="summary-card">
+
+            <span>Matching Results</span>
+
+            <strong>
+                ${Number(s.count || 0).toLocaleString("en-IN")}
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <span>Average Price</span>
+
+            <strong>
+                ${money(s.average_price)}
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <span>Price Range</span>
+
+            <strong>
+                ${money(s.min_price)}
+                –
+                ${money(s.max_price)}
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <span>Average Area</span>
+
+            <strong>
+                ${
+                    s.average_area
+                    ?
+                    Number(
+                        s.average_area
+                    ).toLocaleString(
+                        "en-IN",
+                        {
+                            maximumFractionDigits:0
+                        }
+                    ) + " sq.ft."
+                    :
+                    "—"
+                }
+            </strong>
+
+        </div>
+
+    `;
+
+    document.getElementById("resultCount").textContent =
+        `${Number(s.count || 0).toLocaleString("en-IN")} RESULTS`;
+}
+
+
+/* =========================================================
+   RENDER PROPERTY RESULTS
+========================================================= */
+
+function renderResults(items){
+
+    const box =
+        document.getElementById("results");
+
+
+    if(!items.length){
+
+        document.getElementById("resultCount")
+            .textContent = "0 RESULTS";
+
+
+        box.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    🔍
+                </div>
+
+                <h3>No matching properties</h3>
+
+                <p>
+                    Try a wider budget range,
+                    another locality or fewer filters.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    document.getElementById("resultCount")
+        .textContent =
+        `${items.length} RESULTS`;
+
+
+    box.innerHTML =
+
+        '<div class="count">' +
+        items.length +
+        ' matching properties shown' +
+        '</div>' +
+
+
+        items.map(
+            (p, i) => `
+
+                <div
+                    class="property"
+                    data-index="${i}"
+                >
+
+                    <div class="property-head">
+
+                        <div>
+
+                            <h3>
+                                ${escapeHtml(
+                                    p.locality ||
+                                    "Unknown locality"
+                                )}
+                            </h3>
+
+                            <div class="property-type">
+                                ${escapeHtml(
+                                    p.property_type ||
+                                    "Property"
+                                )}
+                            </div>
+
+                        </div>
+
+
+                        <div class="price">
+                            ${money(p.price)}
+                        </div>
+
+                    </div>
+
+
+                    <div class="meta">
+
+                        <span>
+                            📐
+                            ${
+                                p.area
+                                ?
+                                Number(p.area)
+                                .toLocaleString(
+                                    "en-IN",
+                                    {
+                                        maximumFractionDigits:0
+                                    }
+                                ) +
+                                " sq.ft."
+                                :
+                                "—"
+                            }
+                        </span>
+
+
+                        <span>
+                            🛏
+                            ${p.bedrooms || 0}
+                            bed
+                        </span>
+
+
+                        <span>
+                            🚿
+                            ${p.bathrooms || 0}
+                            bath
+                        </span>
+
+
+                        <span>
+                            ₹
+                            ${
+                                p.price_per_sqft
+                                ?
+                                Number(
+                                    p.price_per_sqft
+                                ).toLocaleString(
+                                    "en-IN",
+                                    {
+                                        maximumFractionDigits:0
+                                    }
+                                )
+                                :
+                                "—"
+                            }
+                            /sq.ft.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            `
+        ).join("");
+
+
+    box.querySelectorAll(".property")
+        .forEach(el => {
+
+            el.addEventListener(
+                "click",
+                () => {
+
+                    const p =
+                        items[
+                            Number(
+                                el.dataset.index
+                            )
+                        ];
+
+                    focusProperty(p);
+
+                }
+            );
+
+        });
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(value){
+
+    return String(
+        value ?? ""
+    ).replace(
+        /[&<>"']/g,
+        ch => ({
+            "&":"&amp;",
+            "<":"&lt;",
+            ">":"&gt;",
+            '"':"&quot;",
+            "'":"&#039;"
+        }[ch])
+    );
+
+}
+
+
+/* =========================================================
+   FOCUS PROPERTY
+========================================================= */
+
+function focusProperty(p){
+
+    if(
+        p.latitude === null ||
+        p.longitude === null
+    ){
+        return;
+    }
+
+
+    const lat =
+        Number(p.latitude);
+
+    const lng =
+        Number(p.longitude);
+
+
+    map.setView(
+        [lat,lng],
+        14
+    );
+
+
+    L.popup()
+
+        .setLatLng([lat,lng])
+
+        .setContent(`
+
+            <strong>
+                ${escapeHtml(
+                    p.locality ||
+                    "Property"
+                )}
+            </strong>
+
+            <br>
+
+            ${money(p.price)}
+
+            <br>
+
+            ${
+                p.area
+                ?
+                Number(p.area)
+                .toLocaleString(
+                    "en-IN",
+                    {
+                        maximumFractionDigits:0
+                    }
+                ) +
+                " sq.ft."
+                :
+                "Area —"
+            }
+
+            <br>
+
+            ${p.bedrooms || 0}
+            bedrooms ·
+            ${p.bathrooms || 0}
+            bathrooms
+
+        `)
+
+        .openOn(map);
+
+}
+
+
+/* =========================================================
+   PROPERTY SEARCH
+========================================================= */
+
+async function search(){
+
+    const button =
+        document.getElementById(
+            "searchButton"
+        );
+
+
+    button.disabled = true;
+
+    button.textContent =
+        "Searching...";
+
+
+    const params =
+        new URLSearchParams();
+
+
+    const locality =
+        document.getElementById(
+            "locality"
+        ).value;
+
+
+    const minBudget =
+        document.getElementById(
+            "minBudget"
+        ).value;
+
+
+    const maxBudget =
+        document.getElementById(
+            "maxBudget"
+        ).value;
+
+
+    const bedrooms =
+        document.getElementById(
+            "bedrooms"
+        ).value;
+
+
+    const propertyType =
+        document.getElementById(
+            "propertyType"
+        ).value;
+
+
+    if(locality){
+
+        params.set(
+            "locality",
+            locality
+        );
+
+    }
+
+
+    if(minBudget){
+
+        params.set(
+            "min_budget",
+            minBudget
+        );
+
+    }
+
+
+    if(maxBudget){
+
+        params.set(
+            "max_budget",
+            maxBudget
+        );
+
+    }
+
+
+    if(bedrooms){
+
+        params.set(
+            "bedrooms",
+            bedrooms
+        );
+
+    }
+
+
+    if(propertyType){
+
+        params.set(
+            "property_type",
+            propertyType
+        );
+
+    }
+
+
+    params.set(
+        "limit",
+        "250"
+    );
+
+
+    try{
+
+        const response =
+            await fetch(
+                "{{ url_for('api_property_search') }}?" +
+                params.toString()
+            );
+
+
+        const payload =
+            await response.json();
+
+
+        if(!payload.success){
+
+            document.getElementById(
+                "results"
+            ).innerHTML = `
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        ⚠️
+                    </div>
+
+                    <h3>
+                        ${escapeHtml(
+                            payload.message ||
+                            "Search failed"
+                        )}
+                    </h3>
+
+                    <p>
+                        Please adjust your filters
+                        and try again.
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        clearMarkers();
+
+
+        renderSummary(
+            payload.summary || {}
+        );
+
+
+        renderResults(
+            payload.results || []
+        );
+
+
+        const bounds = [];
+
+
+        (payload.results || [])
+            .forEach(p => {
+
+                if(
+                    p.latitude === null ||
+                    p.longitude === null
+                ){
+                    return;
+                }
+
+
+                const lat =
+                    Number(p.latitude);
+
+                const lng =
+                    Number(p.longitude);
+
+
+                const marker =
+                    L.circleMarker(
+                        [lat,lng],
+                        {
+                            radius:7,
+                            color:"#60a5fa",
+                            fillColor:"#3b82f6",
+                            fillOpacity:.85,
+                            weight:2
+                        }
+                    ).addTo(map);
+
+
+                marker.bindPopup(`
+
+                    <strong>
+                        ${escapeHtml(
+                            p.locality ||
+                            "Property"
+                        )}
+                    </strong>
+
+                    <br>
+
+                    Price:
+                    ${money(p.price)}
+
+                    <br>
+
+                    Area:
+                    ${
+                        p.area
+                        ?
+                        Number(p.area)
+                        .toLocaleString(
+                            "en-IN",
+                            {
+                                maximumFractionDigits:0
+                            }
+                        ) +
+                        " sq.ft."
+                        :
+                        "—"
+                    }
+
+                    <br>
+
+                    Bedrooms:
+                    ${p.bedrooms || 0}
+
+                    <br>
+
+                    Type:
+                    ${escapeHtml(
+                        p.property_type ||
+                        "Unknown"
+                    )}
+
+                `);
+
+
+                markers.push(marker);
+
+
+                bounds.push(
+                    [lat,lng]
+                );
+
+            });
+
+
+        if(bounds.length === 1){
+
+            map.setView(
+                bounds[0],
+                14
+            );
+
+        }
+
+        else if(bounds.length > 1){
+
+            map.fitBounds(
+                bounds,
+                {
+                    padding:[35,35],
+                    maxZoom:13
+                }
+            );
+
+        }
+
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Property search error:",
+            error
+        );
+
+
+        document.getElementById(
+            "results"
+        ).innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    ⚠️
+                </div>
+
+                <h3>
+                    Search failed
+                </h3>
+
+                <p>
+                    Make sure Flask is running
+                    and try again.
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+    finally{
+
+        button.disabled = false;
+
+        button.textContent =
+            "🔎 Search Properties";
+
+    }
+
+}
+
+
+/* =========================================================
+   FORM SUBMIT
+========================================================= */
+
+document
+    .getElementById("searchForm")
+    .addEventListener(
+        "submit",
+        e => {
+
+            e.preventDefault();
+
+            search();
+
+        }
+    );
+
+
+/* =========================================================
+   MAP SIZE FIX
+========================================================= */
+
+setTimeout(
+    () => map.invalidateSize(),
+    250
+);
+
+</script>
+
+</body>
+</html>
