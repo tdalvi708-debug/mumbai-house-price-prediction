@@ -133,8 +133,70 @@ def load_joblib_artifact(path, label, required=False):
 
 
 # ============================================================
+# HUGGING FACE MODEL FALLBACK
+# ============================================================
+
+HF_REPO_ID = "tdalvi/mumbai-house-price-model"
+HF_MODEL_FILENAME = "render_optimized_model.joblib"
+
+
+def ensure_model_available():
+    """
+    Make the production model available on Render.
+
+    The optimized model is intentionally not stored in GitHub because it is
+    a binary ML artifact. Render downloads it from the public Hugging Face
+    repository when the file is not present locally.
+    """
+    if os.path.exists(MODEL_PATH):
+        print("Render model found locally:", MODEL_PATH)
+        return True
+
+    print("Render model not found locally.")
+    print(
+        "Downloading production model from Hugging Face:",
+        f"{HF_REPO_ID}/{HF_MODEL_FILENAME}"
+    )
+
+    try:
+        from huggingface_hub import hf_hub_download
+
+        os.makedirs(MODEL_DIR, exist_ok=True)
+
+        downloaded_path = hf_hub_download(
+            repo_id=HF_REPO_ID,
+            filename=HF_MODEL_FILENAME,
+            local_dir=MODEL_DIR,
+        )
+
+        # hf_hub_download normally places the file in MODEL_DIR when
+        # local_dir is supplied. Keep this copy operation as a safety net
+        # for environments where the returned path points elsewhere.
+        if os.path.abspath(downloaded_path) != os.path.abspath(MODEL_PATH):
+            import shutil
+            shutil.copy2(downloaded_path, MODEL_PATH)
+
+        if os.path.exists(MODEL_PATH):
+            print("Production model downloaded successfully:", MODEL_PATH)
+            return True
+
+        print("ERROR: Hugging Face download completed but model file is missing.")
+        return False
+
+    except Exception as exc:
+        print("\n" + "!" * 70)
+        print("HUGGING FACE MODEL DOWNLOAD FAILED")
+        print(repr(exc))
+        traceback.print_exc()
+        print("!" * 70 + "\n")
+        return False
+
+
+# ============================================================
 # LOAD MAIN MODEL
 # ============================================================
+
+ensure_model_available()
 
 model, model_error = load_joblib_artifact(
     MODEL_PATH,
