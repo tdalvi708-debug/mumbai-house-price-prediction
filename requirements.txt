@@ -12,3 +12,5 @@ reportlab
 jupyter
 ipykernel
 scipy
+gunicorn==26.2.0
+huggingface_hub

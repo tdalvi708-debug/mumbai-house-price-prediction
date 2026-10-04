@@ -9,6 +9,7 @@ import joblib
 import numpy as np
 import pandas as pd
 import shap
+from huggingface_hub import hf_hub_download
 
 from difflib import SequenceMatcher
 from sklearn.preprocessing import StandardScaler
@@ -55,6 +56,39 @@ ANOMALY_PROPERTY_DATA_PATH = os.path.join(
     PROCESSED_DIR,
     "property_intelligence_with_anomalies.csv"
 )
+
+# ============================================================
+# HUGGING FACE MODEL FALLBACK
+# ============================================================
+# The model is used locally when it already exists in models/.
+# If it is missing (for example on Render), it is downloaded
+# automatically from the public Hugging Face model repository.
+HF_REPO_ID = "tdalvi/mumbai-house-price-model"
+HF_MODEL_FILENAME = "best_tuned_model.joblib"
+
+def ensure_main_model():
+    """Return the local model path, downloading the model only if needed."""
+    if os.path.exists(MODEL_PATH):
+        print("Local ML model found:", MODEL_PATH)
+        return MODEL_PATH
+
+    print("Local ML model not found.")
+    print("Downloading ML model from Hugging Face...")
+    print("Hugging Face repository:", HF_REPO_ID)
+
+    try:
+        downloaded_path = hf_hub_download(
+            repo_id=HF_REPO_ID,
+            filename=HF_MODEL_FILENAME,
+            local_dir=MODEL_DIR,
+        )
+        print("ML model downloaded successfully:", downloaded_path)
+        return downloaded_path
+    except Exception as exc:
+        print("ERROR: Could not download ML model from Hugging Face.")
+        print(f"Error: {type(exc).__name__}: {exc}")
+        traceback.print_exc()
+        return MODEL_PATH
 
 
 # ============================================================
@@ -135,6 +169,8 @@ def load_joblib_artifact(path, label, required=False):
 # ============================================================
 # LOAD MAIN MODEL
 # ============================================================
+
+MODEL_PATH = ensure_main_model()
 
 model, model_error = load_joblib_artifact(
     MODEL_PATH,
