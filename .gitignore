@@ -49,3 +49,5 @@ models/random_forest_log_model.joblib
 models/random_forest_model.joblib
 models/best_tuned_model.joblib
 outputs/similar_property_model.pkl
+
+models/render_optimized_model.joblib

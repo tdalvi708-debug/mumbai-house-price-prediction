@@ -8,7 +8,7 @@ from datetime import datetime
 import joblib
 import numpy as np
 import pandas as pd
-from huggingface_hub import hf_hub_download
+import shap
 
 from difflib import SequenceMatcher
 from sklearn.preprocessing import StandardScaler
@@ -46,7 +46,7 @@ OUTPUT_DIR = os.path.join(BASE_DIR, "outputs")
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-MODEL_PATH = os.path.join(MODEL_DIR, "best_tuned_model.joblib")
+MODEL_PATH = os.path.join(MODEL_DIR, "render_optimized_model.joblib")
 PREPROCESSOR_PATH = os.path.join(MODEL_DIR, "preprocessor.joblib")
 ANOMALY_MODEL_PATH = os.path.join(MODEL_DIR, "isolation_forest_model.joblib")
 LOCALITY_DATA_PATH = os.path.join(PROCESSED_DIR, "locality_intelligence.csv")
@@ -55,39 +55,6 @@ ANOMALY_PROPERTY_DATA_PATH = os.path.join(
     PROCESSED_DIR,
     "property_intelligence_with_anomalies.csv"
 )
-
-# ============================================================
-# HUGGING FACE MODEL FALLBACK
-# ============================================================
-# The model is used locally when it already exists in models/.
-# If it is missing (for example on Render), it is downloaded
-# automatically from the public Hugging Face model repository.
-HF_REPO_ID = "tdalvi/mumbai-house-price-model"
-HF_MODEL_FILENAME = "best_tuned_model.joblib"
-
-def ensure_main_model():
-    """Return the local model path, downloading the model only if needed."""
-    if os.path.exists(MODEL_PATH):
-        print("Local ML model found:", MODEL_PATH)
-        return MODEL_PATH
-
-    print("Local ML model not found.")
-    print("Downloading ML model from Hugging Face...")
-    print("Hugging Face repository:", HF_REPO_ID)
-
-    try:
-        downloaded_path = hf_hub_download(
-            repo_id=HF_REPO_ID,
-            filename=HF_MODEL_FILENAME,
-            local_dir=MODEL_DIR,
-        )
-        print("ML model downloaded successfully:", downloaded_path)
-        return downloaded_path
-    except Exception as exc:
-        print("ERROR: Could not download ML model from Hugging Face.")
-        print(f"Error: {type(exc).__name__}: {exc}")
-        traceback.print_exc()
-        return MODEL_PATH
 
 
 # ============================================================
@@ -169,8 +136,6 @@ def load_joblib_artifact(path, label, required=False):
 # LOAD MAIN MODEL
 # ============================================================
 
-MODEL_PATH = ensure_main_model()
-
 model, model_error = load_joblib_artifact(
     MODEL_PATH,
     "ML model",
@@ -190,178 +155,104 @@ preprocessor, preprocessor_error = load_joblib_artifact(
 
 
 # ============================================================
-# LAZY DATA / MODEL LOADING
+# LOAD LOCALITY DATA
 # ============================================================
-# IMPORTANT:
-# Large datasets and optional ML components are loaded only when
-# a feature actually needs them. This keeps Render Free memory low
-# while preserving the complete dashboard and prediction features.
 
-def ensure_data():
-    """Load locality/property datasets only once, on first request."""
-    global locality_data, property_data
-
-    if locality_data is not None and not locality_data.empty:
-        property_loaded = property_data is not None and not property_data.empty
-        if property_loaded:
-            return
-
-    # LOCALITY DATA
-    if locality_data is None or locality_data.empty:
-        if os.path.exists(LOCALITY_DATA_PATH):
-            try:
-                locality_data = pd.read_csv(LOCALITY_DATA_PATH)
-                print("Locality intelligence loaded:", locality_data.shape)
-            except Exception as exc:
-                print("WARNING: locality_intelligence.csv could not be read:", exc)
-                locality_data = pd.DataFrame()
-        else:
-            print("WARNING: locality_intelligence.csv not found:", LOCALITY_DATA_PATH)
-            locality_data = pd.DataFrame()
-
-    # PROPERTY DATA
-    if property_data is None or property_data.empty:
-        property_path_to_use = PROPERTY_DATA_PATH
-        if (
-            not os.path.exists(property_path_to_use)
-            and os.path.exists(ANOMALY_PROPERTY_DATA_PATH)
-        ):
-            property_path_to_use = ANOMALY_PROPERTY_DATA_PATH
-
-        if os.path.exists(property_path_to_use):
-            try:
-                property_data = pd.read_csv(property_path_to_use)
-                print("Property intelligence loaded:", property_data.shape)
-                print("Property columns:", list(property_data.columns))
-            except Exception as exc:
-                print("WARNING: property intelligence could not be read:", exc)
-                property_data = pd.DataFrame()
-        else:
-            print(
-                "WARNING: property intelligence dataset not found:",
-                PROPERTY_DATA_PATH,
-            )
-            property_data = pd.DataFrame()
+if os.path.exists(LOCALITY_DATA_PATH):
+    try:
+        locality_data = pd.read_csv(LOCALITY_DATA_PATH)
+        print("Locality intelligence loaded:", locality_data.shape)
+    except Exception as exc:
+        print("WARNING: locality_intelligence.csv could not be read:", exc)
+else:
+    print("WARNING: locality_intelligence.csv not found:", LOCALITY_DATA_PATH)
 
 
-def ensure_anomaly_model():
-    """Load anomaly model only when anomaly detection is requested."""
-    global anomaly_model
+# ============================================================
+# LOAD PROPERTY DATA
+# ============================================================
 
-    if anomaly_model is not None:
-        return anomaly_model
+property_path_to_use = PROPERTY_DATA_PATH
+if not os.path.exists(property_path_to_use) and os.path.exists(ANOMALY_PROPERTY_DATA_PATH):
+    property_path_to_use = ANOMALY_PROPERTY_DATA_PATH
 
-    anomaly_model, _ = load_joblib_artifact(
-        ANOMALY_MODEL_PATH,
-        "Anomaly detection model",
-        required=False,
-    )
-    return anomaly_model
+if os.path.exists(property_path_to_use):
+    try:
+        property_data = pd.read_csv(property_path_to_use)
+        print("Property intelligence loaded:", property_data.shape)
+        print("Property columns:", list(property_data.columns))
+    except Exception as exc:
+        print("WARNING: property intelligence could not be read:", exc)
+else:
+    print("WARNING: property_intelligence.csv not found:", PROPERTY_DATA_PATH)
 
 
-def ensure_similarity_system():
-    """Build nearest-neighbour similarity system only when requested."""
-    global similarity_scaler
-    global similarity_model
-    global similarity_data
-    global similarity_columns
+# ============================================================
+# LOAD ANOMALY MODEL
+# ============================================================
 
-    ensure_data()
+anomaly_model, _ = load_joblib_artifact(
+    ANOMALY_MODEL_PATH,
+    "Anomaly detection model",
+    required=False
+)
 
-    if (
-        similarity_model is not None
-        and similarity_scaler is not None
-        and similarity_data is not None
-    ):
-        return
 
-    if property_data is None or property_data.empty:
-        return
+# ============================================================
+# SIMILAR PROPERTY SYSTEM
+# ============================================================
 
+if not property_data.empty:
     available_columns = [
         col for col in similarity_columns
         if col in property_data.columns
     ]
 
-    if not available_columns:
-        return
+    if available_columns:
+        try:
+            similarity_data = property_data[available_columns].copy()
+            similarity_data = similarity_data.replace([np.inf, -np.inf], np.nan)
+            similarity_data = similarity_data.apply(
+                pd.to_numeric,
+                errors="coerce"
+            )
+            similarity_data = similarity_data.fillna(
+                similarity_data.median(numeric_only=True)
+            ).fillna(0)
 
+            similarity_scaler = StandardScaler()
+            similarity_matrix = similarity_scaler.fit_transform(similarity_data)
+
+            similarity_model = NearestNeighbors(
+                n_neighbors=min(6, len(similarity_data)),
+                metric="euclidean"
+            )
+            similarity_model.fit(similarity_matrix)
+            similarity_columns = available_columns
+            print("Similar property system ready.")
+        except Exception as exc:
+            print("WARNING: Similar property system failed:", exc)
+            similarity_scaler = None
+            similarity_model = None
+            similarity_data = None
+
+
+# ============================================================
+# SHAP EXPLAINER
+# ============================================================
+
+if model is not None:
     try:
-        similarity_data = property_data[available_columns].copy()
-        similarity_data = similarity_data.replace(
-            [np.inf, -np.inf],
-            np.nan,
-        )
-        similarity_data = similarity_data.apply(
-            pd.to_numeric,
-            errors="coerce",
-        )
-        similarity_data = similarity_data.fillna(
-            similarity_data.median(numeric_only=True)
-        ).fillna(0)
-
-        similarity_scaler = StandardScaler()
-        similarity_matrix = similarity_scaler.fit_transform(similarity_data)
-
-        similarity_model = NearestNeighbors(
-            n_neighbors=min(6, len(similarity_data)),
-            metric="euclidean",
-        )
-        similarity_model.fit(similarity_matrix)
-
-        similarity_columns = available_columns
-        print("Similar property system ready.")
-    except Exception as exc:
-        print("WARNING: Similar property system failed:", repr(exc))
-        similarity_scaler = None
-        similarity_model = None
-        similarity_data = None
-
-
-def ensure_shap_explainer():
-    """Create SHAP TreeExplainer only when an explanation is requested."""
-    global shap_explainer
-
-    if shap_explainer is not None:
-        return shap_explainer
-
-    if model is None:
-        return None
-
-    try:
-        import shap
-
         shap_explainer = shap.TreeExplainer(model)
         print("SHAP TreeExplainer loaded successfully.")
     except Exception as exc:
         shap_explainer = None
         print("WARNING: SHAP explainer could not be created:", repr(exc))
 
-    return shap_explainer
-
-
-# ============================================================
-# KEEP ALL DATA FEATURES WORKING
-# ============================================================
-# The market dashboard, property finder, locality intelligence,
-# maps and prediction workflow all depend on the datasets.
-# They are loaded lazily on the first real application request,
-# not while Gunicorn is starting.
-
-@app.before_request
-def load_required_data_for_request():
-    # Keep health endpoint lightweight so Render can check it
-    # without forcing the large property dataset into RAM.
-    if request.endpoint == "health":
-        return
-
-    ensure_data()
-
 
 # ============================================================
 # BASIC HELPERS
 # ============================================================
-
 
 def safe_float(value, default=None):
     try:
@@ -691,9 +582,7 @@ def build_model_input(
 
 def generate_shap_explanation(processed_input):
     empty = ([], [], [], None, None)
-
-    explainer = ensure_shap_explainer()
-    if explainer is None:
+    if shap_explainer is None:
         return empty
 
     try:
@@ -706,7 +595,7 @@ def generate_shap_explanation(processed_input):
         if shap_input.ndim == 1:
             shap_input = shap_input.reshape(1, -1)
 
-        shap_values = explainer.shap_values(shap_input)
+        shap_values = shap_explainer.shap_values(shap_input)
 
         if isinstance(shap_values, list):
             shap_values = shap_values[0]
@@ -755,7 +644,7 @@ def generate_shap_explanation(processed_input):
             .to_dict("records")
         )
 
-        expected_value = explainer.expected_value
+        expected_value = shap_explainer.expected_value
         if isinstance(expected_value, (list, tuple, np.ndarray)):
             arr = np.asarray(expected_value).reshape(-1)
             expected_value = float(arr[0]) if len(arr) else None
@@ -1113,8 +1002,6 @@ def find_similar_properties(
 ):
     results = []
 
-    ensure_similarity_system()
-
     if similarity_model is None or similarity_scaler is None or similarity_data is None:
         return results
 
@@ -1237,8 +1124,6 @@ def detect_anomaly(
         "score": None,
         "is_anomaly": False,
     }
-
-    ensure_anomaly_model()
 
     if anomaly_model is None:
         return result
